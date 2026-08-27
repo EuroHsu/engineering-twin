@@ -1,0 +1,16 @@
+# Engineering Principles
+
+
+## Principle 1
+
+Describe an engineering belief that guides your decisions.
+
+
+Example:
+
+Prefer maintainable solutions over quick solutions.
+
+
+## Principle 2
+
+Add another long-term engineering preference.
