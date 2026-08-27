@@ -2,12 +2,19 @@
 
 A personal engineering context layer for AI coding agents.
 
+Version: 0.2
+
+Status: Draft
+
+Date: 2026-08-28
+
 
 ## Overview
 
 Engineering Twin helps AI coding agents understand an engineer's:
 
-- engineering preferences
+- identity
+- engineering principles
 - architectural principles
 - technical decisions
 - project context
@@ -21,7 +28,7 @@ Modern AI coding assistants are powerful at generating code and solving problems
 
 However, they usually lack understanding of:
 
-- why an engineer prefers certain architectures
+- why an engineer chooses certain architectures
 - what trade-offs are important
 - what decisions were made before
 - what engineering principles should be maintained
@@ -31,23 +38,23 @@ Engineering Twin preserves this engineering context in a portable and human-read
 
 ## Core Concept
 
-Engineering Twin consists of two parts:
+Engineering Twin works as a three-layer system:
 
 ```
-Engineering Twin
-
-├── Engineering Twin Skill
-│
-│   Integration layer for AI coding agents
-│
-└── Engineering Twin Data
-    │
-    └── Personal engineering knowledge
+AI Agent
+    |
+    | uses
+    v
+Engineering Twin Skill
+    |
+    | loads
+    v
+Engineering Twin Data
 ```
 
-The Skill tells AI agents how to use the knowledge.
+The Skill provides the mechanism for discovering, validating, and loading Twin Data.
 
-The Data stores the engineer's accumulated experience and decisions.
+The Data stores the engineer's identity, principles, decisions, and project context.
 
 
 ## Design Philosophy
@@ -78,6 +85,8 @@ A typical Engineering Twin Data repository:
 ```
 engineering-twin-data/
 
+├── README.md
+
 ├── twin.yaml
 
 ├── identity/
@@ -96,6 +105,9 @@ engineering-twin-data/
 
 └── projects/
 ```
+
+
+`twin.yaml` contains metadata and schema information for this Engineering Twin instance.
 
 
 ## Relationship With AI Agents
@@ -119,6 +131,13 @@ AI Coding Agent
 
 Personalized Engineering Assistance
 ```
+
+
+Engineering Twin provides engineering context.
+
+It does not define AI behavior, communication style, or agent-specific instructions.
+
+The AI agent remains responsible for reasoning, implementation, and problem solving.
 
 
 Supported or future integrations may include:
@@ -153,6 +172,8 @@ engineering-twin/
     └── SKILL.md
 ```
 
+`skill/SKILL.md` defines the Engineering Twin Skill specification.
+
 
 ## Roadmap
 
@@ -171,16 +192,16 @@ Completed:
 Planned:
 
 - Claude Code skill implementation
-- Twin Data loading
-- Context injection
+- Twin Data discovery and validation
+- Context loading workflow
 
 
 ### v0.3 Evolution
 
 Planned:
 
-- Decision extraction assistance
-- Twin improvement suggestions
+- Decision candidate extraction assistance
+- Twin knowledge improvement suggestions
 - Additional AI agent integrations
 
 

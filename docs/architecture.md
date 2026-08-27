@@ -1,6 +1,6 @@
 # Engineering Twin Architecture
 
-Version: 0.1
+Version: 0.2
 
 Status: Draft
 
@@ -14,10 +14,10 @@ for AI coding agents.
 
 It captures an engineer's:
 
-- engineering preferences
+- engineering principles
 - architectural principles
 - technical decisions
-- project experiences
+- project context
 
 and provides relevant context to AI assistants.
 
@@ -33,9 +33,9 @@ and solving technical problems.
 
 However, they usually lack understanding of:
 
-- the engineer's preferred architecture style
+- the engineer's architectural principles
 - previous technical decisions
-- trade-off preferences
+- trade-off considerations
 - long-term engineering principles
 
 As a result, AI suggestions may be technically correct
@@ -46,18 +46,19 @@ but inconsistent with the engineer's usual approach.
 
 Engineering Twin aims to:
 
-## 3.1 Personalize AI Assistance
+
+## 3.1 Align AI Assistance With Engineering Context
 
 Enable AI agents to understand:
 
 - who the engineer is
-- what technologies they prefer
+- what technologies they use
 - what principles guide their decisions
 
 
 ## 3.2 Preserve Engineering Knowledge
 
-Store valuable engineering decisions in a format that is:
+Store valuable engineering knowledge in a format that is:
 
 - human readable
 - Git version controlled
@@ -88,6 +89,7 @@ Twin Knowledge Update
 
 Engineering Twin is NOT:
 
+
 ## 4.1 An AI Model
 
 It does not train or fine-tune language models.
@@ -114,49 +116,52 @@ It does not require:
 
 # 5. Core Concept
 
-Engineering Twin consists of two major parts:
+Engineering Twin works as a three-layer system.
 
 
-## 5.1 Engineering Twin Skill
+## 5.1 AI Agent
 
 Responsible for:
 
-- integrating with AI coding agents
+- reasoning
+- coding
+- problem solving
+
+
+## 5.2 Engineering Twin Skill
+
+Responsible for:
+
+- locating Twin Data
 - loading relevant context
-- providing engineering guidance
+- validating Twin Data compatibility
 
 
-## 5.2 Engineering Twin Data
+## 5.3 Engineering Twin Data
 
 Responsible for:
 
 - storing personal engineering knowledge
-- maintaining decisions and principles
+- maintaining principles and decisions
 - evolving through Git history
-
-
-Relationship:
-
-
-AI Agent
-
-    |
-
-    v
-
-Engineering Twin Skill
-
-    |
-
-    v
-
-Engineering Twin Data
-
 
 
 # 6. Data Model
 
 Engineering Twin Data contains four layers.
+
+
+## Metadata
+
+Stored in:
+
+twin.yaml
+
+Purpose:
+
+- schema version
+- Twin instance information
+- basic configuration
 
 
 ## Identity
@@ -182,7 +187,7 @@ Answers:
 
 Examples:
 
-- architecture preferences
+- architecture principles
 - coding style
 - engineering philosophy
 
@@ -217,13 +222,13 @@ Engineering Activity
 
         v
 
-Claude Code Session
+AI Agent Session
 
         |
 
         v
 
-Decision Candidate
+Engineering Insight / Decision Candidate
 
         |
 
@@ -237,20 +242,14 @@ Human Review
 
 Engineering Twin Data
 
-        |
-
-        v
-
-Future AI Context
-
-
 
 # 8. Design Principles
 
 
 ## Human First
 
-The data should always be understandable by humans.
+The data should always be understandable
+by humans.
 
 
 ## Git Native
@@ -279,7 +278,7 @@ Possible future components:
 - MCP integration
 - Hermes Agent adapter
 - VS Code extension
-- Automated decision extraction
+- Automated insight extraction
 
 These should extend the core model
 without changing the fundamental data structure.

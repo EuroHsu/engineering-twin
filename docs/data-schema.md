@@ -1,6 +1,6 @@
 # Engineering Twin Data Schema
 
-Version: 0.1
+Version: 0.2
 
 Status: Draft
 
@@ -17,7 +17,7 @@ It stores an engineer's:
 - identity
 - engineering principles
 - technical decisions
-- project experiences
+- project context
 
 The purpose is to provide structured context
 for AI coding agents.
@@ -55,9 +55,9 @@ Examples:
 
 Store:
 
-- architectural decisions
-- engineering preferences
-- technical principles
+- engineering principles
+- technical decisions
+- reusable engineering knowledge
 
 
 Do not store:
@@ -81,6 +81,8 @@ of engineering thinking.
 A standard Engineering Twin Data repository:
 
 engineering-twin-data/
+
+├── README.md
 
 ├── twin.yaml
 
@@ -118,13 +120,14 @@ Store metadata about this Engineering Twin instance.
 Example:
 
 
-version: 0.1
+version: 0.2
 
 name: My Engineering Twin
 
 created: 2026-08-28
 
 language:
+
   primary: zh-TW
 
 
@@ -412,8 +415,13 @@ Projects connect:
 
 
 When an AI agent loads Engineering Twin Data,
+
 the recommended priority is:
 
+
+Metadata
+
+↓
 
 Identity
 
@@ -434,19 +442,74 @@ Not all data should be loaded
 for every conversation.
 
 
-# 10. Future Extensions
+# 10. Evolution and Safety
+
+
+Engineering Twin Data should evolve through:
+
+
+Observation
+
+↓
+
+Knowledge Candidate
+
+↓
+
+Human Review
+
+↓
+
+Twin Knowledge Update
+
+
+The AI agent may suggest improvements,
+but should not modify Twin Data automatically.
+
+
+The AI agent should:
+
+- never modify Twin Data silently
+- never invent engineering principles
+- never convert temporary behavior into permanent knowledge
+- distinguish observation from confirmed knowledge
+- request human approval before permanent updates
+
+
+Example:
+
+
+Observation:
+
+"The engineer used technology X in several projects."
+
+
+Incorrect:
+
+"The engineer prefers technology X."
+
+
+Correct:
+
+"Technology X appears frequently.
+Consider adding this as a principle or decision
+after confirmation."
+
+
+# 11. Future Extensions
 
 
 Possible future additions:
 
 - decision relationships
-- automatic candidate extraction
+- automated insight extraction
 - schema validation
 - semantic search metadata
 - AI agent adapters
 
 
 Future extensions should preserve
+
 the core design:
 
 Markdown + YAML + Git

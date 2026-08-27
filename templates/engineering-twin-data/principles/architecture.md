@@ -3,8 +3,7 @@
 
 ## System Design
 
-Describe your preferred architecture style.
-
+Describe the architecture principles that guide your system design decisions.
 
 Example:
 

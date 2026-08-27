@@ -3,7 +3,7 @@
 
 ## Code Quality
 
-Describe your coding preferences.
+Describe your coding principles, conventions, and practices.
 
 
 Examples:
@@ -16,4 +16,4 @@ Examples:
 
 ## Development Practices
 
-Describe your preferred workflow.
+Describe engineering practices that improve your development process.

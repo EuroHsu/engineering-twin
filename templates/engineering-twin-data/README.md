@@ -13,6 +13,12 @@ It stores:
 
 ## Structure
 
+twin.yaml
+
+Metadata and schema information
+for this Engineering Twin instance.
+
+
 identity/
 
 Personal engineering profile.
@@ -20,7 +26,7 @@ Personal engineering profile.
 
 principles/
 
-Long-term engineering beliefs and preferences.
+Long-term engineering beliefs and principles.
 
 
 decisions/
@@ -42,3 +48,5 @@ Example:
 engineering-twin-data/
 
 Then customize the files according to your engineering experience.
+
+Changes should be reviewed and maintained through normal Git workflows.

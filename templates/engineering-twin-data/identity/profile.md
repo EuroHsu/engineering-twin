@@ -40,3 +40,7 @@ Examples:
 - Reliability
 - Performance
 - Development speed
+
+
+Identity should describe stable engineer background,
+not project-specific decisions or temporary technologies.

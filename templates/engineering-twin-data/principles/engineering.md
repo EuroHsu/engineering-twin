@@ -13,4 +13,4 @@ Prefer maintainable solutions over quick solutions.
 
 ## Principle 2
 
-Add another long-term engineering preference.
+Describe another engineering belief that influences your decisions.
