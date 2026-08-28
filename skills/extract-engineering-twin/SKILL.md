@@ -132,7 +132,9 @@ Only an explicit acceptance or approved edit authorizes a permanent Twin Data up
 
 ## Review Existing Knowledge
 
-When the user asks to review, audit, prune, or slim existing Twin Data, inspect the relevant permanent records and evaluate each against decision value and durability.
+When the user asks to review, audit, prune, or slim existing Twin Data, first establish the review scope. Review only the files or knowledge area covered by that scope; do not audit the entire Twin unless the user explicitly requests a full review.
+
+Inspect the relevant permanent records and evaluate each against decision value and durability.
 
 Look for concrete signals such as:
 
@@ -163,14 +165,20 @@ Keep | Edit | Remove | Supersede | Defer
 
 `Remove` means the record should be deleted because it has no sufficient ongoing decision value or is incorrect/duplicative.
 
-`Supersede` means the older decision remains meaningful historical context but should no longer guide current decisions. In that case, update its status to `superseded` and preserve the newer decision as the current record.
+`Edit` means propose the complete revised record first. Do not modify the existing record until the user explicitly approves the revised content.
 
-The Skill must not execute Remove or Supersede without explicit user approval.
+`Supersede` is only for an existing decision that has been explicitly replaced by a newer decision. The older decision remains meaningful historical context but should no longer guide current decisions. In that case, update its status to `superseded` and preserve the newer decision as the current record.
+
+Do not use `Supersede` for ordinary project context, principles, duplicate records, or information that simply became low-value; use `Remove` or `Edit` as appropriate.
+
+The Skill must not execute Edit, Remove, or Supersede without explicit user approval of the resulting change.
 
 ### Existing Knowledge Review Workflow
 
 ```text
 Existing Twin Data
+      ↓
+Establish review scope
       ↓
 Review relevant records
       ↓
@@ -193,8 +201,9 @@ After approval:
 2. Use the bundled template from this Skill when creating a new knowledge file.
 3. Follow `references/knowledge-format.md` for what belongs in the front matter and body.
 4. Write only concise, decision-relevant knowledge confirmed by the user.
-5. For an approved removal, delete only the identified record.
-6. For an approved supersession, mark the older record `status: superseded` and maintain the newer current record.
+5. For an approved edit, replace the identified record with the explicitly approved revised content.
+6. For an approved removal, delete only the identified record.
+7. For an approved supersession, mark the older decision `status: superseded` and maintain the newer current record.
 
 Templates define file shape; they do not constitute confirmed user knowledge.
 
