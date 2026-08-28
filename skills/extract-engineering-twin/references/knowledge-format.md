@@ -22,6 +22,38 @@ The knowledge type is defined by its destination directory:
 
 Do not copy extraction provenance into permanent Twin Data. `confidence`, `evidence`, and `sources` are extraction/review metadata.
 
+## Decision Value Test
+
+Do not create a permanent knowledge candidate merely because evidence exists.
+
+A candidate should normally pass both tests:
+
+1. **Decision impact** — knowing this could change how a future engineering problem is approached, evaluated, implemented, or reviewed.
+2. **Durability** — the knowledge is expected to remain useful beyond the immediate task, incident, release, or development period.
+
+Prefer fewer, stronger candidates over exhaustive capture. When a piece of information is unlikely to affect a future engineering decision, do not propose it for permanent Twin Data.
+
+## Prefer Durable Context Over Temporary State
+
+Usually exclude:
+
+- commit or PR counts
+- temporary branch or release state
+- short-lived debugging steps
+- one-off implementation details with no reusable implication
+- current dependency versions unless the version itself is a durable decision or constraint
+- raw technology inventories that do not explain an engineering preference or decision
+- historical timestamps or version spans that only describe when evidence was gathered
+- project status that will become stale without changing how the project should be reasoned about
+
+Usually prefer:
+
+- durable engineering principles and preferences
+- technical decisions with reusable reasoning
+- constraints that materially affect future design choices
+- stable project context that changes how work in that project should be approached
+- explicit trade-offs and boundaries that should not be rediscovered
+
 ## Extraction Candidate
 
 Candidates may use richer metadata because the extraction process needs to explain why a candidate was proposed:
