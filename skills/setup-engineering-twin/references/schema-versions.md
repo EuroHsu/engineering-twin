@@ -29,17 +29,21 @@ When both version fields are present, they must agree. Conflicting version decla
 
 ## Migration
 
-Migration from `0.1` to `0.2` is an explicit user-approved operation.
+Migration uses the generic migration workflow defined in the bundled `references/migration.md`.
 
-A migration may:
+Supported migrations are version-specific mappings applied through that generic workflow.
 
-- convert supported metadata to the current `0.2` structure
-- preserve existing Markdown knowledge
-- report any fields that cannot be mapped automatically
+The current supported migration path is:
 
-A migration must not silently discard information.
+```text
+0.1 -> 0.2
+```
 
-After migration, the resulting Twin Data should declare `version: 0.2`.
+The `0.1 -> 0.2` mapping must preserve existing Markdown knowledge, identify unmapped or ambiguous legacy fields, and require explicit user approval before modifying user-owned Twin Data.
+
+Migration must not silently discard information.
+
+After a successful migration, the resulting Twin Data should declare `version: 0.2`.
 
 ## Unsupported Versions
 
