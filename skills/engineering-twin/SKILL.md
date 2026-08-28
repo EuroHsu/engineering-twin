@@ -68,7 +68,7 @@ Read `references/configuration.md` bundled with this Skill for the recommended f
 After activation, before using Engineering Twin context:
 
 1. Look for an explicit Twin Data path provided for the current task.
-2. Check for workspace-level Engineering Twin configuration.
+2. Check for workspace-level Engineering Twin configuration at `.claude/engineering-twin/config.yaml` (relative to the project root).
 3. Check the user-level configuration at `~/.config/engineering-twin/config.yaml`.
 4. If no Twin Data location can be determined, continue without engineer-specific assumptions and direct the user to `setup-engineering-twin` when setup is appropriate.
 
@@ -150,7 +150,7 @@ Those concerns belong to the AI agent's own configuration, such as `CLAUDE.md`.
 
 Creating or importing Twin Data is handled by the `setup-engineering-twin` Skill.
 
-Do not use the daily Engineering Twin Skill to initialize a new Twin Data repository.
+Do not use this Skill to initialize a new Twin Data repository.
 
 ## Knowledge Updates
 

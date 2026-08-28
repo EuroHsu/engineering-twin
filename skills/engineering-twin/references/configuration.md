@@ -17,6 +17,12 @@ twinData:
   path: ~/workspace/my-engineering-twin-data
 ```
 
+For a project-specific override, use the workspace-level configuration file instead:
+
+`.claude/engineering-twin/config.yaml` (relative to the project root)
+
+Same format as above; `twinData.path` may be relative to the project root or absolute.
+
 Discovery precedence and validation steps are defined in `SKILL.md` under "Discovery and Validation".
 
 ## Configuration Boundary

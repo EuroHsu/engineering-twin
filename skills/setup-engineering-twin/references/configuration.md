@@ -17,7 +17,7 @@ twinData:
   path: ~/workspace/my-engineering-twin-data
 ```
 
-If the user intentionally uses a workspace-level configuration, write the path there instead of replacing the user-level configuration.
+If the user intentionally uses a workspace-level configuration, write to `.claude/engineering-twin/config.yaml` (relative to the project root) instead of replacing the user-level configuration.
 
 ## Switching the Active Twin Data
 
