@@ -1,6 +1,6 @@
 ---
 name: engineering-twin
-description: Provides personal engineering context for AI coding agents. Use when engineer identity, engineering principles, previous technical decisions, or project context may affect the task.
+description: Provides personal engineering context to AI coding agents. Use when engineer identity, engineering principles, previous technical decisions, or project context may affect the task.
 ---
 
 # Engineering Twin
@@ -18,7 +18,7 @@ When the user invokes `/engineering-twin`:
 1. Activate Engineering Twin for the current session.
 2. Discover the configured Twin Data.
 3. Validate the Twin Data before using it.
-4. Load metadata and identity as the initial context.
+4. Load the data directory README and identity as the initial context when available.
 5. Wait for the user's subsequent engineering task.
 
 Do not treat activation as a permanent user preference or automatically carry it into unrelated sessions.
@@ -50,7 +50,6 @@ Expected structure:
 ```text
 engineering-twin-data/
 ├── README.md
-├── twin.yaml
 ├── identity/
 ├── principles/
 ├── decisions/
@@ -91,9 +90,8 @@ After activation, before using Engineering Twin context:
 3. Check the user-level configuration at `~/.config/engineering-twin/config.yaml`.
 4. If no Twin Data location can be determined, continue without engineer-specific assumptions and direct the user to `setup-engineering-twin` when setup is appropriate.
 
-Before using a discovered Twin Data repository:
+Before using a discovered Twin Data directory:
 
-- verify that `twin.yaml` exists
 - verify that the standard knowledge directories are present or intentionally empty
 - verify that existing Markdown knowledge is readable
 
@@ -108,7 +106,7 @@ Use the progressive loading guidance in `references/context-loading.md` bundled 
 
 Initial activation loads:
 
-1. Metadata
+1. Data directory README when available
 2. Identity
 
 After the user provides a task, load only the relevant:
@@ -179,4 +177,4 @@ Do not use the daily Engineering Twin Skill to initialize a new Twin Data reposi
 This Skill must remain self-contained after installation.
 
 For normal operation, do not depend on files outside this Skill directory.
-Use bundled files under `references/` when additional detail is required.
+Use bundled files under `references/` when additional material is required.
