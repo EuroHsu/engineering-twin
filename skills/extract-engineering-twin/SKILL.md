@@ -76,7 +76,7 @@ When the scope is ambiguous, ask the user rather than expanding the search.
 
 ### 2. Gather Evidence
 
-Inspect only relevant evidence within the requested scope.
+Inspect every source within the scope established in step 1 — not a sample of it.
 
 Prefer concrete evidence over assumptions and retain enough provenance for the user to verify important observations — see `references/knowledge-format.md` for the fields a candidate carries.
 
