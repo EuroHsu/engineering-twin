@@ -128,17 +128,41 @@ Responsible for:
 - problem solving
 
 
-## 5.2 Engineering Twin Skill
+## 5.2 Engineering Twin Skills
+
+Engineering Twin uses a set of complementary instruction Skills.
+
+These Skills are instruction layers for AI agents,
+not separate reasoning engines.
+
+### Daily Engineering Twin Skill
 
 Responsible for:
 
-- locating Engineering Twin Data
+- locating Twin Data
 - determining relevant context
 - guiding context loading
 - defining how Twin knowledge should be used
 
-The Skill is an instruction layer for an AI agent,
-not a separate reasoning engine.
+### Setup Engineering Twin Skill
+
+Responsible for:
+
+- creating Twin Data
+- importing existing Twin Data
+- validating Twin Data
+- configuring the Twin Data location
+
+### Extract Engineering Twin Skill
+
+Responsible for:
+
+- analyzing historical engineering evidence
+- identifying observations and patterns
+- proposing evidence-backed knowledge candidates
+- presenting candidates for human review
+
+The extraction Skill does not determine permanent Twin knowledge.
 
 
 ## 5.3 Engineering Twin Data
@@ -149,68 +173,11 @@ Responsible for:
 - maintaining principles and decisions
 - evolving through Git history
 
-Engineering Twin Data is independent of the Skill
+Engineering Twin Data is independent of the Skills
 and may be stored in a separate repository or directory.
 
 
-# 6. Skill Model
-
-Engineering Twin is distributed as AI agent Skills.
-
-The repository contains three complementary Skills:
-
-
-## 6.1 Engineering Twin Skill
-
-Purpose:
-
-Provide engineering context during normal AI-assisted work.
-
-It explains how the AI agent should:
-
-- discover Twin Data
-- load relevant knowledge
-- consider previous decisions
-- apply engineering context
-- respect Twin knowledge safety rules
-
-
-## 6.2 Setup Engineering Twin Skill
-
-Purpose:
-
-Create or import Engineering Twin Data.
-
-It guides the user through:
-
-- creating a new Twin Data repository
-- importing existing Twin Data
-- validating the data structure
-- reviewing initial knowledge
-- configuring the Twin Data location
-
-Setup is separate from daily Twin usage.
-
-
-## 6.3 Extract Engineering Twin Skill
-
-Purpose:
-
-Analyze historical engineering activity and identify evidence-backed
-knowledge candidates for future Twin Data updates.
-
-It may inspect available evidence such as:
-
-- AI coding agent sessions
-- Git history
-- pull requests and reviews
-- architecture or technical decision documents
-
-Extraction does not decide what becomes permanent knowledge.
-All candidates require human review before being added to Twin Data.
-
-
-# 7. Configuration Model
+# 6. Configuration Model
 
 Engineering Twin Configuration records which user-owned
 Engineering Twin Data repository or directory should be used.
@@ -246,7 +213,7 @@ It does not store:
 The initial configuration supports one active Twin Data location
 per configuration scope.
 
-When multiple configuration scopes exist, the recommended priority is:
+Recommended priority:
 
 1. Explicit path provided for the current task
 2. Workspace-level configuration
@@ -254,11 +221,10 @@ When multiple configuration scopes exist, the recommended priority is:
 4. No configured Twin Data
 
 If no location can be determined, the AI agent should not invent
-engineer-specific context. The user may use the Setup Engineering Twin
-Skill to create or import Twin Data.
+engineer-specific context and should direct the user to Setup.
 
 
-# 8. Data Model
+# 7. Data Model
 
 Engineering Twin Data consists of five areas:
 
@@ -325,8 +291,9 @@ Answers:
 "In what context were decisions made?"
 
 
-# 9. Data Flow
+# 8. Data Flow
 
+Daily context usage:
 
 Engineering Activity
 
@@ -365,15 +332,27 @@ Relevant Engineering Context
 AI Agent Reasoning
 
 
-Knowledge evolution follows:
+Historical knowledge extraction:
 
-Engineering Activity
+Historical Engineering Activity
 
         |
 
         v
 
-Observation / Insight
+Extract Engineering Twin Skill
+
+        |
+
+        v
+
+Evidence
+
+        |
+
+        v
+
+Observation / Pattern
 
         |
 
@@ -393,12 +372,8 @@ Human Review
 
 Engineering Twin Data
 
-Historical extraction is handled by the Extract Engineering Twin Skill.
-Daily context usage is handled by the Engineering Twin Skill.
-Setup and import are handled by the Setup Engineering Twin Skill.
 
-
-# 10. Repository Model
+# 9. Repository Model
 
 The Engineering Twin repository contains Skills and documentation.
 
@@ -412,6 +387,7 @@ engineering-twin/
 │   ├── architecture.md
 │   ├── configuration.md
 │   ├── data-schema.md
+│   ├── extraction.md
 │   └── lifecycle.md
 │
 └── skills/
@@ -430,7 +406,7 @@ The repository does not contain a user's personal Engineering Twin Data.
 Twin Data is created or imported separately.
 
 
-# 11. Design Principles
+# 10. Design Principles
 
 
 ## Human First
@@ -463,7 +439,7 @@ Store meaningful engineering knowledge,
 not all raw conversations.
 
 
-# 12. Future Extensions
+# 11. Future Extensions
 
 Possible future components:
 
@@ -471,7 +447,7 @@ Possible future components:
 - MCP integration
 - Hermes Agent adapter
 - VS Code integration
-- automated insight extraction
+- automated extraction tooling
 - schema validation tooling
 
 These should extend the core model
