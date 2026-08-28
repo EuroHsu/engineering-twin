@@ -17,6 +17,13 @@ Describe your engineering background.
 
 List your commonly used technologies.
 
+Example:
+
+- Programming languages
+- Frameworks
+- Databases
+- Cloud platforms
+
 ## Engineering Focus
 
 Describe what you usually optimize for.

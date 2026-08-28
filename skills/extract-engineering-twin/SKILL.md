@@ -1,31 +1,29 @@
 ---
 name: extract-engineering-twin
-description: Extracts evidence-backed engineering knowledge candidates from historical engineering activity and user-provided source material. Use when the user wants to build or enrich a Twin from past sessions, projects, resumes, documents, Git history, PRs, or other available records.
+description: Extracts evidence-backed engineering knowledge from historical activity and user-provided source material, then reviews and writes decision-relevant Twin Data.
 ---
 
 # Extract Engineering Twin
 
-This Skill analyzes existing evidence to identify candidate knowledge for the user's Engineering Twin.
+This Skill acquires, reviews, and writes Engineering Twin knowledge from existing evidence.
 
-It is separate from both the daily-use `engineering-twin` Skill and the `setup-engineering-twin` Skill.
+It is separate from `setup-engineering-twin`, which only bootstraps and configures the Twin Data container, and from `engineering-twin`, which uses the Twin for daily decision assistance.
 
-## Core Responsibility
+## Responsibility Boundary
 
-The Extract Engineering Twin Skill answers:
+`extract-engineering-twin` manages:
 
-> What engineering knowledge might be worth preserving from existing evidence?
+```text
+Evidence → Candidate → Human Review → Permanent Knowledge
+```
 
-It is also the primary knowledge-acquisition path for populating a newly created Twin from existing personal or project material.
-
-It does not decide what should become permanent Twin knowledge.
+It is the primary path for populating a new or existing Twin with knowledge.
 
 ## Evidence Types
 
-Use evidence that is actually accessible through the current AI-agent environment.
-
 ### Behavioral Evidence
 
-Behavioral evidence shows what the engineer did or decided in practice. Examples include:
+Examples:
 
 - AI coding agent sessions
 - local Git history
@@ -37,7 +35,7 @@ Behavioral evidence can support patterns, practices, decisions, and project cont
 
 ### Declarative Evidence
 
-Declarative evidence shows how the engineer describes their own background, experience, technologies, projects, or engineering approach. Examples include:
+Examples:
 
 - resume or CV
 - portfolio or personal project descriptions
@@ -47,216 +45,152 @@ Declarative evidence shows how the engineer describes their own background, expe
 
 Declarative evidence can directly support stated identity, experience, technology context, project context, or explicitly stated preferences. Do not turn a declared fact into a stronger inferred preference without supporting evidence.
 
-Other source types may be available through integrations or the current environment. Do not assume that any specific source is accessible.
-
-For provider-specific session locations and access rules, read `references/evidence-sources.md` bundled with this Skill.
-
-For the candidate and permanent-data format, read `references/knowledge-format.md` bundled with this Skill.
+For provider-specific session locations and access rules, read `references/evidence-sources.md`.
+For candidate and permanent-data conventions, read `references/knowledge-format.md`.
 
 ## Extraction Workflow
 
-Follow this workflow:
-
 ```text
 Evidence Source
-      |
-      v
-    Evidence
-      |
-      v
+      ↓
+Evidence
+      ↓
 Observation / Pattern
-      |
-      v
+      ↓
 Interpretation
-      |
-      v
+      ↓
 Knowledge Candidate
-      |
-      v
+      ↓
 Human Review
-      |
-      v
-Decision-relevant Twin Data
+      ↓
+Permanent Twin Data
 ```
 
-### 1. Select the Source and Scope
+### 1. Select Source and Scope
 
-First establish what the user wants to extract and from which source or sources.
+Establish what the user wants to extract and from which source or sources.
 
-Possible scopes include:
+Possible sources include resumes, projects, selected documents, AI sessions, Git history, pull requests, and combinations of these.
 
-- a resume or CV
-- one or more existing projects
-- selected files or documents
-- a time period of AI coding sessions
-- Git history or pull requests
-- a technology or architecture topic
-- a combination of sources
-
-When the scope is ambiguous, ask the user rather than expanding the search unnecessarily.
+When the scope is ambiguous, ask the user rather than expanding the search.
 
 ### 2. Gather Evidence
 
-Inspect the most relevant available sources within the requested scope.
+Inspect only relevant evidence within the requested scope.
 
-Prefer concrete evidence over assumptions.
+Prefer concrete evidence over assumptions and retain enough provenance for the user to verify important observations.
 
-For important observations, retain enough provenance for a human to verify the claim.
+Extraction candidates may include source type, source reference, confidence, evidence classification, observation, interpretation, and suggested destination. These are extraction-stage information, not permanent Twin Data metadata.
 
-Record, when available:
+### 3. Evaluate Evidence
 
-- source type
-- source identifier or location
-- relevant date or range
-- project or topic
-- concise evidence summary or excerpt
-- whether the evidence is explicit, observed, or inferred
+Distinguish:
 
-Do not reproduce large historical records when a concise reference is sufficient.
+- explicit statements from the source
+- observed activity
+- recurring patterns
+- inferred knowledge
 
-### 3. Evaluate Evidence Strength
+Use the narrowest candidate scope supported by evidence.
 
-Use the following as a default guide:
+Do not overgeneralize project-specific evidence into a general principle without support.
 
-1. explicit technical decisions or written rationale
-2. human-authored engineering or project documentation
-3. explicit statements in resumes, CVs, or user-authored records
-4. pull request discussion and review decisions
-5. Git commits and implementation history
-6. AI coding agent session observations
-7. indirect behavioral patterns
+### 4. Produce Candidates
 
-This is guidance rather than a rigid ranking. Explicit evidence should remain distinguishable from interpretation, and multiple independent sources strengthen a candidate.
+Candidates are review artifacts. They may describe:
 
-### 4. Separate Fact, Observation, and Interpretation
+- identity or background facts
+- engineering principles
+- architecture or coding practices
+- technical decisions
+- reusable engineering knowledge
+- project context
 
-Clearly distinguish:
+Candidate details may include:
 
-- what the source explicitly states
-- what the observed activity shows
-- what recurring pattern appears to exist
-- what engineering knowledge might be inferred
+```text
+type
+scope
+status: candidate
+confidence
+evidence
+sources
+candidate statement
+observation
+interpretation
+suggested destination
+```
 
-For declarative sources, preserve explicit facts as facts. For behavioral sources, do not overgeneralize from one-off behavior.
+Do not write these extraction-only fields into permanent Twin Data.
 
-### 5. Determine Candidate Scope
-
-For each candidate, classify its scope when meaningful:
-
-- General
-- Technology-specific
-- Project-specific
-- Situation-specific
-- Personal
-
-Use the narrowest scope supported by the evidence. Do not promote project-specific facts into universal principles without evidence supporting that scope.
-
-### 6. Produce Knowledge Candidates
-
-Candidates are review artifacts. They should contain enough extraction metadata to explain why they were proposed, including:
-
-- type
-- scope
-- status: candidate
-- confidence
-- evidence
-- sources
-- candidate statement
-- observation
-- interpretation
-- suggested destination
-
-Do not treat this metadata as permanent Twin Data. After approval, convert the candidate into concise, decision-relevant knowledge.
-
-### 7. Human Review
+### 5. Human Review
 
 Present candidates for explicit review.
 
 The user may:
 
 - accept
-- reject
 - edit
+- reject
 - defer
 
 Only an explicit acceptance or approved edit authorizes a permanent Twin Data update.
 
-Preserve the distinction between the original candidate and the user's final decision during the review step.
+### 6. Write Permanent Knowledge
 
-### 8. Write Permanent Twin Data
+After approval:
 
-After approval, convert the candidate into the appropriate knowledge type and concise decision-relevant content.
+1. Select the appropriate destination directory: `identity/`, `principles/`, `decisions/`, or `projects/`.
+2. Use the bundled template from this Skill when creating a new knowledge file.
+3. Write only concise, decision-relevant knowledge confirmed by the user.
+4. Use only `scope` and `status` in the YAML front matter.
+5. Do not copy candidate-only provenance, confidence, or evidence metadata into permanent Twin Data.
+6. Do not preserve speculative reasoning as confirmed knowledge.
 
-Use the normalized permanent format from `references/knowledge-format.md`:
-
-- `scope`
-- `status`
-
-Do not copy candidate-only fields such as `confidence`, `evidence`, or `sources` into permanent Twin Data.
-
-The knowledge type is determined by the destination directory (`identity/`, `principles/`, `decisions/`, or `projects/`).
+Templates define file shape; they do not constitute confirmed user knowledge.
 
 ## Empty Twin Initialization
 
-When the Twin Data is newly created or mostly empty, extraction may be used to build its initial knowledge from existing source material.
+A newly created or mostly empty Twin can be populated directly through extraction.
 
-A typical sequence is:
+Typical sequence:
 
 ```text
-New Twin Data
-     |
-     +--> Resume / CV / personal records
-     |       -> Identity candidates
-     |
-     +--> Existing projects / documents
-     |       -> Project and stated engineering context
-     |
-     +--> Sessions / Git / PRs
-             -> Principles, practices, and decisions
+Resume / CV / personal records
+    → Identity
+
+Existing projects / documents
+    → Project context and stated engineering knowledge
+
+Sessions / Git / PRs
+    → Principles, practices, and decisions
 ```
 
-Do not require the Twin to contain existing knowledge before extraction can begin.
+The Twin does not need existing knowledge before extraction can begin.
 
 ## Historical Session Handling
 
-AI coding agent sessions may contain:
+Sessions may contain experiments, rejected ideas, AI suggestions, debugging, exploration, and final decisions.
 
-- temporary experiments
-- rejected ideas
-- AI-generated suggestions
-- debugging steps
-- exploratory reasoning
-- final decisions
-
-Treat session content as evidence, not as an authoritative statement of engineering intent.
-
-When a session contains exploration followed by an explicit human-confirmed decision, prefer the confirmed outcome and preserve the surrounding context needed to interpret it.
-
-When no clear human decision exists, preserve the uncertainty.
+Treat them as evidence rather than authoritative engineering intent. Prefer explicit human-confirmed decisions when available.
 
 ## Git and Project History
 
-Git commits show what was implemented, but implementation alone does not necessarily establish why it was chosen.
-
-Use commit messages, related documents, and pull request discussion when available to distinguish implementation facts from engineering intent.
-
-A later change can establish that implementation changed, but it does not by itself prove that the earlier approach was rejected as a general principle.
+Implementation history shows what happened, not necessarily why. Use commit messages, documents, and PR discussions to distinguish implementation facts from intent.
 
 ## Conflicting Evidence
 
-When historical evidence conflicts:
+When evidence conflicts:
 
-- preserve the conflict
-- identify the differing contexts
+- preserve the conflict during review
+- identify differing contexts
 - avoid forcing a universal preference
 - prefer explicit later decisions when they clearly supersede earlier ones
-- present uncertainty to the user
-
-Conflicting evidence may indicate that a principle is conditional rather than universal.
+- preserve uncertainty when the evidence is unresolved
 
 ## Candidate Presentation
 
-Present candidates in a compact human-readable form, for example:
+Present candidates compactly, for example:
 
 ```text
 Knowledge Candidate
@@ -286,7 +220,7 @@ Review:
 Accept | Edit | Reject | Defer
 ```
 
-The candidate is a proposal, not confirmed Twin knowledge.
+The candidate is not permanent Twin knowledge.
 
 ## Knowledge Safety
 
@@ -294,17 +228,17 @@ The Skill must never:
 
 - invent evidence
 - invent engineer identity, preferences, principles, or decisions
-- treat AI-generated suggestions as confirmed engineering knowledge
+- treat AI-generated suggestions as confirmed knowledge
 - convert temporary behavior into permanent knowledge
-- overgeneralize project-specific evidence into universal principles without support
+- overgeneralize without support
 - modify Twin Data silently
 - commit changes to Twin Data without approval
 - copy extraction-only provenance into permanent Twin Data
-- modify the Skill repository during extraction
+- modify the Skill repository during normal extraction
 
 ## Skill Packaging
 
 This Skill must remain self-contained after installation.
 
 For normal operation, do not depend on files outside this Skill directory.
-Use bundled files under `references/` when additional detail is required.
+Use bundled files under `references/` and `templates/` when additional material is required.
