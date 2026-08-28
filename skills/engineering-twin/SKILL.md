@@ -129,8 +129,6 @@ Knowledge may use YAML front matter followed by Markdown. The permanent metadata
 
 The knowledge type is determined by the destination directory (`identity/`, `principles/`, `decisions/`, or `projects/`).
 
-Read the bundled `references/knowledge-format.md` for the permanent metadata convention.
-
 Treat `status: confirmed` as permanent knowledge. Do not treat `candidate` content or extraction-only metadata as permanent knowledge.
 
 Existing knowledge without front matter remains valid and should not be rewritten automatically.
