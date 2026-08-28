@@ -1,13 +1,12 @@
 ---
 name: engineering-twin
-description: Provides personal engineering context to AI coding agents. Use when engineer identity, engineering principles, previous technical decisions, or project context may affect the task.
+description: Loads a user-owned Engineering Twin Data repository (identity, principles, decisions, projects) into session context as personal engineering guidance. Invoke with /engineering-twin.
+disable-model-invocation: true
 ---
 
 # Engineering Twin
 
 Engineering Twin provides structured engineering context to the AI agent.
-
-It does not replace reasoning, coding, or problem solving.
 
 ## Activation
 
@@ -18,7 +17,7 @@ When the user invokes `/engineering-twin`:
 1. Activate Engineering Twin for the current session.
 2. Discover the configured Twin Data.
 3. Validate the Twin Data before using it.
-4. Load the data directory README and identity as the initial context when available.
+4. Load initial context per the Loading Strategy below.
 5. Wait for the user's subsequent engineering task.
 
 Do not treat activation as a permanent user preference or automatically carry it into unrelated sessions.
@@ -37,7 +36,6 @@ Engineering Twin Data
 =
 Personalized Engineering Assistance
 
-The AI agent remains responsible for reasoning and execution.
 The Skill defines how Engineering Twin Data should be discovered and used.
 The Data contains the engineer's engineering knowledge.
 
@@ -61,25 +59,9 @@ The Skill repository contains instructions; the Twin Data contains the engineer'
 
 ## Configuration
 
-The Skill uses Engineering Twin Configuration to determine which Twin Data should be used.
+The Skill uses Engineering Twin Configuration to determine which Twin Data should be used. Configuration stores only the Twin Data location — never engineering knowledge or AI behavior instructions.
 
-The recommended user-level configuration file is:
-
-`~/.config/engineering-twin/config.yaml`
-
-Example:
-
-```yaml
-version: 1
-
-twinData:
-  path: ~/workspace/my-engineering-twin-data
-```
-
-Configuration stores environment-specific information such as the Twin Data location.
-It does not store engineering knowledge, engineering principles, technical decisions, or AI behavior instructions.
-
-For detailed configuration rules, read `references/configuration.md` bundled with this Skill.
+Read `references/configuration.md` bundled with this Skill for the recommended file location, format, and full boundary rules.
 
 ## Discovery and Validation
 
@@ -101,8 +83,6 @@ Do not silently create, attach, copy, move, or modify Twin Data during discovery
 ## Loading Strategy
 
 Do not load all Twin Data by default.
-
-Use the progressive loading guidance in `references/context-loading.md` bundled with this Skill.
 
 Initial activation loads:
 

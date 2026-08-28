@@ -17,16 +17,7 @@ twinData:
   path: ~/workspace/my-engineering-twin-data
 ```
 
-## Discovery Precedence
-
-When resolving Twin Data, use this order:
-
-1. Explicit Twin Data path provided for the current task
-2. Workspace-level Engineering Twin configuration
-3. User-level configuration
-4. No configured Twin Data
-
-If no location can be determined, do not invent engineer-specific context. Direct the user to `setup-engineering-twin` when setup is appropriate.
+Discovery precedence and validation steps are defined in `SKILL.md` under "Discovery and Validation".
 
 ## Configuration Boundary
 
