@@ -2,7 +2,49 @@
 
 A personal engineering context layer for AI coding agents.
 
-Engineering Twin preserves an engineer's identity, principles, decisions, and project context in portable, human-readable data.
+## The Problem
+
+AI coding agents are good at reasoning about code, but each new session starts with limited knowledge of the engineer behind the code.
+
+The agent may need to rediscover:
+
+- who the engineer is and what experience shaped their perspective
+- how they prefer to design systems and write code
+- which technical decisions have already been made and why
+- which project-specific constraints or intentional behaviors should not be rediscovered
+
+That context is usually scattered across past sessions, Git history, ADRs, projects, resumes, and engineering notes. Without a durable context layer, the engineer repeatedly explains the same things and the agent repeatedly spends effort reconstructing them.
+
+## The Idea
+
+Engineering Twin turns that scattered history into a small, user-owned body of engineering knowledge that an AI coding agent can consult when it matters.
+
+It does **not** try to remember everything. A piece of information belongs in the Twin only when it can materially affect a future engineering decision and is expected to remain useful beyond the immediate task or development period.
+
+The result is a stable, human-readable knowledge directory that preserves engineering judgment without replacing the agent's own reasoning.
+
+## What It Solves
+
+Engineering Twin is designed to close the gap between:
+
+> **"The agent can write code."**
+>
+> **"The agent understands how I want engineering decisions to be made."**
+
+It helps the agent start from known engineering context instead of rediscovering the same background every session.
+
+It also keeps that context under human control. New knowledge is proposed from evidence and reviewed before it becomes permanent. Existing knowledge can later be reviewed and kept, edited, removed, superseded, or deferred instead of accumulating indefinitely.
+
+## Design Philosophy
+
+Engineering Twin follows a few simple rules:
+
+- **Human First** — the user decides what becomes permanent knowledge.
+- **Decision Value First** — information is kept because it can improve future engineering decisions, not merely because it is interesting or well evidenced.
+- **Durable Over Temporary** — prefer stable principles, decisions, constraints, and project context over short-lived state or exhaustive history.
+- **Markdown Native** — knowledge stays human-readable, portable, and easy to version with git.
+- **Explicit Over Automatic** — activation and permanent knowledge changes require deliberate user intent.
+- **Context Over History** — preserve the conclusions and constraints that matter; do not turn the Twin into a transcript archive.
 
 ## Core Model
 
@@ -261,16 +303,6 @@ Keep / Edit / Remove / Supersede / Defer
 `Keep` leaves the record unchanged. `Edit` requires review of the complete revised record before writing. `Remove` deletes a record that has no sufficient ongoing decision value or is incorrect/duplicative. `Supersede` applies only when an existing decision is explicitly replaced by a newer decision; the older record remains as historical context with `status: superseded`. `Defer` leaves the record unchanged for later review.
 
 Engineering Twin may identify concrete signs of stale or conflicting knowledge, but it does not modify Twin Data directly.
-
-## Design Principles
-
-- Human First
-- Markdown Native
-- Private By Default
-- Explicit Over Automatic
-- Context Over History
-
-Engineering Twin preserves engineering judgment; it does not replace AI reasoning or define the agent's own behavior.
 
 ## Repository Boundary
 
