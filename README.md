@@ -37,6 +37,12 @@ Engineering Twin is not an AI model, autonomous agent, backend platform, or data
 
 Each Skill is independently installable and must remain self-contained. Installed Skills must not depend on repository-level documentation files.
 
+### Invocation
+
+`engineering-twin` requires an explicit `/engineering-twin` command. It does not activate itself from conversation content alone.
+
+`setup-engineering-twin` and `extract-engineering-twin` can also be invoked explicitly by name, or triggered automatically when the AI agent recognizes a matching task from natural language (for example, asking to import existing Twin Data, or asking to review Twin Data for outdated knowledge).
+
 ## Installation
 
 Engineering Twin is distributed as Skills and can be installed with the [`skills`](https://github.com/vercel-labs/skills) ecosystem.
@@ -88,6 +94,26 @@ Run `setup-engineering-twin` to create or import Twin Data.
 Run `/engineering-twin` when you want to use the Twin in the current session. Activation is explicit and session-level; it does not permanently change the AI agent's configuration.
 
 Run `extract-engineering-twin` when you want to analyze resumes, projects, sessions, Git history, pull requests, documents, and other available evidence for potential new knowledge.
+
+### First-Time Example
+
+```text
+> setup-engineering-twin
+  "Create a new empty Engineering Twin Data at ~/workspace/my-engineering-twin-data"
+  → creates identity/, principles/, decisions/, projects/, and a README.md
+  → configures it as the active Twin Data
+
+> /engineering-twin
+  → discovers and validates the configured Twin Data
+  → loads initial context
+  → ready for the next engineering task
+
+> extract-engineering-twin
+  "Look at my recent Git history and propose new knowledge candidates"
+  → analyzes available evidence and proposes candidates
+  → you accept, edit, reject, or defer each one
+  → accepted candidates are written to Twin Data only after your approval
+```
 
 ## Twin Data
 
