@@ -51,6 +51,8 @@ Other source types may be available through integrations or the current environm
 
 For provider-specific session locations and access rules, read `references/evidence-sources.md` bundled with this Skill.
 
+For the normalized candidate and permanent-data format, read `references/knowledge-format.md` bundled with this Skill.
+
 ## Extraction Workflow
 
 Follow this workflow:
@@ -74,7 +76,7 @@ Knowledge Candidate
 Human Review
       |
       v
-Twin Data Update
+Normalized Twin Data
 ```
 
 ### 1. Select the Source and Scope
@@ -141,28 +143,32 @@ For declarative sources, preserve explicit facts as facts. For behavioral source
 
 For each candidate, classify its scope when meaningful:
 
-- Universal / general engineering practice
+- General
 - Technology-specific
 - Project-specific
 - Situation-specific
-- Personal background / identity
+- Personal
 
 Use the narrowest scope supported by the evidence. Do not promote project-specific facts into universal principles without evidence supporting that scope.
 
-### 6. Produce Knowledge Candidates
+### 6. Produce Normalized Knowledge Candidates
 
-Candidates may include:
+Each candidate must use the vocabulary defined in `references/knowledge-format.md`.
 
-- identity or background facts
-- engineering principles
-- architecture or coding practices
-- technical decisions
-- reusable engineering knowledge
-- project context refinements
+At minimum, include:
 
-Each candidate should include supporting evidence, interpretation, confidence, scope, and a suggested Twin Data destination.
+- `type`
+- `scope`
+- `status: candidate`
+- `confidence`
+- `evidence`
+- `sources`
+- candidate statement
+- observation
+- interpretation
+- suggested destination
 
-AI-generated speculation is not engineering evidence.
+A candidate is an extraction artifact for review. Do not copy its wrapper verbatim into permanent Twin Data.
 
 ### 7. Human Review
 
@@ -178,6 +184,14 @@ The user may:
 Only an explicit acceptance or approved edit authorizes a permanent Twin Data update.
 
 Preserve the distinction between the original candidate and the user's final decision.
+
+### 8. Write Normalized Twin Data
+
+After approval, convert the candidate into the appropriate permanent knowledge type.
+
+Use YAML front matter and human-readable Markdown according to `references/knowledge-format.md`.
+
+Do not write `status: candidate` as permanent knowledge.
 
 ## Empty Twin Initialization
 
@@ -237,25 +251,24 @@ When historical evidence conflicts:
 
 Conflicting evidence may indicate that a principle is conditional rather than universal.
 
-## Candidate Format
+## Candidate Presentation
 
-Use a format similar to:
+Present candidates in a compact human-readable form, for example:
 
 ```text
 Knowledge Candidate
 
-Type:
-Identity | Principle | Decision | Project Context | Other
-
-Scope:
-General | Technology-specific | Project-specific | Situation-specific | Personal
+type: project
+scope: project-specific
+status: candidate
+confidence: high
+evidence: observed
+sources:
+  - type: project
+    ref: /path/to/project
 
 Candidate:
 <proposed knowledge>
-
-Evidence:
-- <source type / identifier / relevant context>
-- <source type / identifier / relevant context>
 
 Observation:
 <what the evidence shows>
@@ -263,11 +276,8 @@ Observation:
 Interpretation:
 <why the candidate follows from the evidence>
 
-Confidence:
-Low | Medium | High
-
 Suggested Location:
-<Engineering Twin Data path>
+projects/example.md
 
 Review:
 Accept | Edit | Reject | Defer
