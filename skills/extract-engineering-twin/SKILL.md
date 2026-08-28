@@ -78,9 +78,7 @@ When the scope is ambiguous, ask the user rather than expanding the search.
 
 Inspect only relevant evidence within the requested scope.
 
-Prefer concrete evidence over assumptions and retain enough provenance for the user to verify important observations.
-
-Extraction candidates may include source type, source reference, confidence, evidence classification, observation, interpretation, and suggested destination. These are extraction-stage information, not permanent Twin Data metadata.
+Prefer concrete evidence over assumptions and retain enough provenance for the user to verify important observations — see `references/knowledge-format.md` for the fields a candidate carries.
 
 ### 3. Evaluate Evidence
 
@@ -106,22 +104,7 @@ Candidates are review artifacts. They may describe:
 - reusable engineering knowledge
 - project context
 
-Candidate details may include:
-
-```text
-type
-scope
-status: candidate
-confidence
-evidence
-sources
-candidate statement
-observation
-interpretation
-suggested destination
-```
-
-Do not write these extraction-only fields into permanent Twin Data.
+Use the candidate fields defined in `references/knowledge-format.md`. They are extraction-stage information, not permanent Twin Data metadata.
 
 ### 5. Human Review
 
@@ -221,17 +204,9 @@ The candidate is not permanent Twin knowledge.
 
 ## Knowledge Safety
 
-The Skill must never:
+Ground every observation in evidence actually inspected, and derive identity, preferences, principles, and decisions only from that evidence or explicit user statements — never invent them.
 
-- invent evidence
-- invent engineer identity, preferences, principles, or decisions
-- treat AI-generated suggestions as confirmed knowledge
-- convert temporary behavior into permanent knowledge
-- overgeneralize without support
-- modify Twin Data silently
-- commit changes to Twin Data without approval
-- copy extraction-only provenance into permanent Twin Data
-- modify the Skill repository during normal extraction
+Treat this Skill's own repository as read-only during normal extraction.
 
 ## Skill Packaging
 

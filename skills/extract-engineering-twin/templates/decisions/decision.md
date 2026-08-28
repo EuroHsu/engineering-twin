@@ -52,8 +52,8 @@ Related engineering principle, if any.
 
 ## Supersedes
 
-- decision-filename (leave empty if not applicable)
+- decision-name
 
 ## Superseded By
 
-- decision-filename (leave empty until a later decision replaces this one; when it does, also set `status: superseded` above)
+- decision-name (when set, also update `status: superseded` above)

@@ -41,7 +41,5 @@ Use `$HOME` to express user-local paths. Resolve it through the current environm
 ## Access Rules
 
 - Check whether a source is actually accessible before using it.
-- Do not claim to have inspected inaccessible history.
-- Use bounded discovery based on the user's requested scope.
+- State only what was actually inspected; say so if a source is inaccessible rather than claiming to have read it.
 - Preserve source provenance in every knowledge candidate.
-- Do not scan unrelated historical material simply because it is available.
