@@ -57,7 +57,7 @@ Engineering Twin is distributed as Skills and can be installed with the [`skills
 ### Install all three Skills
 
 ```bash
-npx skills@latest add git@github.com:EuroHsu/engineering-twin.git -g
+npx skills@latest add EuroHsu/engineering-twin -g
 ```
 
 The installer will:
