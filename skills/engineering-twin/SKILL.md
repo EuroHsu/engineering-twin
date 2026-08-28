@@ -109,7 +109,7 @@ The knowledge type is determined by the destination directory (`identity/`, `pri
 
 Treat `status: confirmed` as permanent knowledge. Do not treat candidate content or extraction-only metadata as permanent knowledge.
 
-Skip files whose `status` is `superseded` or `deprecated` entirely during loading — do not load them for current guidance, even when their knowledge area is otherwise relevant to the task.
+Skip files whose `status` is `superseded` entirely during loading — do not load them for current guidance, even when their knowledge area is otherwise relevant to the task.
 
 Existing knowledge without front matter remains valid and should not be rewritten automatically.
 

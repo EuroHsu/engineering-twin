@@ -19,7 +19,7 @@ Create / Import / Validate / Configure
 
 It does not create, extract, infer, normalize, or modify permanent engineering knowledge.
 
-Use `extract-engineering-twin` to populate or update knowledge from resumes, projects, documents, sessions, Git history, PRs, and other evidence.
+Use `extract-engineering-twin` to populate, review, or update knowledge from resumes, projects, documents, sessions, Git history, PRs, and other evidence.
 
 ## Start
 

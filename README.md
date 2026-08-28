@@ -109,7 +109,7 @@ Permanent knowledge should keep only metadata that helps future engineering deci
 ```yaml
 ---
 scope: personal | general | technology-specific | project-specific | situation-specific
-status: confirmed | superseded | deprecated
+status: confirmed | superseded
 ---
 ```
 

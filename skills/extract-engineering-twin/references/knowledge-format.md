@@ -7,7 +7,7 @@ Permanent Twin Data keeps only metadata that helps the daily Engineering Twin ma
 ```yaml
 ---
 scope: personal | general | technology-specific | project-specific | situation-specific
-status: confirmed | superseded | deprecated
+status: confirmed | superseded
 ---
 ```
 

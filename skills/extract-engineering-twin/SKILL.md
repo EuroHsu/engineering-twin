@@ -1,6 +1,6 @@
 ---
 name: extract-engineering-twin
-description: Extracts evidence-backed engineering knowledge from historical activity and user-provided source material, then reviews and writes decision-relevant Twin Data.
+description: Extracts evidence-backed engineering knowledge from historical activity and user-provided source material, and reviews or updates existing Twin Data through explicit human approval.
 ---
 
 # Extract Engineering Twin
@@ -95,7 +95,12 @@ Use the narrowest candidate scope supported by evidence.
 
 Do not overgeneralize project-specific evidence into a general principle without support.
 
-Apply the Decision Value Test and Durability Test before producing a permanent candidate. Evidence alone is not sufficient reason to preserve knowledge.
+Apply the Decision Value Test before producing a permanent candidate:
+
+- Would this information change a future engineering decision?
+- Is the value durable rather than temporary?
+
+Evidence alone is not sufficient reason to preserve knowledge.
 
 ### 4. Produce Candidates
 
@@ -169,7 +174,7 @@ Existing Twin Data
       ↓
 Review relevant records
       ↓
-Decision Value + Durability Test
+Decision Value Test
       ↓
 Review Recommendations
       ↓
