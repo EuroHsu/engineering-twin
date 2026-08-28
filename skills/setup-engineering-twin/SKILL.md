@@ -118,7 +118,11 @@ twinData:
   path: ~/workspace/my-engineering-twin-data
 ```
 
-If the user intentionally uses a workspace-level configuration, write the path there instead of replacing the user-level configuration.
+When a configuration already exists, treat it as the current active Twin Data pointer. If Create or Import selects a different Twin Data location, present the current configured path and the proposed replacement path, and require explicit user confirmation before changing the configuration.
+
+Changing the configured path only changes which Twin Data is active. It must not delete, move, overwrite, merge, or otherwise modify the previously configured Twin Data unless the user separately requests that action.
+
+If the user intentionally uses a workspace-level configuration, update that configuration instead of replacing the user-level configuration.
 
 Configuration stores the location of Twin Data, not the Twin's engineering knowledge.
 
