@@ -142,10 +142,13 @@ After approval:
 
 1. Select the appropriate destination directory: `identity/`, `principles/`, `decisions/`, or `projects/`.
 2. Use the bundled template from this Skill when creating a new knowledge file.
-3. Write only concise, decision-relevant knowledge confirmed by the user.
+3. Write each file as a conclusion a future engineer can act on — not a case file. State what to believe or do; do not describe how the evidence was gathered.
 4. Use only `scope` and `status` in the YAML front matter.
 5. Do not copy candidate-only provenance, confidence, or evidence metadata into permanent Twin Data.
 6. Do not preserve speculative reasoning as confirmed knowledge.
+7. Do not restate the evidence itself in the body — evidence statistics (for example commit counts, timestamps, version spans) or local/external evidence source paths (for example absolute file paths, resume file paths, other repositories' document paths).
+8. In-repo relative paths that show where a decision applies (for example `src/utils/money.js`) and cross-references to other Twin Data files (for example `Related Projects`) are not evidence provenance and may be kept.
+9. Keep only the resulting conclusion — unless the number is itself part of the confirmed engineering fact (e.g., an agreed threshold or SLA), not a description of how the evidence was gathered.
 
 Templates define file shape; they do not constitute confirmed user knowledge.
 
