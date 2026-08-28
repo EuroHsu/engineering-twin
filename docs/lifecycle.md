@@ -18,6 +18,7 @@ The lifecycle separates:
 - Twin Data setup
 - Configuration
 - Daily context usage
+- Historical knowledge extraction
 - Knowledge evolution
 
 
@@ -52,6 +53,7 @@ After installation, the user has access to:
 
 - `engineering-twin`
 - `setup-engineering-twin`
+- `extract-engineering-twin`
 
 The exact installation mechanism may vary by AI agent or Skill ecosystem.
 
@@ -178,7 +180,42 @@ Relevant Projects
 Not all Twin Data should be loaded for every task.
 
 
-## 7. Knowledge Evolution
+## 7. Historical Knowledge Extraction
+
+The Extract Engineering Twin Skill analyzes historical engineering activity
+when the user asks to discover potential Twin knowledge.
+
+```text
+Historical Engineering Activity
+        |
+        v
+Evidence
+        |
+        v
+Observation / Pattern
+        |
+        v
+Knowledge Candidate
+        |
+        v
+Human Review
+        |
+        v
+Twin Data Update
+```
+
+Possible evidence sources include:
+
+- AI coding agent sessions
+- Git history
+- pull requests and reviews
+- architecture or technical decision documents
+- other user-provided engineering records
+
+Extraction does not automatically modify Twin Data.
+
+
+## 8. Knowledge Evolution
 
 Engineering knowledge evolves through human-controlled updates:
 
@@ -205,7 +242,24 @@ AI must not silently convert observations into permanent knowledge.
 Permanent Twin Data updates require human approval.
 
 
-## 8. Separation of Concerns
+## 9. Separation of Responsibilities
+
+```text
+setup-engineering-twin
+    = Create / Import / Validate / Configure
+
+engineering-twin
+    = Discover / Load / Interpret / Apply
+
+extract-engineering-twin
+    = Analyze historical evidence / Propose candidates
+```
+
+Each Skill has a separate responsibility and none replaces the AI agent's
+reasoning capability.
+
+
+## 10. Separation of Concerns
 
 The lifecycle must preserve these boundaries:
 
@@ -226,10 +280,10 @@ AI Agent Configuration
 Engineering Twin does not replace the AI agent's own configuration.
 
 
-## 9. Portability
+## 11. Portability
 
 Engineering Twin Data is portable because it is stored independently
-of the Skill implementation and local configuration.
+of the Skill repository and local configuration.
 
 A user may move the Twin Data repository to another machine and
 recreate the local Configuration to point to the new location.
