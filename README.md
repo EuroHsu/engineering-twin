@@ -45,17 +45,17 @@ AI Agent
     |
     | uses
     v
-Engineering Twin Skill
+Engineering Twin Skills
     |
-    | reads
+    | read and operate on
     v
 Engineering Twin Data
 ```
 
-The Skill provides instructions for discovering and using Twin Data.
+The Skills provide instructions for working with Twin Data.
 The Data stores the engineer's identity, principles, decisions, and project context.
 
-The Skill does not contain the user's personal engineering knowledge.
+The Skills do not contain the user's personal engineering knowledge.
 
 
 ## Design Philosophy
@@ -86,7 +86,7 @@ Store meaningful engineering knowledge, not every conversation.
 
 ## Engineering Twin Skills
 
-The repository provides two complementary Skills.
+The repository provides three complementary Skills.
 
 ### Engineering Twin
 
@@ -94,9 +94,13 @@ The daily-use Skill for applying personal engineering context during AI-assisted
 
 ### Setup Engineering Twin
 
-The setup Skill for creating or importing an Engineering Twin Data repository.
+The setup Skill for creating or importing Engineering Twin Data and configuring its location.
 
-Setup and daily use are intentionally separated.
+### Extract Engineering Twin
+
+The extraction Skill for analyzing historical engineering activity and proposing evidence-backed knowledge candidates for human review.
+
+The three Skills are intentionally separated by responsibility.
 
 
 ## Lifecycle
@@ -127,6 +131,21 @@ Engineering Twin Skill
     |
     v
 Relevant Engineering Context
+    |
+    v
+Historical Engineering Activity
+    |
+    v
+Extract Engineering Twin
+    |
+    v
+Knowledge Candidate
+    |
+    v
+Human Review
+    |
+    v
+Twin Data Update
 ```
 
 The Skill repository, local configuration, and user-owned Twin Data are separate concerns.
@@ -187,7 +206,7 @@ It works together with them:
 ```text
 AI Agent
     +
-Engineering Twin Skill
+Engineering Twin Skills
     +
 Engineering Twin Data
     =
@@ -216,18 +235,16 @@ engineering-twin/
 ├── docs/
 │   ├── architecture.md
 │   ├── configuration.md
-│   └── data-schema.md
+│   ├── data-schema.md
+│   └── lifecycle.md
 └── skills/
     ├── engineering-twin/
     │   └── SKILL.md
-    └── setup-engineering-twin/
-        ├── SKILL.md
-        └── templates/
-            ├── twin.yaml
-            ├── identity/
-            ├── principles/
-            ├── decisions/
-            └── projects/
+    ├── setup-engineering-twin/
+    │   ├── SKILL.md
+    │   └── templates/
+    └── extract-engineering-twin/
+        └── SKILL.md
 ```
 
 The repository contains the Skills, documentation, and setup templates.
@@ -236,34 +253,34 @@ It does not contain the user's personal Engineering Twin Data.
 
 ## Roadmap
 
-### v0.1 Foundation
+### Foundation
 
 Completed:
 
 - Architecture definition
 - Data schema
-- Data template
-- Skill specification
+- Markdown-native Skill model
+- Configuration model
+- Lifecycle definition
 
-
-### v0.2 Prototype
+### Core Skills
 
 Current focus:
 
-- Skill installation model
-- Twin Data discovery
-- Configuration
-- Create/import setup workflow
-- Progressive context loading
+- Daily Engineering Twin Skill
+- Setup Engineering Twin Skill
+- Extract Engineering Twin Skill
+- Progressive context usage
+- Knowledge candidate review
 
-
-### v0.3 Evolution
+### Ecosystem
 
 Planned:
 
-- Decision candidate extraction assistance
-- Twin knowledge improvement suggestions
 - Additional AI agent integrations
+- MCP integration
+- VS Code integration
+- Optional schema validation tooling
 
 
 ## Philosophy
