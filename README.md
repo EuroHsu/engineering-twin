@@ -115,6 +115,8 @@ engineering-twin-data/
 
 Twin Data is stored separately from this repository and is a stable, human-readable knowledge directory. It is primarily Markdown with optional YAML front matter for permanent knowledge.
 
+Twin Data contains personal engineering knowledge. Because it is plain Markdown, it works naturally under git version control if the user chooses to track it — this is an optional, user-owned choice and is not initialized, required, or managed by the Skills. If Twin Data is pushed to a git remote, the repository should be private.
+
 Permanent knowledge should keep only metadata that helps future engineering decisions:
 
 ```yaml
@@ -261,7 +263,7 @@ Candidates may be accepted, edited, rejected, or deferred. The AI must not silen
 
 - Human First
 - Markdown Native
-- Git Native
+- Private By Default
 - Explicit Over Automatic
 - Context Over History
 

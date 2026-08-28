@@ -25,3 +25,7 @@ Knowledge is stored as human-readable Markdown. The directories may be empty whe
 This README describes the data directory. It is not itself engineering knowledge.
 
 Use `extract-engineering-twin` to populate or update the knowledge in this directory.
+
+## Privacy
+
+This directory contains personal engineering knowledge. Version-controlling it with git is optional and up to you. If you push it to a git remote, keep the repository private.
