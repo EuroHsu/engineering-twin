@@ -33,7 +33,7 @@ Engineering Twin is not an AI model, autonomous agent, backend platform, or data
 
 - `engineering-twin` — activate and use Twin context during the current session (Session Activation / Discover / Load / Interpret / Apply); flags knowledge that may need review, without modifying it
 - `setup-engineering-twin` — create or import Twin Data and configure its location (Create / Import / Validate / Configure)
-- `extract-engineering-twin` — propose new knowledge candidates from historical evidence, and review existing Twin Data for stale, conflicting, or duplicate records (Analyze / Propose / Review / Write / Remove / Supersede)
+- `extract-engineering-twin` — propose new knowledge candidates from historical evidence, and review existing Twin Data for stale, conflicting, duplicate, or low-value records (Analyze / Propose / Review / Write / Remove / Supersede)
 
 Each Skill is independently installable and must remain self-contained. Installed Skills must not depend on repository-level documentation files.
 
@@ -196,7 +196,9 @@ Other sources may be available through the current AI-agent environment or integ
 
 ## Knowledge Evolution
 
-Knowledge evolves through a separate, human-controlled path from the Quick Start flow. Engineering Twin uses explicit human review for permanent knowledge updates.
+Knowledge evolves through a human-controlled lifecycle.
+
+For new knowledge:
 
 ```text
 Engineering Activity
@@ -207,14 +209,16 @@ Observation / Pattern
     ↓
 Knowledge Candidate
     ↓
+Decision Value Test
+    ↓
 Human Review
     ↓
 Twin Data Update
 ```
 
-Candidates may be accepted, edited, rejected, or deferred. The AI must not silently promote observations or historical behavior into permanent engineering knowledge.
+Candidates may be accepted, edited, rejected, or deferred. An accepted or edited candidate becomes permanent knowledge only after explicit user approval.
 
-Existing permanent knowledge follows the same human-controlled path when it needs to be retired or narrowed:
+For existing knowledge:
 
 ```text
 Existing Twin Data
@@ -228,7 +232,9 @@ Human Review
 Keep / Edit / Remove / Supersede / Defer
 ```
 
-`Remove` deletes a record with no remaining decision value. `Supersede` keeps the older record as historical context, marked `status: superseded`, while a newer decision stays current. Neither happens without explicit user approval.
+`Keep` leaves the record unchanged. `Edit` requires review of the complete revised record before writing. `Remove` deletes a record that has no sufficient ongoing decision value or is incorrect/duplicative. `Supersede` applies only when an existing decision is explicitly replaced by a newer decision; the older record remains as historical context with `status: superseded`. `Defer` leaves the record unchanged for later review.
+
+Engineering Twin may identify concrete signs of stale or conflicting knowledge, but it does not modify Twin Data directly.
 
 ## Design Principles
 
