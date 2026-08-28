@@ -7,7 +7,17 @@ description: Creates or imports an Engineering Twin Data repository and guides t
 
 This Skill manages the setup of Engineering Twin Data.
 
-It is separate from the daily-use `engineering-twin` Skill.
+It is separate from the daily-use `engineering-twin` Skill and the knowledge-acquisition `extract-engineering-twin` Skill.
+
+## Responsibility Boundary
+
+`setup-engineering-twin` manages the Twin Data lifecycle:
+
+```text
+Create / Import / Validate / Configure
+```
+
+It does not extract engineering knowledge from historical activity or personal source material. Use `extract-engineering-twin` for evidence-based knowledge acquisition from sessions, projects, resumes, documents, and other existing records.
 
 ## Start
 
@@ -29,7 +39,7 @@ When the user chooses Create:
 3. If the destination contains existing files, stop and ask the user whether it should be used, replaced, or another destination selected. Never overwrite it silently.
 4. Create the standard Twin Data structure using the templates bundled with this Skill.
 5. Create `twin.yaml` using the current schema version `0.2`.
-6. Guide the user through Identity and Principles.
+6. Guide the user through Identity and Principles when the user wants to enter them directly.
 7. Add Decisions or Projects only when the user provides information that should be stored there.
 8. Draft Markdown only from information provided or explicitly confirmed by the user.
 9. Do not create a knowledge file merely to represent missing, unknown, or unconfirmed information. Empty knowledge areas may remain as directories without knowledge files when no content was provided.
@@ -38,7 +48,9 @@ When the user chooses Create:
 12. Save the confirmed Twin Data location to the appropriate Engineering Twin Configuration.
 13. Report the resolved Twin Data path and configuration path, not only a relative or user-entered path.
 
-The Create flow must not infer a user's engineering principles from the fact that a tool, framework, or architecture was mentioned or used. Observations may be presented as candidates for confirmation.
+The Create flow must not infer a user's engineering principles from the fact that a tool, framework, project, or architecture was mentioned or used. Observations may be presented as candidates for confirmation.
+
+If the user wants to populate a new Twin from existing personal or project material rather than directly provide knowledge, keep Create limited to bootstrapping the Data structure and configuration. Do not perform that extraction here; use `extract-engineering-twin` for the knowledge-acquisition task.
 
 ## Import
 
