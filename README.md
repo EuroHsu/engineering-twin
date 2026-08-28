@@ -107,14 +107,15 @@ Run `extract-engineering-twin` when you want to analyze resumes, projects, sessi
 ```text
 engineering-twin-data/
 ├── README.md
-├── twin.yaml
 ├── identity/
 ├── principles/
 ├── decisions/
 └── projects/
 ```
 
-Twin Data is stored separately from this repository and is primarily Markdown with optional YAML front matter. Permanent knowledge should keep only metadata that helps future engineering decisions:
+Twin Data is stored separately from this repository and is a stable, human-readable knowledge directory. It is primarily Markdown with optional YAML front matter for permanent knowledge.
+
+Permanent knowledge should keep only metadata that helps future engineering decisions:
 
 ```yaml
 ---
@@ -139,9 +140,9 @@ projects/
 = project-specific context
 ```
 
-`twin.yaml` is human-readable Twin metadata. It identifies the Twin Data and may contain fields such as name, creation date, and primary language. It is not a schema manifest or migration contract.
+`README.md` describes the Twin Data container and its knowledge areas. It is not itself engineering knowledge.
 
-Twin Data is intentionally a stable, human-readable knowledge directory rather than a formally versioned data format. The Skills validate whether the directory is understandable and structurally usable; they do not require version upgrades for ordinary evolution.
+The Skills validate whether a Twin Data directory is structurally usable and its Markdown is readable. They do not require schema versions or migration steps for ordinary evolution.
 
 ## Configuration
 
