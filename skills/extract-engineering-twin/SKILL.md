@@ -17,20 +17,23 @@ The Extract Engineering Twin Skill answers:
 
 It does not decide what should become permanent Twin knowledge.
 
-## Evidence Sources
+## Evidence Access
 
-Use historical engineering evidence that is available to the AI agent, such as:
+Historical evidence is accessed through capabilities already available to the AI agent.
 
-- AI coding agent sessions
-- Git commits and history
-- pull requests and reviews
+Relevant sources may include:
+
+- AI coding agent sessions exposed by the environment
+- files available in the current workspace
+- user-provided exports or records
+- local Git history
+- connected Git hosting or project-management integrations
 - architecture or technical decision documents
 - project documentation
-- other user-provided engineering records
 
-The Skill must not assume that a historical source is locally accessible. When a source requires an integration, export, or user-provided file, use the available access mechanism or ask the user to provide the evidence.
+Do not assume that any specific source is accessible. When a requested source is unavailable, report that limitation and continue only with evidence that is actually available.
 
-Do not require one specific source when another reliable source can answer the request.
+See `docs/extraction-sources.md` in the Engineering Twin repository for the evidence access model.
 
 ## Extraction Workflow
 
