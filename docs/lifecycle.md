@@ -210,7 +210,11 @@ Possible evidence sources include:
 - Git history
 - pull requests and reviews
 - architecture or technical decision documents
+- project documentation
 - other user-provided engineering records
+
+The Skill should use only evidence available through the current environment,
+an integration, an export, or explicit user-provided material.
 
 Extraction does not automatically modify Twin Data.
 
