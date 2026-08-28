@@ -120,6 +120,16 @@ After the user provides a task, load only the relevant:
 Always consider Identity when valid Twin Data is available.
 Load other knowledge areas only when relevant to the task.
 
+## Normalized Knowledge
+
+Knowledge may use YAML front matter followed by Markdown. When present, use its metadata to understand type, scope, lifecycle status, confidence, and evidence provenance.
+
+Read the bundled `references/knowledge-format.md` for the metadata vocabulary.
+
+Treat `status: confirmed` as permanent knowledge. Do not treat `candidate` content as permanent knowledge.
+
+Existing knowledge without front matter remains valid and should not be rewritten automatically.
+
 ## Using Context
 
 Treat Engineering Twin Data as guidance, not absolute rules.
@@ -166,4 +176,4 @@ Do not use the daily Engineering Twin Skill to initialize a new Twin Data reposi
 This Skill must remain self-contained after installation.
 
 For normal operation, do not depend on files outside this Skill directory.
-Use bundled files under `references/` when additional detail is required.
+Use bundled files under `references/` when additional material is required.
