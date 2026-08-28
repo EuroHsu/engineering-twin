@@ -1,6 +1,6 @@
 # Engineering Twin Extraction
 
-Version: 0.1
+Version: 0.2
 
 Status: Draft
 
@@ -51,9 +51,8 @@ No single source is mandatory.
 
 The Skill should use the most relevant reliable evidence available for the requested scope.
 
-The mechanisms by which those sources become available are defined in
-`docs/extraction-sources.md`. The Extraction Skill must not assume that a
-particular source is locally accessible.
+The mechanisms by which known local session sources and other evidence become
+available are defined in `docs/extraction-sources.md`.
 
 
 ## 4. Source Trust

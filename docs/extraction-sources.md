@@ -1,6 +1,6 @@
 # Engineering Twin Historical Evidence Access
 
-Version: 0.1
+Version: 0.2
 
 Status: Draft
 
@@ -10,7 +10,7 @@ Date: 2026-08-28
 
 This document defines how `extract-engineering-twin` obtains historical engineering evidence.
 
-The Skill is responsible for analyzing evidence that is available to the AI agent. It is not responsible for creating a centralized history store or implementing a proprietary retrieval system.
+The Skill analyzes evidence available to the AI agent. It does not create a centralized history store or implement a proprietary retrieval system.
 
 ## 2. Access Principle
 
@@ -27,7 +27,102 @@ Possible access mechanisms include:
 
 The Skill must not assume that a particular source is available.
 
-## 3. Source Selection
+## 3. Platform Path Convention
+
+Agent-specific local paths should be documented relative to the user's home directory rather than as OS-specific absolute paths.
+
+Use:
+
+```text
+$HOME
+```
+
+or the equivalent user-home concept provided by the current environment.
+
+Do not hard-code a username, drive letter, or operating-system-specific home path into the Skill.
+
+The same logical source may therefore resolve to:
+
+```text
+Linux:   /home/<user>/...
+macOS:   /Users/<user>/...
+Windows: C:\Users\<user>\...
+```
+
+The Skill should rely on the agent environment to resolve the home directory.
+
+## 4. Known Local Session Sources
+
+The following paths are supported source conventions for commonly used coding agents.
+
+| Agent | Logical session root | Source status | Notes |
+|---|---|---|---|
+| Claude Code | `$HOME/.claude/projects/` | Canonical local source | Sessions are organized by project; individual session records may be stored below project directories. |
+| Gemini CLI | `$HOME/.gemini/tmp/` | Canonical local source | Project-specific session data may exist below the project-specific directory. |
+| GitHub Copilot CLI | `$HOME/.copilot/session-state/` | Canonical local source | Session state is organized by session; use available session records as evidence. |
+| VS Code Copilot internal storage | `$HOME/.config/Code/User/workspaceStorage/` on Linux-like environments | Optional / environment-dependent | Do not treat this path as a universal Copilot session format. It varies with editor, platform, and implementation. |
+
+These are discovery conventions, not guarantees that a session exists or that its contents are directly readable in every installation.
+
+## 5. Claude Code Sessions
+
+Preferred local discovery root:
+
+```text
+$HOME/.claude/projects/
+```
+
+The Skill should first narrow by project when the user requests project-scoped extraction.
+
+When inspecting session records:
+
+- identify the relevant project scope
+- identify the relevant session records
+- preserve the session path or another stable source identifier when available
+- distinguish user-authored decisions from AI-generated suggestions
+- distinguish exploration, rejected approaches, temporary experiments, and final outcomes
+
+Do not treat the entire contents of a session as one authoritative engineering statement.
+
+## 6. Gemini CLI Sessions
+
+Preferred local discovery root:
+
+```text
+$HOME/.gemini/tmp/
+```
+
+The Skill should narrow to the relevant project-specific area before inspecting session data.
+
+Do not assume that every directory below the root is a usable conversation record. Inspect available files and use only the evidence that can actually be interpreted.
+
+## 7. GitHub Copilot CLI Sessions
+
+Preferred local session root:
+
+```text
+$HOME/.copilot/session-state/
+```
+
+When available, session-specific event or record files may provide historical evidence.
+
+The Skill should not infer engineering intent from a session state directory alone. It must inspect the available records and distinguish user actions, AI suggestions, experiments, and outcomes.
+
+## 8. VS Code Internal Storage
+
+VS Code workspace storage should be treated as an optional, implementation-dependent evidence source rather than a canonical Copilot session source.
+
+For environments where it is applicable, a common Linux-like location is:
+
+```text
+$HOME/.config/Code/User/workspaceStorage/
+```
+
+Other operating systems use different VS Code data roots. The Skill should not assume that this storage contains a stable, portable conversation format.
+
+Prefer a direct AI-agent session source, explicit export, or supported integration when available.
+
+## 9. Source Selection
 
 Select evidence sources according to the user's requested scope and the evidence needed to answer the extraction request.
 
@@ -46,52 +141,37 @@ User asks about architecture decisions in one project
 
 Do not scan unrelated history simply because it exists.
 
-## 4. Historical AI Coding Sessions
+## 10. Session Availability
 
-AI coding sessions may be used as evidence when they are accessible in the current environment.
+A source path being known does not mean that the source is available.
 
-The Skill should:
+Before relying on a local session source, verify that:
 
-- identify the relevant session or bounded set of sessions
-- preserve enough source information to identify where evidence came from
-- distinguish user decisions from AI-generated suggestions
-- distinguish exploration, rejected options, temporary experiments, and final outcomes
-- avoid treating a complete session as a single authoritative statement
+- the expected root exists
+- relevant records are present
+- the records are readable in the current environment
+- the contents can be interpreted sufficiently for the requested extraction
 
-If sessions are not directly accessible, the Skill may use user-provided exports or another available evidence source.
+If a source is unavailable, continue with other available evidence when possible and disclose the limitation.
 
 The Skill must not claim to have inspected sessions that were not accessible.
 
-## 5. Git History
+## 11. Other Evidence Sources
 
-Git history can provide evidence about implementation changes and sequencing.
+Historical extraction may also use:
 
-Git commits should normally be treated as evidence of what changed, not definitive evidence of why the engineer made the change.
+- local Git history
+- pull requests and reviews
+- architecture or technical decision documents
+- project documentation
+- user-provided exports or records
+- connected integrations
 
-When possible, combine commits with pull requests, documentation, or explicit decision records to establish rationale.
+Git commits should normally establish what changed, not by themselves why it changed.
 
-## 6. Pull Requests and Reviews
+Pull request discussions may provide stronger evidence of human reasoning, but proposals and review comments must be distinguished from final decisions.
 
-Pull requests and reviews can provide stronger evidence of human discussion and accepted trade-offs.
-
-When extracting from them, distinguish:
-
-- proposed approaches
-- reviewer suggestions
-- rejected alternatives
-- final decisions
-
-A review comment is not automatically the engineer's final position.
-
-## 7. User-Provided Evidence
-
-Users may provide session exports, transcripts, documents, links, or other records.
-
-Treat these as evidence within the scope explicitly requested by the user.
-
-Do not infer that user-provided material represents the engineer's current preference unless the evidence supports that interpretation and the user confirms it when required.
-
-## 8. Provenance
+## 12. Provenance
 
 Every knowledge candidate should retain enough provenance to explain its evidence source.
 
@@ -105,7 +185,7 @@ Where available, include:
 
 Do not copy large historical records into the candidate when a concise reference is sufficient.
 
-## 9. Access Failure
+## 13. Access Failure
 
 When a requested evidence source is unavailable:
 
@@ -115,7 +195,7 @@ When a requested evidence source is unavailable:
 - lower confidence when missing evidence materially affects the conclusion
 - ask the user for an export or additional access only when necessary to answer the request
 
-## 10. Privacy and Scope
+## 14. Privacy and Scope
 
 Historical engineering records may contain unrelated or sensitive information.
 
@@ -123,7 +203,7 @@ Extraction should access only the material needed for the requested scope.
 
 Do not preserve unrelated conversation content as Twin knowledge.
 
-## 11. Separation From Skill Implementation
+## 15. Separation From Skill Implementation
 
 This access model intentionally does not prescribe a parser, database, indexing layer, vector store, or custom runtime.
 
