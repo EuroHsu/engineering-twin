@@ -9,6 +9,22 @@ Engineering Twin provides structured engineering context to the AI agent.
 
 It does not replace reasoning, coding, or problem solving.
 
+## Activation
+
+`/engineering-twin` is an explicit session-level opt-in command.
+
+When the user invokes `/engineering-twin`:
+
+1. Activate Engineering Twin for the current session.
+2. Discover the configured Twin Data.
+3. Validate the Twin Data before using it.
+4. Load metadata and identity as the initial context.
+5. Wait for the user's subsequent engineering task.
+
+Do not treat activation as a permanent user preference or automatically carry it into unrelated sessions.
+
+Before the user explicitly activates this Skill, do not use Engineering Twin Data merely because it exists in the environment.
+
 ## Core Model
 
 The relationship is:
@@ -66,19 +82,19 @@ It does not store engineering knowledge, engineering principles, technical decis
 
 For detailed configuration rules, read `references/configuration.md` bundled with this Skill.
 
-## Discovery
+## Discovery and Validation
 
-Before using Engineering Twin context:
+After activation, before using Engineering Twin context:
 
 1. Look for an explicit Twin Data path provided for the current task.
 2. Check for workspace-level Engineering Twin configuration.
 3. Check the user-level configuration at `~/.config/engineering-twin/config.yaml`.
-4. If no Twin Data location can be determined, continue without engineer-specific assumptions.
+4. If no Twin Data location can be determined, continue without engineer-specific assumptions and direct the user to `setup-engineering-twin` when setup is appropriate.
 
 Before using a discovered Twin Data repository:
 
 - verify that `twin.yaml` exists
-- verify that the schema version is supported
+- verify that the declared schema version is supported
 - verify that the structure is compatible with the Engineering Twin Data schema
 
 Do not silently select an unrelated Twin Data repository.
@@ -90,16 +106,19 @@ Do not load all Twin Data by default.
 
 Use the progressive loading guidance in `references/context-loading.md` bundled with this Skill.
 
-Load context progressively:
+Initial activation loads:
 
 1. Metadata
 2. Identity
-3. Relevant Principles
-4. Relevant Decisions
-5. Relevant Projects
+
+After the user provides a task, load only the relevant:
+
+3. Principles
+4. Decisions
+5. Projects
 
 Always consider Identity when valid Twin Data is available.
-Load Principles, Decisions, and Projects only when relevant to the task.
+Load other knowledge areas only when relevant to the task.
 
 ## Using Context
 
