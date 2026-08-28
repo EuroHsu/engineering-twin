@@ -8,7 +8,7 @@ status: confirmed
 ## Metadata
 
 Date:
-YYYY-MM-DD
+YYYY-MM-DD (if the original decision date cannot be determined precisely from evidence, use the date this entry is added to Twin Data instead of leaving a hedge)
 
 Topic:
 

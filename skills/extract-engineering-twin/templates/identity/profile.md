@@ -11,7 +11,7 @@ Describe your engineering role.
 
 ## Experience
 
-Describe your engineering background.
+Describe the domains, technologies, and problem types you've worked on. Do not include personal or identifying details — names, phone numbers, email addresses, company names, and similar.
 
 ## Primary Technologies
 
