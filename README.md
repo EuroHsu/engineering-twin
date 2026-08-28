@@ -43,6 +43,7 @@ Engineering Twin follows a few simple rules:
 - **Decision Value First** — information is kept because it can improve future engineering decisions, not merely because it is interesting or well evidenced.
 - **Durable Over Temporary** — prefer stable principles, decisions, constraints, and project context over short-lived state or exhaustive history.
 - **Markdown Native** — knowledge stays human-readable, portable, and easy to version with git.
+- **Private By Default** — Twin Data belongs to the user; if pushed to a remote, that remote should be private.
 - **Explicit Over Automatic** — activation and permanent knowledge changes require deliberate user intent.
 - **Context Over History** — preserve the conclusions and constraints that matter; do not turn the Twin into a transcript archive.
 
