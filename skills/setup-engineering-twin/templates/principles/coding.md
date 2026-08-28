@@ -1,16 +1,20 @@
+---
+type: principle
+scope: general
+status: confirmed
+confidence: high
+evidence: explicit
+sources:
+  - type: user
+    ref: <confirmed user-provided source>
+---
+
 # Coding Principles
 
-## Code Quality
+## Principle 1
 
-Describe your coding principles, conventions, and practices.
+Describe a coding practice or belief that guides implementation.
 
-Examples:
+## Principle 2
 
-- readability
-- testing
-- naming conventions
-- error handling
-
-## Development Practices
-
-Describe engineering practices that improve your development process.
+Describe another coding practice or belief that influences implementation.
