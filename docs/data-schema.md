@@ -52,8 +52,9 @@ The following versions are currently defined:
 Legacy `0.1` data may remain in its existing format after Import.
 The setup process must not silently migrate it.
 
-An explicit, human-approved migration may convert compatible `0.1`
-data to the current `0.2` schema.
+Migration is a separate, explicit operation governed by the generic
+Engineering Twin Data migration workflow. A supported source/target
+version pair must have its own documented mapping rules.
 
 Legacy `0.1` data may use an earlier nested declaration:
 
@@ -263,7 +264,6 @@ Example:
 
 
 # Architecture Principles
-
 
 ## Prefer Explicit Boundaries
 
