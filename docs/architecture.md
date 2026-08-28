@@ -187,11 +187,60 @@ It guides the user through:
 - importing existing Twin Data
 - validating the data structure
 - reviewing initial knowledge
+- configuring the Twin Data location
 
 Setup is separate from daily Twin usage.
 
 
-# 7. Data Model
+# 7. Configuration Model
+
+Engineering Twin Configuration records which user-owned
+Engineering Twin Data repository or directory should be used.
+
+Configuration is separate from Engineering Twin Data.
+
+The recommended user-level configuration file is:
+
+`~/.config/engineering-twin/config.yaml`
+
+Example:
+
+```yaml
+version: 1
+
+twinData:
+  path: ~/workspace/my-engineering-twin-data
+```
+
+Configuration stores environment-specific information,
+such as the Twin Data location.
+
+It does not store:
+
+- engineer identity
+- engineering principles
+- technical decisions
+- project knowledge
+- communication preferences
+- general AI behavior
+- agent-specific instructions
+
+The initial configuration supports one active Twin Data location
+per configuration scope.
+
+When multiple configuration scopes exist, the recommended priority is:
+
+1. Explicit path provided for the current task
+2. Workspace-level configuration
+3. User-level configuration
+4. No configured Twin Data
+
+If no location can be determined, the AI agent should not invent
+engineer-specific context. The user may use the Setup Engineering Twin
+Skill to create or import Twin Data.
+
+
+# 8. Data Model
 
 Engineering Twin Data consists of five areas:
 
@@ -258,7 +307,7 @@ Answers:
 "In what context were decisions made?"
 
 
-# 8. Data Flow
+# 9. Data Flow
 
 
 Engineering Activity
@@ -321,7 +370,7 @@ Human Review
 Engineering Twin Data
 
 
-# 9. Repository Model
+# 10. Repository Model
 
 The Engineering Twin repository contains Skills and documentation.
 
@@ -333,6 +382,7 @@ engineering-twin/
 │
 ├── docs/
 │   ├── architecture.md
+│   ├── configuration.md
 │   └── data-schema.md
 │
 └── skills/
@@ -348,7 +398,7 @@ The repository does not contain a user's personal Engineering Twin Data.
 Twin Data is created or imported separately.
 
 
-# 10. Design Principles
+# 11. Design Principles
 
 
 ## Human First
@@ -381,7 +431,7 @@ Store meaningful engineering knowledge,
 not all raw conversations.
 
 
-# 11. Future Extensions
+# 12. Future Extensions
 
 Possible future components:
 
