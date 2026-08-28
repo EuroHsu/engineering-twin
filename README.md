@@ -74,7 +74,7 @@ Engineering Twin is not an AI model, autonomous agent, backend platform, or data
 
 ## Skills
 
-- `engineering-twin` — activate and use Twin context during the current session (Session Activation / Discover / Load / Interpret / Apply); flags knowledge that may need review, without modifying it
+- `engineering-twin` — activate and use Twin context during the current session (Session Activation / Discover / Load / Interpret / Apply); loads only the knowledge relevant to the current task rather than the entire Twin Data; flags knowledge that may need review, without modifying it
 - `setup-engineering-twin` — create or import Twin Data and configure its location (Create / Import / Validate / Configure)
 - `extract-engineering-twin` — propose new knowledge candidates from historical evidence, and review existing Twin Data for stale, conflicting, duplicate, or low-value records (Analyze / Propose / Review / Write / Edit / Remove / Supersede)
 
