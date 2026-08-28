@@ -126,6 +126,21 @@ Treat Engineering Twin Data as guidance, not absolute rules.
 
 When a previous decision may no longer apply, explain the changed conditions before recommending a different approach.
 
+## Knowledge Health Signals
+
+While using Twin Data, watch for knowledge that may be stale, conflicting, or no longer useful.
+
+Raise a review signal only when there is concrete evidence such as:
+
+- current project state clearly contradicts a project record
+- a decision has been explicitly replaced by a newer decision
+- the implementation or constraint described by a record no longer exists
+- a record depends on a premise that has materially changed
+
+Age, low usage, or unfamiliar wording alone is not sufficient evidence that knowledge is stale.
+
+Do not modify or delete the record. Explain the conflict or changed condition and suggest an `extract-engineering-twin` review of the affected knowledge.
+
 ## Knowledge Safety
 
 - Never invent engineer identity, preferences, principles, or decisions.

@@ -19,6 +19,8 @@ Evidence → Candidate → Human Review → Permanent Knowledge
 
 It is the primary path for populating a new or existing Twin with knowledge.
 
+It also manages review of existing permanent knowledge when the user asks whether the Twin contains stale, conflicting, duplicated, or low-value records.
+
 ## Evidence Types
 
 ### Behavioral Evidence
@@ -93,6 +95,8 @@ Use the narrowest candidate scope supported by evidence.
 
 Do not overgeneralize project-specific evidence into a general principle without support.
 
+Apply the Decision Value Test and Durability Test before producing a permanent candidate. Evidence alone is not sufficient reason to preserve knowledge.
+
 ### 4. Produce Candidates
 
 Candidates are review artifacts. They may describe:
@@ -106,11 +110,13 @@ Candidates are review artifacts. They may describe:
 
 Use the candidate fields defined in `references/knowledge-format.md`. They are extraction-stage information, not permanent Twin Data metadata.
 
+Prefer fewer, stronger candidates over exhaustive extraction.
+
 ### 5. Human Review
 
 Present candidates for explicit review.
 
-The user may:
+For new candidates, the user may:
 
 - accept
 - edit
@@ -119,13 +125,71 @@ The user may:
 
 Only an explicit acceptance or approved edit authorizes a permanent Twin Data update.
 
-### 6. Write Permanent Knowledge
+## Review Existing Knowledge
+
+When the user asks to review, audit, prune, or slim existing Twin Data, inspect the relevant permanent records and evaluate each against decision value and durability.
+
+Look for concrete signals such as:
+
+- temporary or expired project state presented as current context
+- factual contradictions with the current project or source evidence
+- duplicate records carrying the same decision value
+- historical implementation details whose conclusion is no longer useful
+- project details that do not materially affect future decisions
+- records that should be narrowed in scope rather than generalized
+- a previous decision that is explicitly replaced by a newer decision
+
+Do not infer staleness from age, lack of recent edits, or unfamiliar wording alone.
+
+Present existing-record review results as:
+
+```text
+Existing Knowledge Review
+
+File:
+<path>
+
+Reason:
+<why the record may need attention>
+
+Recommended Action:
+Keep | Edit | Remove | Supersede | Defer
+```
+
+`Remove` means the record should be deleted because it has no sufficient ongoing decision value or is incorrect/duplicative.
+
+`Supersede` means the older decision remains meaningful historical context but should no longer guide current decisions. In that case, update its status to `superseded` and preserve the newer decision as the current record.
+
+The Skill must not execute Remove or Supersede without explicit user approval.
+
+### Existing Knowledge Review Workflow
+
+```text
+Existing Twin Data
+      ↓
+Review relevant records
+      ↓
+Decision Value + Durability Test
+      ↓
+Review Recommendations
+      ↓
+Human Review
+      ↓
+Keep / Edit / Remove / Supersede / Defer
+      ↓
+Permanent Twin Data
+```
+
+## Write Permanent Knowledge
 
 After approval:
 
 1. Select the appropriate destination directory: `identity/`, `principles/`, `decisions/`, or `projects/`.
 2. Use the bundled template from this Skill when creating a new knowledge file.
 3. Follow `references/knowledge-format.md` for what belongs in the front matter and body.
+4. Write only concise, decision-relevant knowledge confirmed by the user.
+5. For an approved removal, delete only the identified record.
+6. For an approved supersession, mark the older record `status: superseded` and maintain the newer current record.
 
 Templates define file shape; they do not constitute confirmed user knowledge.
 
