@@ -388,25 +388,49 @@ engineering-twin/
 │   ├── configuration.md
 │   ├── data-schema.md
 │   ├── extraction.md
+│   ├── extraction-sources.md
 │   └── lifecycle.md
 │
 └── skills/
     ├── engineering-twin/
-    │   └── SKILL.md
+    │   ├── SKILL.md
+    │   └── references/
     │
     ├── setup-engineering-twin/
     │   ├── SKILL.md
+    │   ├── references/
     │   └── templates/
     │
     └── extract-engineering-twin/
-        └── SKILL.md
+        ├── SKILL.md
+        └── references/
 
 The repository does not contain a user's personal Engineering Twin Data.
 
 Twin Data is created or imported separately.
 
 
-# 10. Design Principles
+# 10. Skill Packaging
+
+Each Skill is a self-contained installable unit.
+
+A Skill may depend only on files bundled inside its own Skill directory
+for normal operation.
+
+Repository documentation under `docs/` is specification material for
+humans and maintainers. It is not a runtime dependency of an installed Skill.
+
+A Skill that needs additional instructions or reference material should
+place them under its own `references/` directory and use relative paths.
+
+Setup resources such as initial Twin Data templates should remain inside
+the Setup Skill package.
+
+This boundary ensures that installing an individual Skill provides all
+files required for that Skill's normal operation.
+
+
+# 11. Design Principles
 
 
 ## Human First
@@ -439,7 +463,7 @@ Store meaningful engineering knowledge,
 not all raw conversations.
 
 
-# 11. Future Extensions
+# 12. Future Extensions
 
 Possible future components:
 

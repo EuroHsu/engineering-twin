@@ -64,7 +64,7 @@ twinData:
 Configuration stores environment-specific information such as the Twin Data location.
 It does not store engineering knowledge, engineering principles, technical decisions, or AI behavior instructions.
 
-For the configuration model and precedence rules, see `docs/configuration.md` in the Engineering Twin repository.
+For detailed configuration rules, read `references/configuration.md` bundled with this Skill.
 
 ## Discovery
 
@@ -87,6 +87,8 @@ Do not silently create, attach, copy, move, or modify Twin Data during discovery
 ## Loading Strategy
 
 Do not load all Twin Data by default.
+
+Use the progressive loading guidance in `references/context-loading.md` bundled with this Skill.
 
 Load context progressively:
 
@@ -139,3 +141,10 @@ Those concerns belong to the AI agent's own configuration, such as `CLAUDE.md`.
 Creating or importing Twin Data is handled by the `setup-engineering-twin` Skill.
 
 Do not use the daily Engineering Twin Skill to initialize a new Twin Data repository.
+
+## Skill Packaging
+
+This Skill must remain self-contained after installation.
+
+For normal operation, do not depend on files outside this Skill directory.
+Use bundled files under `references/` when additional detail is required.

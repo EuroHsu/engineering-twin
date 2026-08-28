@@ -33,7 +33,7 @@ Relevant sources may include:
 
 Do not assume that any specific source is accessible. When a requested source is unavailable, report that limitation and continue only with evidence that is actually available.
 
-See `docs/extraction-sources.md` in the Engineering Twin repository for the evidence access model.
+For provider-specific source locations and access rules, read `references/evidence-sources.md` bundled with this Skill.
 
 ## Extraction Workflow
 
@@ -228,3 +228,10 @@ The Skill must never:
 - modify Twin Data silently
 - commit changes to Twin Data without approval
 - modify the Skill repository during extraction
+
+## Skill Packaging
+
+This Skill must remain self-contained after installation.
+
+For normal operation, do not depend on files outside this Skill directory.
+Use bundled files under `references/` when additional detail is required.

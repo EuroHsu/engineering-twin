@@ -71,7 +71,7 @@ Validation must not silently repair user-owned Twin Data.
 
 ## Configuration
 
-After a successful Create or Import, persist the selected Twin Data location according to `docs/configuration.md`.
+After a successful Create or Import, use the bundled `references/configuration.md` for the configuration rules.
 
 The recommended user-level configuration file is:
 
@@ -108,16 +108,6 @@ Use templates as starting points only. Replace placeholder content with informat
 
 The templates define the initial structure; they do not constitute confirmed engineering knowledge for the user.
 
-## Knowledge Safety
-
-- Never invent engineer identity.
-- Never invent engineering principles.
-- Never convert observed behavior into confirmed knowledge without approval.
-- Never overwrite existing Twin Data silently.
-- Never treat the Skill repository as the user's Twin Data repository.
-- Never save personal engineering knowledge in the configuration file.
-- Permanent knowledge changes require human approval.
-
 ## Completion
 
 A setup operation is complete only after:
@@ -127,3 +117,10 @@ A setup operation is complete only after:
 3. Required human review has occurred for newly drafted knowledge.
 4. Configuration has been updated successfully when configuration is applicable.
 5. The user has been told where the Twin Data is located.
+
+## Skill Packaging
+
+This Skill must remain self-contained after installation.
+
+For normal operation, do not depend on files outside this Skill directory.
+Use bundled files under `references/` and `templates/` when additional material is required.
