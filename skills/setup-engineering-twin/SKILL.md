@@ -1,34 +1,37 @@
 ---
 name: setup-engineering-twin
-description: Creates or imports an Engineering Twin Data repository and guides the user through initialization and validation. Use when the user wants to create, import, initialize, or attach Engineering Twin Data.
+description: Creates or imports an Engineering Twin Data repository and guides the user through initialization and validation. Use when the user wants to create, import, or initialize Engineering Twin Data.
 ---
 
 # Setup Engineering Twin
 
-This Skill helps the user create a new Engineering Twin Data repository or use an existing one.
+This Skill manages the setup of Engineering Twin Data.
+
+It is separate from the daily-use `engineering-twin` Skill.
 
 ## Start
 
-First determine whether a valid Engineering Twin Data repository already exists.
+First determine whether the user already has Engineering Twin Data available.
 
 Ask the user to choose one of:
 
 1. Create a new Engineering Twin Data
 2. Import an existing Engineering Twin Data
 
-Do not silently create or modify a Twin Data repository.
+Do not silently create, overwrite, or modify a Twin Data repository.
 
 ## Create
 
-For a new Twin:
+When the user chooses Create:
 
-1. Choose or confirm the destination.
+1. Choose or confirm the destination for the new Twin Data repository.
 2. Create the standard directory structure.
-3. Create `twin.yaml` with the supported schema version and instance metadata.
-4. Guide the user through identity and engineering knowledge.
-5. Draft Markdown content only from information provided or explicitly confirmed by the user.
-6. Ask the user to review the generated content.
-7. Do not treat unconfirmed observations as permanent knowledge.
+3. Create `twin.yaml` using the supported schema version.
+4. Guide the user through the Identity and Principles content.
+5. Add project context only when the user provides it and confirms it should be stored.
+6. Draft Markdown only from information provided or explicitly confirmed by the user.
+7. Show the proposed content for review before treating it as permanent knowledge.
+8. Require explicit user approval before finalizing the Twin Data.
 
 Standard structure:
 
@@ -48,14 +51,34 @@ engineering-twin-data/
 
 ## Import
 
-For an existing Twin:
+When the user chooses Import:
 
-1. Locate the repository or directory.
-2. Verify `twin.yaml` exists.
-3. Verify the schema version is supported.
-4. Verify the expected structure.
-5. Confirm the Twin identity with the user.
-6. Use the existing data without rewriting it automatically.
+1. Locate the existing Twin Data repository or directory.
+2. Verify that `twin.yaml` exists.
+3. Verify that the schema version is supported.
+4. Verify that the data structure is compatible with the Engineering Twin Data schema.
+5. Report validation problems clearly.
+6. Confirm the Twin identity with the user.
+7. Use the existing data as-is unless the user explicitly requests changes.
+
+Import does not copy personal knowledge into the Skill repository.
+
+## Validation
+
+Before accepting a Twin Data repository as valid:
+
+- `twin.yaml` must exist.
+- The schema version must be supported.
+- The expected top-level knowledge areas should be present.
+- Existing Markdown files should remain human-readable.
+
+Missing optional knowledge areas such as `decisions/` or `projects/` should not by themselves invalidate an otherwise usable Twin Data repository.
+
+## Templates
+
+Templates are provided in this Skill's `templates/` directory.
+
+Use templates as starting points only. Replace placeholder content with information confirmed by the user.
 
 ## Knowledge Safety
 
@@ -63,9 +86,5 @@ For an existing Twin:
 - Never invent engineering principles.
 - Never convert observed behavior into confirmed knowledge without approval.
 - Never overwrite existing Twin Data silently.
+- Never treat the Skill repository as the user's Twin Data repository.
 - Permanent knowledge changes require human approval.
-
-## Templates
-
-Template files are provided in this Skill's `templates/` directory.
-Use them as starting points and adapt them to information confirmed by the user.
