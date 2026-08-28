@@ -74,7 +74,7 @@ Experience
 
 ↓
 
-Decision Candidate
+Engineering Insight / Decision Candidate
 
 ↓
 
@@ -157,7 +157,7 @@ and may be stored in a separate repository or directory.
 
 Engineering Twin is distributed as AI agent Skills.
 
-The repository contains two complementary Skills:
+The repository contains three complementary Skills:
 
 
 ## 6.1 Engineering Twin Skill
@@ -190,6 +190,24 @@ It guides the user through:
 - configuring the Twin Data location
 
 Setup is separate from daily Twin usage.
+
+
+## 6.3 Extract Engineering Twin Skill
+
+Purpose:
+
+Analyze historical engineering activity and identify evidence-backed
+knowledge candidates for future Twin Data updates.
+
+It may inspect available evidence such as:
+
+- AI coding agent sessions
+- Git history
+- pull requests and reviews
+- architecture or technical decision documents
+
+Extraction does not decide what becomes permanent knowledge.
+All candidates require human review before being added to Twin Data.
 
 
 # 7. Configuration Model
@@ -355,7 +373,13 @@ Engineering Activity
 
         v
 
-Engineering Insight / Decision Candidate
+Observation / Insight
+
+        |
+
+        v
+
+Knowledge Candidate
 
         |
 
@@ -368,6 +392,10 @@ Human Review
         v
 
 Engineering Twin Data
+
+Historical extraction is handled by the Extract Engineering Twin Skill.
+Daily context usage is handled by the Engineering Twin Skill.
+Setup and import are handled by the Setup Engineering Twin Skill.
 
 
 # 10. Repository Model
@@ -390,9 +418,12 @@ engineering-twin/
     ├── engineering-twin/
     │   └── SKILL.md
     │
-    └── setup-engineering-twin/
-        ├── SKILL.md
-        └── templates/
+    ├── setup-engineering-twin/
+    │   ├── SKILL.md
+    │   └── templates/
+    │
+    └── extract-engineering-twin/
+        └── SKILL.md
 
 The repository does not contain a user's personal Engineering Twin Data.
 
