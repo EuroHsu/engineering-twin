@@ -1,328 +1,44 @@
 # Engineering Twin Lifecycle
 
-Version: 0.1
-
-Status: Draft
-
-Date: 2026-08-28
-
-
-## 1. Purpose
-
-The Engineering Twin lifecycle describes how Skills, Configuration,
-and user-owned Engineering Twin Data work together over time.
-
-The lifecycle separates:
-
-- Skill installation
-- Twin Data setup
-- Configuration
-- Session-level activation
-- Daily context usage
-- Historical knowledge extraction
-- Knowledge evolution
-
-
-## 2. Components
-
-Engineering Twin has three persistent concerns:
+The lifecycle is intentionally simple:
 
 ```text
-Skill Repository
-    |
-    +-- provides AI agent Skills
-
-User Configuration
-    |
-    +-- identifies which Twin Data to use
-
-Engineering Twin Data
-    |
-    +-- stores engineering knowledge
-```
-
-These concerns must remain independent.
-
-
-## 3. Installation
-
-Installation makes the Engineering Twin Skills available to an AI agent.
-
-Installation does not create or import a user's Engineering Twin Data.
-
-After installation, the user has access to:
-
-- `engineering-twin`
-- `setup-engineering-twin`
-- `extract-engineering-twin`
-
-The exact installation mechanism may vary by AI agent or Skill ecosystem.
-
-
-## 4. Initial Setup
-
-After installation, the user runs the Setup Engineering Twin Skill.
-
-The Setup Skill asks the user to choose:
-
-```text
-Create
-or
-Import
-```
-
-### Create
-
-```text
-User chooses Create
-        |
-        v
-Choose destination
-        |
-        v
-Create Twin Data structure
-        |
-        v
-Collect user-provided information
-        |
-        v
-Draft Markdown knowledge
-        |
-        v
-Human Review
-        |
-        v
-Persist approved Twin Data
-        |
-        v
-Save Twin Data location in Configuration
-```
-
-### Import
-
-```text
-User chooses Import
-        |
-        v
-Locate existing Twin Data
-        |
-        v
-Validate schema
-        |
-        v
-Confirm with user
-        |
-        v
-Save Twin Data location in Configuration
-```
-
-Import does not copy or relocate existing Twin Data automatically.
-
-
-## 5. Configuration
-
-Configuration records which Twin Data should be used.
-
-Example:
-
-```yaml
-version: 1
-
-twinData:
-  path: ~/workspace/my-engineering-twin-data
-```
-
-Configuration is environment-specific and is normally stored outside
-Engineering Twin Data.
-
-The configuration does not contain engineering knowledge.
-
-
-## 6. Session Activation
-
-Engineering Twin is explicitly activated by the user for the current session.
-
-The `/engineering-twin` command is the session-level opt-in entry point.
-
-Activation does not permanently enable Engineering Twin and does not change
-the AI agent's general configuration.
-
-After activation:
-
-```text
-/engineering-twin
-      |
-      v
-Read Configuration
-      |
-      v
-Locate Twin Data
-      |
-      v
-Validate Twin Data
-      |
-      v
-Load Metadata + Identity
-      |
-      v
-Wait for user task
-```
-
-Before activation, the agent should not use Engineering Twin Data merely
-because it is available in the environment.
-
-
-## 7. Daily Usage
-
-After the user activates Engineering Twin and provides a task:
-
-```text
-User Task
-    |
-    v
-Engineering Twin Skill
-    |
-    v
-Load relevant context
-    |
-    v
-AI Agent Reasoning
-```
-
-Context should be loaded progressively:
-
-```text
-Metadata
-   ↓
-Identity
-   ↓
-Relevant Principles
-   ↓
-Relevant Decisions
-   ↓
-Relevant Projects
-```
-
-Not all Twin Data should be loaded for every task.
-
-The daily Skill does not initialize Twin Data when configuration is missing.
-It directs the user to Setup Engineering Twin instead.
-
-
-## 8. Historical Knowledge Extraction
-
-The Extract Engineering Twin Skill analyzes historical engineering activity
-when the user asks to discover potential Twin knowledge.
-
-```text
-Historical Engineering Activity
-        |
-        v
-Evidence
-        |
-        v
-Observation / Pattern
-        |
-        v
+Install Skills
+      ↓
+Create / Import Twin Data
+      ↓
+Configure Twin Data location
+      ↓
+User activates /engineering-twin
+      ↓
+Load relevant Twin context
+      ↓
+AI-assisted engineering work
+      ↓
+Historical extraction when requested
+      ↓
 Knowledge Candidate
-        |
-        v
+      ↓
 Human Review
-        |
-        v
+      ↓
 Twin Data Update
 ```
 
-Possible evidence sources include:
-
-- AI coding agent sessions
-- Git history
-- pull requests and reviews
-- architecture or technical decision documents
-- project documentation
-- other user-provided engineering records
-
-The Skill should use only evidence available through the current environment,
-an integration, an export, or explicit user-provided material.
-
-Extraction does not automatically modify Twin Data.
-
-
-## 9. Knowledge Evolution
-
-Engineering knowledge evolves through human-controlled updates:
-
-```text
-Engineering Activity
-        |
-        v
-Observation / Insight
-        |
-        v
-Knowledge Candidate
-        |
-        v
-Human Review
-        |
-        v
-Twin Data Update
-```
-
-AI may identify candidates and draft changes.
-
-AI must not silently convert observations into permanent knowledge.
-
-Permanent Twin Data updates require human approval.
-
-
-## 10. Separation of Responsibilities
+## Responsibility
 
 ```text
 setup-engineering-twin
-    = Create / Import / Validate / Configure
+= Create / Import / Validate / Configure
 
 engineering-twin
-    = Session Activation / Discover / Load / Interpret / Apply
+= Session Activation / Discover / Load / Interpret / Apply
 
 extract-engineering-twin
-    = Analyze historical evidence / Propose candidates
+= Analyze historical evidence / Propose candidates
 ```
 
-Each Skill has a separate responsibility and none replaces the AI agent's
-reasoning capability.
+Engineering Twin is opt-in for the current session. It does not replace the AI agent or its own configuration.
 
+Engineering Twin Data remains separate from the Skills and local configuration.
 
-## 11. Separation of Concerns
-
-The lifecycle must preserve these boundaries:
-
-```text
-Skill Repository
-    = How the AI uses the Twin
-
-User Configuration
-    = Which Twin the AI uses
-
-Engineering Twin Data
-    = What the Twin knows
-
-AI Agent Configuration
-    = How the AI behaves
-```
-
-Engineering Twin does not replace the AI agent's own configuration.
-
-
-## 12. Portability
-
-Engineering Twin Data is portable because it is stored independently
-of the Skill repository and local configuration.
-
-A user may move the Twin Data repository to another machine and
-recreate the local Configuration to point to the new location.
-
-The core knowledge format remains:
-
-```text
-Markdown + YAML + Git
-```
+Detailed operational lifecycle rules are maintained inside the relevant Skill packages.
