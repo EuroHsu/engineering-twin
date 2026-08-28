@@ -252,6 +252,8 @@ engineering-twin/
 The repository contains the Skills, documentation, and setup templates.
 It does not contain the user's personal Engineering Twin Data.
 
+The historical evidence access model is documented in `docs/extraction-sources.md`.
+
 
 ## Roadmap
 
