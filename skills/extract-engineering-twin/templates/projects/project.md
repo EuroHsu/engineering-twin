@@ -33,4 +33,4 @@ Example:
 
 ## Related Decisions
 
-- decision-name
+- NNNN-slug.md

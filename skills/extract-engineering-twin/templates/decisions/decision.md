@@ -52,8 +52,8 @@ Related engineering principle, if any.
 
 ## Supersedes
 
-- decision-name
+- NNNN-slug.md
 
 ## Superseded By
 
-- decision-name (when set, also update `status: superseded` above)
+- NNNN-slug.md (when set, also update `status: superseded` above)
