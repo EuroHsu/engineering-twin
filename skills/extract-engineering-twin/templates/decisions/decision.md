@@ -18,7 +18,11 @@ Tags:
 
 ## Context
 
-Describe the problem and situation.
+Describe the problem and situation, referencing the relevant code location when applicable.
+
+Example:
+
+`src/storages/redis.js`'s `close()` must handle disconnecting before the connection reaches the ready state.
 
 ## Options Considered
 
@@ -45,3 +49,11 @@ Related engineering principle, if any.
 ## Related Projects
 
 - project-name
+
+## Supersedes
+
+- decision-filename (leave empty if not applicable)
+
+## Superseded By
+
+- decision-filename (leave empty until a later decision replaces this one; when it does, also set `status: superseded` above)

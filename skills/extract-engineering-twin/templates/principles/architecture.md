@@ -5,10 +5,10 @@ status: confirmed
 
 # Architecture Principles
 
-## Principle 1
+## <Principle Name>
 
-Describe an architecture belief that guides system design.
+Describe an architecture belief that guides system design. Name the heading after the principle itself (for example "Clear Responsibility Boundaries"), not a generic placeholder.
 
-## Principle 2
+## <Another Principle Name>
 
 Describe another architecture belief that influences system design.
