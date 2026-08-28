@@ -17,6 +17,7 @@ The lifecycle separates:
 - Skill installation
 - Twin Data setup
 - Configuration
+- Session-level activation
 - Daily context usage
 - Historical knowledge extraction
 - Knowledge evolution
@@ -137,21 +138,49 @@ Engineering Twin Data.
 The configuration does not contain engineering knowledge.
 
 
-## 6. Daily Usage
+## 6. Session Activation
 
-During normal AI-assisted work:
+Engineering Twin is explicitly activated by the user for the current session.
+
+The `/engineering-twin` command is the session-level opt-in entry point.
+
+Activation does not permanently enable Engineering Twin and does not change
+the AI agent's general configuration.
+
+After activation:
 
 ```text
-AI Agent
+/engineering-twin
+      |
+      v
+Read Configuration
+      |
+      v
+Locate Twin Data
+      |
+      v
+Validate Twin Data
+      |
+      v
+Load Metadata + Identity
+      |
+      v
+Wait for user task
+```
+
+Before activation, the agent should not use Engineering Twin Data merely
+because it is available in the environment.
+
+
+## 7. Daily Usage
+
+After the user activates Engineering Twin and provides a task:
+
+```text
+User Task
     |
     v
 Engineering Twin Skill
-    |
-    v
-Read Configuration
-    |
-    v
-Locate Twin Data
     |
     v
 Load relevant context
@@ -159,9 +188,6 @@ Load relevant context
     v
 AI Agent Reasoning
 ```
-
-The daily Skill does not initialize Twin Data when configuration is missing.
-It directs the user to Setup Engineering Twin instead.
 
 Context should be loaded progressively:
 
@@ -179,8 +205,11 @@ Relevant Projects
 
 Not all Twin Data should be loaded for every task.
 
+The daily Skill does not initialize Twin Data when configuration is missing.
+It directs the user to Setup Engineering Twin instead.
 
-## 7. Historical Knowledge Extraction
+
+## 8. Historical Knowledge Extraction
 
 The Extract Engineering Twin Skill analyzes historical engineering activity
 when the user asks to discover potential Twin knowledge.
@@ -219,7 +248,7 @@ an integration, an export, or explicit user-provided material.
 Extraction does not automatically modify Twin Data.
 
 
-## 8. Knowledge Evolution
+## 9. Knowledge Evolution
 
 Engineering knowledge evolves through human-controlled updates:
 
@@ -246,14 +275,14 @@ AI must not silently convert observations into permanent knowledge.
 Permanent Twin Data updates require human approval.
 
 
-## 9. Separation of Responsibilities
+## 10. Separation of Responsibilities
 
 ```text
 setup-engineering-twin
     = Create / Import / Validate / Configure
 
 engineering-twin
-    = Discover / Load / Interpret / Apply
+    = Session Activation / Discover / Load / Interpret / Apply
 
 extract-engineering-twin
     = Analyze historical evidence / Propose candidates
@@ -263,7 +292,7 @@ Each Skill has a separate responsibility and none replaces the AI agent's
 reasoning capability.
 
 
-## 10. Separation of Concerns
+## 11. Separation of Concerns
 
 The lifecycle must preserve these boundaries:
 
@@ -284,7 +313,7 @@ AI Agent Configuration
 Engineering Twin does not replace the AI agent's own configuration.
 
 
-## 11. Portability
+## 12. Portability
 
 Engineering Twin Data is portable because it is stored independently
 of the Skill repository and local configuration.
