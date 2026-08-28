@@ -10,7 +10,7 @@ Date: 2026-08-28
 ## 1. Purpose
 
 Engineering Twin Configuration tells the Engineering Twin Skill
-where the user's Engineering Twin Data is located.
+which user-owned Engineering Twin Data should be used.
 
 Configuration is separate from Engineering Twin Data.
 
@@ -33,7 +33,7 @@ A future agent integration may use an equivalent
 agent-specific configuration location.
 
 The configuration file is local to the user's environment
-and should not be treated as Engineering Twin knowledge.
+and is not Engineering Twin knowledge.
 
 
 ## 3. Configuration Schema
@@ -62,7 +62,7 @@ The initial configuration schema should remain minimal.
 Configuration stores environment-specific information,
 such as the location of Twin Data.
 
-It should NOT store:
+It must NOT store:
 
 - engineer identity
 - engineering principles
@@ -76,26 +76,26 @@ Those concerns belong to Engineering Twin Data
 or the AI agent's own configuration.
 
 
-## 5. Twin Data Ownership
+## 5. Ownership and Separation
 
 Engineering Twin Data remains user-owned and independent
 from the Skill repository.
 
-For example:
-
 ```text
-Skill repository
+Skill Repository
     |
-    +-- provides Skills
+    +-- provides Skills and supporting resources
 
-User configuration
+User Configuration
     |
-    +-- points to Twin Data
+    +-- identifies the active Twin Data location
 
 Engineering Twin Data
     |
     +-- stores engineering knowledge
 ```
+
+The Skill must not assume that its own repository is Twin Data.
 
 The Skill should not copy or move Twin Data unless the user
 explicitly requests such an operation.
@@ -123,7 +123,9 @@ If no Twin Data location can be determined:
 - do not invent engineer-specific context
 - do not assume the Skill repository is the Twin Data
 - inform the user that no Twin Data is configured
-- suggest using `setup-engineering-twin` to create or import one
+- direct the user to `setup-engineering-twin` for creation or import
+
+The daily `engineering-twin` Skill must not initialize Twin Data itself.
 
 
 ## 8. Create Workflow
@@ -134,8 +136,11 @@ When `setup-engineering-twin` creates a new Twin Data repository:
 2. Create the Twin Data structure.
 3. Populate initial content from user-provided information.
 4. Request human review.
-5. Save the Twin Data location to the user-level configuration,
-   unless a higher-priority workspace configuration is explicitly used.
+5. After approval, save the Twin Data location to the appropriate configuration source.
+
+By default, Create uses the user-level configuration.
+If the user explicitly chooses a workspace configuration,
+save the path there instead.
 
 Example result:
 
@@ -156,7 +161,7 @@ When `setup-engineering-twin` imports an existing Twin Data repository:
 2. Validate its `twin.yaml` and supported schema version.
 3. Confirm the repository with the user.
 4. Save its location to the appropriate configuration source.
-5. Do not rewrite or relocate the existing Twin Data automatically.
+5. Do not rewrite, copy, or relocate the existing Twin Data automatically.
 
 
 ## 10. Multiple Twins
@@ -164,8 +169,7 @@ When `setup-engineering-twin` imports an existing Twin Data repository:
 The initial configuration model supports one active Twin Data location
 per configuration scope.
 
-A future version may support named Twin Data profiles,
-for example:
+A future version may support named Twin Data profiles, for example:
 
 ```yaml
 version: 2

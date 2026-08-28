@@ -383,7 +383,8 @@ engineering-twin/
 ├── docs/
 │   ├── architecture.md
 │   ├── configuration.md
-│   └── data-schema.md
+│   ├── data-schema.md
+│   └── lifecycle.md
 │
 └── skills/
     ├── engineering-twin/
