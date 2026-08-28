@@ -172,6 +172,12 @@ Creating or importing Twin Data is handled by the `setup-engineering-twin` Skill
 
 Do not use the daily Engineering Twin Skill to initialize a new Twin Data repository.
 
+## Knowledge Updates
+
+When the current session surfaces something worth capturing as permanent knowledge — a new decision, principle, or project context — proactively ask the user whether to invoke the `extract-engineering-twin` Skill to process it.
+
+Do not write or modify Twin Data directly from this Skill.
+
 ## Skill Packaging
 
 This Skill must remain self-contained after installation.

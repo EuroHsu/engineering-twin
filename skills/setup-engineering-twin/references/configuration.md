@@ -19,6 +19,17 @@ twinData:
 
 If the user intentionally uses a workspace-level configuration, write the path there instead of replacing the user-level configuration.
 
+## Switching the Active Twin Data
+
+When an existing configuration points to a usable Twin Data and the user wants another Twin Data to become active:
+
+1. Show the current configured path and the proposed path.
+2. Validate the proposed Twin Data before changing the configuration.
+3. Obtain explicit user confirmation to switch the active Twin Data.
+4. Update only the configuration pointer.
+5. Do not delete, move, modify, merge, or transform the previously configured Twin Data.
+6. Report both the old and new paths when the switch is complete.
+
 ## Configuration Boundary
 
 Configuration stores environment-specific information such as the Twin Data location.
