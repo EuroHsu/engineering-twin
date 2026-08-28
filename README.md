@@ -99,6 +99,39 @@ The setup Skill for creating or importing an Engineering Twin Data repository.
 Setup and daily use are intentionally separated.
 
 
+## Lifecycle
+
+Engineering Twin follows this lifecycle:
+
+```text
+Install Skills
+    |
+    v
+Setup Engineering Twin
+    |
+    +---- Create ----> Twin Data
+    |
+    +---- Import ----> Existing Twin Data
+    |
+    v
+Save Twin Data Location
+    |
+    v
+Engineering Twin Configuration
+    |
+    v
+Normal AI-Assisted Work
+    |
+    v
+Engineering Twin Skill
+    |
+    v
+Relevant Engineering Context
+```
+
+The Skill repository, local configuration, and user-owned Twin Data are separate concerns.
+
+
 ## Configuration
 
 Engineering Twin Configuration tells the Skill which user-owned Twin Data repository or directory should be used.
@@ -215,9 +248,9 @@ Completed:
 
 ### v0.2 Prototype
 
-Planned:
+Current focus:
 
-- Claude Code Skill integration
+- Skill installation model
 - Twin Data discovery
 - Configuration
 - Create/import setup workflow
