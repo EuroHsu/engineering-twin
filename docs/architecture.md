@@ -148,7 +148,7 @@ Responsible for:
 
 # 6. Data Model
 
-Engineering Twin Data contains four layers.
+Engineering Twin Data contains five components.
 
 
 ## Metadata
