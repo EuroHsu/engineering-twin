@@ -51,7 +51,7 @@ Other source types may be available through integrations or the current environm
 
 For provider-specific session locations and access rules, read `references/evidence-sources.md` bundled with this Skill.
 
-For the normalized candidate and permanent-data format, read `references/knowledge-format.md` bundled with this Skill.
+For the candidate and permanent-data format, read `references/knowledge-format.md` bundled with this Skill.
 
 ## Extraction Workflow
 
@@ -76,7 +76,7 @@ Knowledge Candidate
 Human Review
       |
       v
-Normalized Twin Data
+Decision-relevant Twin Data
 ```
 
 ### 1. Select the Source and Scope
@@ -151,24 +151,22 @@ For each candidate, classify its scope when meaningful:
 
 Use the narrowest scope supported by the evidence. Do not promote project-specific facts into universal principles without evidence supporting that scope.
 
-### 6. Produce Normalized Knowledge Candidates
+### 6. Produce Knowledge Candidates
 
-Each candidate must use the vocabulary defined in `references/knowledge-format.md`.
+Candidates are review artifacts. They should contain enough extraction metadata to explain why they were proposed, including:
 
-At minimum, include:
-
-- `type`
-- `scope`
-- `status: candidate`
-- `confidence`
-- `evidence`
-- `sources`
+- type
+- scope
+- status: candidate
+- confidence
+- evidence
+- sources
 - candidate statement
 - observation
 - interpretation
 - suggested destination
 
-A candidate is an extraction artifact for review. Do not copy its wrapper verbatim into permanent Twin Data.
+Do not treat this metadata as permanent Twin Data. After approval, convert the candidate into concise, decision-relevant knowledge.
 
 ### 7. Human Review
 
@@ -183,15 +181,20 @@ The user may:
 
 Only an explicit acceptance or approved edit authorizes a permanent Twin Data update.
 
-Preserve the distinction between the original candidate and the user's final decision.
+Preserve the distinction between the original candidate and the user's final decision during the review step.
 
-### 8. Write Normalized Twin Data
+### 8. Write Permanent Twin Data
 
-After approval, convert the candidate into the appropriate permanent knowledge type.
+After approval, convert the candidate into the appropriate knowledge type and concise decision-relevant content.
 
-Use YAML front matter and human-readable Markdown according to `references/knowledge-format.md`.
+Use the normalized permanent format from `references/knowledge-format.md`:
 
-Do not write `status: candidate` as permanent knowledge.
+- `scope`
+- `status`
+
+Do not copy candidate-only fields such as `confidence`, `evidence`, or `sources` into permanent Twin Data.
+
+The knowledge type is determined by the destination directory (`identity/`, `principles/`, `decisions/`, or `projects/`).
 
 ## Empty Twin Initialization
 
@@ -296,6 +299,7 @@ The Skill must never:
 - overgeneralize project-specific evidence into universal principles without support
 - modify Twin Data silently
 - commit changes to Twin Data without approval
+- copy extraction-only provenance into permanent Twin Data
 - modify the Skill repository during extraction
 
 ## Skill Packaging

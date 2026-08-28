@@ -1,40 +1,29 @@
-# Normalized Twin Knowledge Format
+# Twin Knowledge Format
 
-New permanent knowledge created by this Skill should use YAML front matter followed by human-readable Markdown.
+New permanent Engineering Twin Data knowledge may use YAML front matter followed by human-readable Markdown.
 
-## Metadata
+## Permanent Metadata
 
-Required fields:
+Keep only metadata that helps the daily Engineering Twin make decisions:
 
 ```yaml
 ---
-type: identity | principle | decision | project
 scope: personal | general | technology-specific | project-specific | situation-specific
 status: confirmed | superseded | deprecated
-confidence: high | medium | low
-evidence: explicit | observed | inferred | mixed
-sources:
-  - type: resume | document | project | session | git | pr | user | other
-    ref: <source identifier or path>
 ---
 ```
 
-`candidate` is a review state used during extraction and must not be written as permanent Twin Data unless the user explicitly asks to preserve candidates.
+The knowledge type is defined by its destination directory:
 
-## Semantic Rules
+- `identity/` → identity
+- `principles/` → principle
+- `decisions/` → decision
+- `projects/` → project
 
-- Fact: directly supported information. Do not label inference as fact.
-- Observation: a pattern directly observed in evidence.
-- Inference: a conclusion drawn from evidence; keep it explicitly identified as inference.
-- Decision: a specific choice made for a context.
-- Principle: a reusable engineering belief or rule supported strongly enough to generalize.
+Do not store extraction provenance in permanent Twin Data. Evidence, confidence, and source references belong to the extraction candidate and review process, not the final knowledge record.
 
-A single knowledge file may contain multiple claims with different evidence types. In that case use `evidence: mixed` and distinguish claims in the Markdown body.
+`status: confirmed` is usable permanent knowledge. `superseded` and `deprecated` records remain historical context and should not be treated as current guidance unless relevant.
 
-## Candidate to Data
+Templates are starting points only. Replace placeholder content with information confirmed by the user.
 
-After human approval, convert a candidate into normalized permanent knowledge; do not copy the candidate wrapper verbatim into Twin Data.
-
-## Backward Compatibility
-
-Existing Twin Data without front matter remains valid. Normalization applies to newly created or updated knowledge unless an explicit migration is approved.
+Existing Twin Data without front matter remains valid. Do not migrate or rewrite it automatically.

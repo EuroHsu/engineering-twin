@@ -1,40 +1,56 @@
-# Normalized Twin Knowledge Format
+# Twin Knowledge Format
 
-New permanent knowledge created by this Skill should use YAML front matter followed by human-readable Markdown.
+## Permanent Metadata
 
-## Metadata
-
-Required fields:
+Permanent Twin Data keeps only metadata that helps the daily Engineering Twin make decisions:
 
 ```yaml
 ---
-type: identity | principle | decision | project
 scope: personal | general | technology-specific | project-specific | situation-specific
 status: confirmed | superseded | deprecated
-confidence: high | medium | low
-evidence: explicit | observed | inferred | mixed
-sources:
-  - type: resume | document | project | session | git | pr | user | other
-    ref: <source identifier or path>
 ---
 ```
 
-`candidate` is a review state used during extraction and must not be written as permanent Twin Data unless the user explicitly asks to preserve candidates.
+The knowledge type is defined by its destination directory:
+
+- `identity/` → identity
+- `principles/` → principle
+- `decisions/` → decision
+- `projects/` → project
+
+Do not copy extraction provenance into permanent Twin Data. `confidence`, `evidence`, and `sources` are extraction/review metadata.
+
+## Extraction Candidate
+
+Candidates may use richer metadata because the extraction process needs to explain why a candidate was proposed:
+
+```text
+type
+scope
+status: candidate
+confidence
+evidence
+sources
+candidate
+observation
+interpretation
+suggested destination
+```
+
+Candidate metadata and evidence are review artifacts. They must not be copied verbatim into permanent Twin Data.
 
 ## Semantic Rules
 
-- Fact: directly supported information. Do not label inference as fact.
+- Fact: directly supported information.
 - Observation: a pattern directly observed in evidence.
-- Inference: a conclusion drawn from evidence; keep it explicitly identified as inference.
+- Inference: a conclusion drawn from evidence.
 - Decision: a specific choice made for a context.
 - Principle: a reusable engineering belief or rule supported strongly enough to generalize.
 
-A single knowledge file may contain multiple claims with different evidence types. In that case use `evidence: mixed` and distinguish claims in the Markdown body.
+These labels are useful when reviewing extraction candidates. Permanent knowledge should retain only content that is useful for future decisions.
 
 ## Candidate to Data
 
-Extraction candidates use the same metadata vocabulary plus review state and a suggested destination. After human approval, convert the candidate into normalized permanent knowledge; do not copy the candidate wrapper verbatim into Twin Data.
+After explicit human approval, convert the candidate into concise, decision-relevant knowledge and write only the permanent `scope` and `status` metadata.
 
-## Backward Compatibility
-
-Existing Twin Data without front matter remains readable. Normalization applies to newly created or updated knowledge unless an explicit migration is approved.
+Existing Twin Data without front matter remains readable. Do not migrate or rewrite it automatically.

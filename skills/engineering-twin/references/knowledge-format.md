@@ -1,22 +1,27 @@
-# Normalized Twin Knowledge Format
+# Twin Knowledge Format
 
-Engineering Twin Data knowledge may use YAML front matter followed by human-readable Markdown.
+Permanent Engineering Twin Data knowledge may use YAML front matter followed by human-readable Markdown.
 
-Expected metadata vocabulary:
+## Permanent Metadata
+
+Keep only metadata that helps the daily Engineering Twin make decisions:
 
 ```yaml
 ---
-type: identity | principle | decision | project
 scope: personal | general | technology-specific | project-specific | situation-specific
 status: confirmed | superseded | deprecated
-confidence: high | medium | low
-evidence: explicit | observed | inferred | mixed
-sources:
-  - type: resume | document | project | session | git | pr | user | other
-    ref: <source identifier or path>
 ---
 ```
 
-Use metadata to understand provenance and lifecycle, but do not treat it as a substitute for the Markdown content.
+The knowledge type is defined by its location:
+
+- `identity/` → identity
+- `principles/` → principle
+- `decisions/` → decision
+- `projects/` → project
+
+Do not store extraction provenance in permanent Twin Data. Evidence, confidence, and source references belong to the extraction candidate and review process, not the final knowledge record.
+
+`status: confirmed` is usable permanent knowledge. `superseded` and `deprecated` records remain historical context and should not be treated as current guidance unless relevant.
 
 Existing Twin Data without front matter remains valid. Do not migrate or rewrite it automatically.

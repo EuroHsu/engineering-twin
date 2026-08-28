@@ -1,12 +1,6 @@
 ---
-type: identity
 scope: personal
 status: confirmed
-confidence: high
-evidence: explicit
-sources:
-  - type: user
-    ref: <confirmed user-provided source>
 ---
 
 # Profile

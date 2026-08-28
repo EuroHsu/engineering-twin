@@ -1,12 +1,6 @@
 ---
-type: principle
 scope: general
 status: confirmed
-confidence: high
-evidence: explicit
-sources:
-  - type: user
-    ref: <confirmed user-provided source>
 ---
 
 # Engineering Principles
