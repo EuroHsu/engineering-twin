@@ -39,11 +39,12 @@ When the user chooses Create:
 1. Ask for or confirm the destination path.
 2. Resolve the path and check whether the destination already exists.
 3. If the destination contains existing files, stop and ask whether it should be used, replaced, or another destination selected. Never overwrite it silently.
-4. Create the empty standard Twin Data structure: `twin.yaml`, `identity/`, `principles/`, `decisions/`, and `projects/`.
-5. Do not create knowledge files or populate Identity, Principles, Decisions, or Projects.
-6. If the user wants to populate the new Twin from existing personal or project material, direct them to `extract-engineering-twin` after Create completes.
-7. Configure the new Twin Data as active when applicable, with explicit confirmation before changing an existing configuration.
-8. Report the resolved Twin Data path and configuration path.
+4. Create the empty standard Twin Data structure: `README.md`, `identity/`, `principles/`, `decisions/`, and `projects/`.
+5. Create `README.md` using the bundled container README template.
+6. Do not create knowledge files or populate Identity, Principles, Decisions, or Projects.
+7. If the user wants to populate the new Twin from existing personal or project material, direct them to `extract-engineering-twin` after Create completes.
+8. Configure the new Twin Data as active when applicable, with explicit confirmation before changing an existing configuration.
+9. Report the resolved Twin Data path and configuration path.
 
 Create establishes the Data container only. It does not represent unconfirmed or inferred knowledge.
 
@@ -52,13 +53,12 @@ Create establishes the Data container only. It does not represent unconfirmed or
 When the user chooses Import:
 
 1. Ask for or locate the existing Twin Data repository or directory.
-2. Verify that `twin.yaml` exists.
-3. Verify that the standard knowledge directories are present when applicable.
-4. Report structural validation problems clearly.
-5. Do not rewrite, rename, move, normalize, migrate, or otherwise modify existing content automatically.
-6. Confirm with the user that this is the Twin Data they want to use.
-7. Configure the confirmed Twin Data as active.
-8. Report the configured path.
+2. Verify that the standard knowledge directories are present when applicable.
+3. Report structural validation problems clearly.
+4. Do not rewrite, rename, move, normalize, migrate, or otherwise modify existing content automatically.
+5. Confirm with the user that this is the Twin Data they want to use.
+6. Configure the confirmed Twin Data as active.
+7. Report the configured path.
 
 Import accepts a human-readable Twin Data directory when its structure can be understood by the current Skill. An older or extended file layout does not require rewriting merely because the current layout is simpler.
 
@@ -68,13 +68,12 @@ Import does not copy personal knowledge into the Skill repository.
 
 Before accepting Twin Data as usable:
 
-- `twin.yaml` must exist.
 - The standard knowledge directories should be present when applicable: `identity/`, `principles/`, `decisions/`, and `projects/`.
 - Existing Markdown knowledge should remain human-readable.
 - Optional knowledge areas may be empty.
 - The Data directory must be distinguishable from the Skill repository.
 
-Validation is a structural and readability check. It is not a version-migration step.
+Validation is a structural and readability check.
 
 Validation must not silently repair user-owned Twin Data.
 
@@ -132,4 +131,4 @@ A setup operation is complete only after:
 This Skill must remain self-contained after installation.
 
 For normal operation, do not depend on files outside this Skill directory.
-Use bundled files under `references/` when additional material is required.
+Use bundled files under `references/` and `templates/` when additional material is required.
