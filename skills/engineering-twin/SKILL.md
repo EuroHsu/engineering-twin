@@ -122,11 +122,16 @@ Load other knowledge areas only when relevant to the task.
 
 ## Normalized Knowledge
 
-Knowledge may use YAML front matter followed by Markdown. When present, use its metadata to understand type, scope, lifecycle status, confidence, and evidence provenance.
+Knowledge may use YAML front matter followed by Markdown. The permanent metadata is intentionally minimal and should contain only:
 
-Read the bundled `references/knowledge-format.md` for the metadata vocabulary.
+- `scope`
+- `status`
 
-Treat `status: confirmed` as permanent knowledge. Do not treat `candidate` content as permanent knowledge.
+The knowledge type is determined by the destination directory (`identity/`, `principles/`, `decisions/`, or `projects/`).
+
+Read the bundled `references/knowledge-format.md` for the permanent metadata convention.
+
+Treat `status: confirmed` as permanent knowledge. Do not treat `candidate` content or extraction-only metadata as permanent knowledge.
 
 Existing knowledge without front matter remains valid and should not be rewritten automatically.
 
@@ -176,4 +181,4 @@ Do not use the daily Engineering Twin Skill to initialize a new Twin Data reposi
 This Skill must remain self-contained after installation.
 
 For normal operation, do not depend on files outside this Skill directory.
-Use bundled files under `references/` when additional material is required.
+Use bundled files under `references/` when additional detail is required.
