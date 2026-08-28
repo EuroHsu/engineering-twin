@@ -43,10 +43,11 @@ When the user chooses Create:
 7. Add Decisions or Projects only when the user provides information that should be stored there.
 8. Draft Markdown only from information provided or explicitly confirmed by the user.
 9. Do not create a knowledge file merely to represent missing, unknown, or unconfirmed information. Empty knowledge areas may remain as directories without knowledge files when no content was provided.
-10. Present generated or changed knowledge for human review.
-11. Require explicit approval before treating drafted content as permanent Twin Data.
-12. Save the confirmed Twin Data location to the appropriate Engineering Twin Configuration.
-13. Report the resolved Twin Data path and configuration path, not only a relative or user-entered path.
+10. New permanent knowledge files must use the normalized format in `references/knowledge-format.md` and must contain only confirmed content.
+11. Present generated or changed knowledge for human review.
+12. Require explicit approval before treating drafted content as permanent Twin Data.
+13. Save the confirmed Twin Data location to the appropriate Engineering Twin Configuration.
+14. Report the resolved Twin Data path and configuration path, not only a relative or user-entered path.
 
 The Create flow must not infer a user's engineering principles from the fact that a tool, framework, project, or architecture was mentioned or used. Observations may be presented as candidates for confirmation.
 
@@ -81,6 +82,7 @@ Before accepting Twin Data as usable:
 - Existing Markdown knowledge should remain human-readable.
 - Optional knowledge areas such as `decisions/` and `projects/` may be absent.
 - If multiple version declarations exist in legacy metadata, they must agree.
+- New or updated normalized knowledge metadata must use the vocabulary in `references/knowledge-format.md`.
 
 A validation problem should be reported together with the affected path and the reason it is invalid.
 
@@ -118,11 +120,16 @@ twinData:
   path: ~/workspace/my-engineering-twin-data
 ```
 
-When a configuration already exists, treat it as the current active Twin Data pointer. If Create or Import selects a different Twin Data location, present the current configured path and the proposed replacement path, and require explicit user confirmation before changing the configuration.
+If the user intentionally uses a workspace-level configuration, write the path there instead of replacing the user-level configuration.
 
-Changing the configured path only changes which Twin Data is active. It must not delete, move, overwrite, merge, or otherwise modify the previously configured Twin Data unless the user separately requests that action.
+When an existing configuration points to a usable Twin Data and the user wants another Twin Data to become active:
 
-If the user intentionally uses a workspace-level configuration, update that configuration instead of replacing the user-level configuration.
+1. Show the current configured path and the proposed path.
+2. Validate the proposed Twin Data before changing the configuration.
+3. Obtain explicit user confirmation to switch the active Twin Data.
+4. Update only the configuration pointer.
+5. Do not delete, move, modify, merge, or migrate the previously configured Twin Data.
+6. Report both the old and new paths when the switch is complete.
 
 Configuration stores the location of Twin Data, not the Twin's engineering knowledge.
 
@@ -140,7 +147,7 @@ Do not store the following in configuration:
 
 Templates are provided in this Skill's `templates/` directory.
 
-Use templates as starting points only. Replace placeholder content with information confirmed by the user.
+Use templates as starting points only. Replace placeholder content and normalized metadata with information confirmed by the user.
 
 The templates define the initial structure; they do not constitute confirmed engineering knowledge for the user.
 
@@ -163,3 +170,4 @@ Use bundled files under `references/` and `templates/` when additional material 
 
 For schema-version handling, use the bundled `references/schema-versions.md`.
 For migration workflow handling, use the bundled `references/migration.md`.
+For knowledge-format handling, use the bundled `references/knowledge-format.md`.

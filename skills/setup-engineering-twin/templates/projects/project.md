@@ -1,3 +1,14 @@
+---
+type: project
+scope: project-specific
+status: confirmed
+confidence: high
+evidence: explicit
+sources:
+  - type: user
+    ref: <confirmed user-provided source>
+---
+
 # Project Name
 
 ## Overview
@@ -6,19 +17,8 @@ Describe the project and its purpose.
 
 ## Technology Stack
 
-- Technology
-- Framework
-- Database
-- Cloud platform
+List the technologies used by the project.
 
 ## Engineering Context
 
-Describe project-specific constraints and context.
-
-## Related Principles
-
-- principle-name
-
-## Related Decisions
-
-- decision-id
+Record project-specific facts, constraints, intentional behavior, and relevant history.
