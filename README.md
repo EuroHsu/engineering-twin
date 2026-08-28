@@ -2,26 +2,16 @@
 
 A personal engineering context layer for AI coding agents.
 
-Engineering Twin helps AI coding agents understand an engineer's:
+Engineering Twin preserves an engineer's identity, principles, decisions, and project context in portable, human-readable data.
 
-- identity
-- engineering principles
-- architectural principles
-- technical decisions
-- project context
-
-It does not train or replace an AI model. It provides portable engineering context that existing AI agents can use during reasoning and implementation.
-
-## Core Concept
+## Core Model
 
 ```text
 AI Agent
     |
-    | uses
     v
 Engineering Twin Skills
     |
-    | read and operate on
     v
 Engineering Twin Data
 ```
@@ -31,7 +21,7 @@ AI Agent
 = reasoning, coding, problem solving
 
 Engineering Twin Skills
-= instructions for discovering, using, setting up, and evolving Twin context
+= setup, activation, context usage, historical extraction
 
 Engineering Twin Data
 = user-owned engineering knowledge
@@ -39,33 +29,21 @@ Engineering Twin Data
 
 ## Skills
 
-The repository provides three complementary Skills:
-
-### `engineering-twin`
-
-Applies relevant personal engineering context during normal AI-assisted work.
-
-### `setup-engineering-twin`
-
-Creates or imports Twin Data, validates it, and configures its location.
-
-### `extract-engineering-twin`
-
-Analyzes historical engineering activity and proposes evidence-backed knowledge candidates for human review.
-
-The Skills are intentionally independent from the user's personal Twin Data.
+- `engineering-twin` — activate and use Twin context during the current session
+- `setup-engineering-twin` — create or import Twin Data and configure its location
+- `extract-engineering-twin` — analyze historical engineering activity and propose knowledge candidates
 
 ## Quick Start
 
-Install the Skills using a Skill ecosystem supported by your AI agent.
+Install the Skills with your AI agent's supported Skill ecosystem.
 
-Then run `setup-engineering-twin` to create or import Engineering Twin Data.
+Run `setup-engineering-twin` to create or import Twin Data.
 
-After setup, `engineering-twin` can use the configured Twin Data during normal work. Run `extract-engineering-twin` when historical engineering activity should be analyzed for potential new knowledge.
+Run `/engineering-twin` when you want to use the Twin in the current session.
+
+Run `extract-engineering-twin` when you want to analyze historical engineering activity.
 
 ## Twin Data
-
-A typical user-owned Twin Data repository is:
 
 ```text
 engineering-twin-data/
@@ -77,51 +55,24 @@ engineering-twin-data/
 └── projects/
 ```
 
-Twin Data is stored separately from this Skill repository and is primarily Markdown with YAML metadata.
+Twin Data is separate from this repository and is primarily Markdown with YAML metadata.
 
 ## Documentation
 
-`docs/` contains the canonical Engineering Twin project specification. These files explain the architecture, data schema, configuration, lifecycle, and historical extraction model.
+`docs/` contains only lightweight human-facing project notes. Operational rules belong to the corresponding Skill package.
 
-The `docs/` directory is human-facing documentation and is not an installed Skill dependency.
+- `docs/architecture.md` — core architecture and responsibility boundaries
+- `docs/data-schema.md` — minimal Data structure and schema summary
+- `docs/lifecycle.md` — minimal lifecycle overview
 
-- `docs/architecture.md` — overall architecture and responsibility boundaries
-- `docs/data-schema.md` — Engineering Twin Data structure and schema
-- `docs/configuration.md` — local configuration model and discovery precedence
-- `docs/lifecycle.md` — installation, setup, usage, extraction, and evolution
-- `docs/extraction.md` — historical knowledge extraction model
-- `docs/extraction-sources.md` — historical evidence source and access model
+The Skills are self-contained after installation and must not depend on repository-level `docs/` files for normal operation.
 
 ## Design Principles
 
-### Human First
+- Human First
+- Markdown Native
+- Git Native
+- Explicit Over Automatic
+- Context Over History
 
-Engineering knowledge should remain understandable by humans.
-
-### Markdown Native
-
-Engineering knowledge should primarily be represented as Markdown, with YAML used only for structured metadata.
-
-### Git Native
-
-Engineering knowledge should evolve through normal Git workflows.
-
-### Explicit Over Automatic
-
-AI may suggest knowledge updates, but humans approve permanent changes.
-
-### Context Over History
-
-Store meaningful engineering knowledge rather than raw conversation history.
-
-## What Engineering Twin Is Not
-
-Engineering Twin is not:
-
-- an AI model
-- an autonomous agent
-- a backend platform
-- a database of all conversations
-- a replacement for AI-agent configuration
-
-It preserves engineering judgment so humans and AI can collaborate more effectively.
+Engineering Twin preserves engineering judgment; it does not replace AI reasoning or define the agent's own behavior.
