@@ -1,23 +1,25 @@
 ---
 name: setup-engineering-twin
-description: Creates or imports an Engineering Twin Data repository and guides the user through initialization, validation, and configuration. Use when the user wants to create, import, or initialize Engineering Twin Data.
+description: Creates or imports an Engineering Twin Data repository and configures which Twin Data is active. Use when the user wants to create an empty Twin Data repository, import existing Twin Data, validate it, or switch the active Twin Data.
 ---
 
 # Setup Engineering Twin
 
-This Skill manages the setup of Engineering Twin Data.
+This Skill manages the lifecycle and configuration of Engineering Twin Data.
 
-It is separate from both the daily-use `engineering-twin` Skill and the knowledge-acquisition `extract-engineering-twin` Skill.
+It is separate from the knowledge-acquisition `extract-engineering-twin` Skill and the daily-use `engineering-twin` Skill.
 
 ## Responsibility Boundary
 
-`setup-engineering-twin` manages the Twin Data lifecycle:
+`setup-engineering-twin` manages only:
 
 ```text
 Create / Import / Validate / Configure
 ```
 
-It does not extract engineering knowledge from historical activity or personal source material. Use `extract-engineering-twin` for evidence-based knowledge acquisition from sessions, projects, resumes, documents, Git history, PRs, and other existing records.
+It does not create, extract, infer, normalize, or modify permanent engineering knowledge.
+
+Use `extract-engineering-twin` to populate or update knowledge from resumes, projects, documents, sessions, Git history, PRs, and other evidence.
 
 ## Start
 
@@ -25,33 +27,26 @@ First determine whether a usable Engineering Twin Data repository or directory i
 
 Present the user with two choices:
 
-1. Create a new Engineering Twin Data
+1. Create a new empty Engineering Twin Data
 2. Import an existing Engineering Twin Data
 
-Do not silently create, overwrite, move, copy, or modify Twin Data.
+Do not silently create, overwrite, move, copy, merge, migrate, or modify Twin Data.
 
 ## Create
 
 When the user chooses Create:
 
 1. Ask for or confirm the destination path.
-2. Check whether the destination already exists.
-3. If the destination contains existing files, stop and ask the user whether it should be used, replaced, or another destination selected. Never overwrite it silently.
-4. Create the standard Twin Data structure using the templates bundled with this Skill.
+2. Resolve the path and check whether the destination already exists.
+3. If the destination contains existing files, stop and ask whether it should be used, replaced, or another destination selected. Never overwrite it silently.
+4. Create the empty standard Twin Data structure: `twin.yaml`, `identity/`, `principles/`, `decisions/`, and `projects/`.
 5. Create `twin.yaml` using the current schema version `0.2`.
-6. Guide the user through Identity and Principles when the user wants to enter them directly.
-7. Add Decisions or Projects only when the user provides information that should be stored there.
-8. Draft Markdown only from information provided or explicitly confirmed by the user.
-9. Do not create a knowledge file merely to represent missing, unknown, or unconfirmed information. Empty knowledge areas may remain as directories without knowledge files when no content was provided.
-10. New permanent knowledge files must use the normalized format in `references/knowledge-format.md` and contain only confirmed, decision-relevant content.
-11. Present generated or changed knowledge for human review.
-12. Require explicit approval before treating drafted content as permanent Twin Data.
-13. Save the confirmed Twin Data location to the appropriate Engineering Twin Configuration.
-14. Report the resolved Twin Data path and configuration path, not only a relative or user-entered path.
+6. Do not create knowledge files or populate Identity, Principles, Decisions, or Projects.
+7. If the user wants to populate the new Twin from existing personal or project material, direct them to `extract-engineering-twin` after Create completes.
+8. Configure the new Twin Data as active when applicable, with explicit confirmation before changing an existing configuration.
+9. Report the resolved Twin Data path and configuration path.
 
-The Create flow must not infer a user's engineering principles from the fact that a tool, framework, project, or architecture was mentioned or used. Observations may be presented as candidates for confirmation.
-
-If the user wants to populate a new Twin from existing personal or project material rather than directly provide knowledge, keep Create limited to bootstrapping the Data structure and configuration. Do not perform that extraction here; use `extract-engineering-twin` for the knowledge-acquisition task.
+Create establishes the Data container only. It does not represent unconfirmed or inferred knowledge.
 
 ## Import
 
@@ -66,8 +61,8 @@ When the user chooses Import:
 7. Report validation problems clearly.
 8. Do not rewrite, rename, move, normalize, or migrate existing content automatically.
 9. Confirm with the user that this is the Twin Data they want to use.
-10. Save the confirmed Twin Data location to the appropriate Engineering Twin Configuration.
-11. Report the configured location and the schema status to the user.
+10. Configure the confirmed Twin Data as active.
+11. Report the configured path and schema status.
 12. When a supported legacy version has a defined migration path, offer migration separately; do not perform it without user approval.
 
 Import does not copy personal knowledge into the Skill repository.
@@ -83,8 +78,6 @@ Before accepting Twin Data as usable:
 - Optional knowledge areas such as `decisions/` and `projects/` may be absent.
 - If multiple version declarations exist in legacy metadata, they must agree.
 - New or updated normalized knowledge must use only `scope` and `status` metadata as defined in `references/knowledge-format.md`.
-
-A validation problem should be reported together with the affected path and the reason it is invalid.
 
 Validation must not silently repair or migrate user-owned Twin Data.
 
@@ -105,7 +98,7 @@ Version-specific mapping rules belong in the schema-version reference or other b
 
 ## Configuration
 
-After a successful Create or Import, use the bundled `references/configuration.md` for the configuration rules.
+Use the bundled `references/configuration.md` for configuration rules.
 
 The recommended user-level configuration file is:
 
@@ -143,30 +136,21 @@ Do not store the following in configuration:
 - general AI behavior
 - agent-specific instructions
 
-## Templates
-
-Templates are provided in this Skill's `templates/` directory.
-
-Use templates as starting points only. Replace placeholder content and normalized metadata with information confirmed by the user.
-
-The templates define the initial structure; they do not constitute confirmed engineering knowledge for the user.
-
 ## Completion
 
 A setup operation is complete only after:
 
 1. The Twin Data location has been established or confirmed.
 2. Validation has succeeded, or the user has explicitly accepted the reported limitations.
-3. Required human review has occurred for newly drafted knowledge or an approved migration.
-4. Configuration has been updated successfully when configuration is applicable.
-5. The user has been told the resolved Twin Data location and configuration location.
+3. Configuration has been updated successfully when configuration is applicable.
+4. The user has been told the resolved Twin Data location and configuration location.
 
 ## Skill Packaging
 
 This Skill must remain self-contained after installation.
 
 For normal operation, do not depend on files outside this Skill directory.
-Use bundled files under `references/` and `templates/` when additional material is required.
+Use bundled files under `references/` when additional detail is required.
 
 For schema-version handling, use the bundled `references/schema-versions.md`.
 For migration workflow handling, use the bundled `references/migration.md`.
