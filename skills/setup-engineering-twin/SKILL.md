@@ -32,10 +32,11 @@ When the user chooses Create:
 6. Guide the user through Identity and Principles.
 7. Add Decisions or Projects only when the user provides information that should be stored there.
 8. Draft Markdown only from information provided or explicitly confirmed by the user.
-9. Present generated or changed knowledge for human review.
-10. Require explicit approval before treating drafted content as permanent Twin Data.
-11. Save the confirmed Twin Data location to the appropriate Engineering Twin Configuration.
-12. Report the final Twin Data location and configuration location to the user.
+9. Do not create a knowledge file merely to represent missing, unknown, or unconfirmed information. Empty knowledge areas may remain as directories without knowledge files when no content was provided.
+10. Present generated or changed knowledge for human review.
+11. Require explicit approval before treating drafted content as permanent Twin Data.
+12. Save the confirmed Twin Data location to the appropriate Engineering Twin Configuration.
+13. Report the resolved Twin Data path and configuration path, not only a relative or user-entered path.
 
 The Create flow must not infer a user's engineering principles from the fact that a tool, framework, or architecture was mentioned or used. Observations may be presented as candidates for confirmation.
 
@@ -135,7 +136,7 @@ A setup operation is complete only after:
 2. Validation has succeeded, or the user has explicitly accepted the reported limitations.
 3. Required human review has occurred for newly drafted knowledge or an approved migration.
 4. Configuration has been updated successfully when configuration is applicable.
-5. The user has been told where the Twin Data is located.
+5. The user has been told the resolved Twin Data location and configuration location.
 
 ## Skill Packaging
 
