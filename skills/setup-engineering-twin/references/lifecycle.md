@@ -20,7 +20,7 @@ Report Result
 
 ## Create
 
-Create an empty Twin Data structure containing `twin.yaml` and the standard knowledge directories. Do not create knowledge files or populate knowledge during setup.
+Create an empty Twin Data structure containing the standard knowledge directories and a bundled `README.md` describing the container. Do not create knowledge files or populate knowledge during setup.
 
 ## Import
 
@@ -36,4 +36,4 @@ Use `extract-engineering-twin` to acquire, review, and write permanent knowledge
 
 ## Completion
 
-Setup is complete when the Twin Data location is established or confirmed, required validation is satisfied or explicitly accepted, and Configuration has been updated when applicable.
+Setup is complete when the Twin Data location is established or confirmed, required structural validation is satisfied or explicitly accepted, and Configuration has been updated when applicable.
