@@ -1,18 +1,20 @@
+---
+type: principle
+scope: general
+status: confirmed
+confidence: high
+evidence: explicit
+sources:
+  - type: user
+    ref: <confirmed user-provided source>
+---
+
 # Architecture Principles
 
-## System Design
+## Principle 1
 
-Describe the architecture principles that guide your system design decisions.
+Describe an architecture belief that guides system design.
 
-Example:
+## Principle 2
 
-Prefer clear boundaries between system components.
-
-## Trade-offs
-
-Describe how you balance:
-
-- simplicity
-- scalability
-- cost
-- maintainability
+Describe another architecture belief that influences system design.
