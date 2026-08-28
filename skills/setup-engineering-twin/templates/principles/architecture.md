@@ -1,6 +1,5 @@
 # Architecture Principles
 
-
 ## System Design
 
 Describe the architecture principles that guide your system design decisions.
@@ -8,7 +7,6 @@ Describe the architecture principles that guide your system design decisions.
 Example:
 
 Prefer clear boundaries between system components.
-
 
 ## Trade-offs
 

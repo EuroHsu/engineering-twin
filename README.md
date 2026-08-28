@@ -40,21 +40,22 @@ Engineering Twin preserves this engineering context in a portable and human-read
 
 Engineering Twin works as a three-layer system:
 
-```
+```text
 AI Agent
     |
     | uses
     v
 Engineering Twin Skill
     |
-    | loads
+    | reads
     v
 Engineering Twin Data
 ```
 
-The Skill provides the mechanism for discovering, validating, and loading Twin Data.
-
+The Skill provides instructions for discovering and using Twin Data.
 The Data stores the engineer's identity, principles, decisions, and project context.
+
+The Skill does not contain the user's personal engineering knowledge.
 
 
 ## Design Philosophy
@@ -64,6 +65,11 @@ Engineering Twin follows these principles:
 ### Human First
 
 Knowledge should remain readable and understandable by humans.
+
+### Markdown Native
+
+Engineering knowledge should primarily be represented as Markdown.
+Structured metadata may use YAML.
 
 ### Git Native
 
@@ -78,36 +84,43 @@ AI may suggest improvements, but humans control updates.
 Store meaningful engineering knowledge, not every conversation.
 
 
+## Engineering Twin Skills
+
+The repository provides two complementary Skills.
+
+### Engineering Twin
+
+The daily-use Skill for applying personal engineering context during AI-assisted work.
+
+### Setup Engineering Twin
+
+The setup Skill for creating or importing an Engineering Twin Data repository.
+
+Setup and daily use are intentionally separated.
+
+
 ## Data Structure
 
 A typical Engineering Twin Data repository:
 
-```
+```text
 engineering-twin-data/
 
 ├── README.md
-
 ├── twin.yaml
-
 ├── identity/
-
 │   └── profile.md
-
 ├── principles/
-
 │   ├── engineering.md
-
 │   ├── architecture.md
-
 │   └── coding.md
-
 ├── decisions/
-
 └── projects/
 ```
 
-
 `twin.yaml` contains metadata and schema information for this Engineering Twin instance.
+
+Twin Data is user-owned and may be stored separately from the Skill repository.
 
 
 ## Relationship With AI Agents
@@ -116,63 +129,57 @@ Engineering Twin does not replace AI agents.
 
 It works together with them:
 
-```
-Engineer
-
+```text
+AI Agent
     +
-
-Engineering Twin
-
+Engineering Twin Skill
     +
-
-AI Coding Agent
-
+Engineering Twin Data
     =
-
 Personalized Engineering Assistance
 ```
 
-
 Engineering Twin provides engineering context.
 
-It does not define AI behavior, communication style, or agent-specific instructions.
+It does not define general AI behavior, communication style, system prompt policy, or agent-specific workflow rules.
 
 The AI agent remains responsible for reasoning, implementation, and problem solving.
-
 
 Supported or future integrations may include:
 
 - Claude Code
 - Hermes Agent
-- MCP compatible agents
+- MCP-compatible agents
 - VS Code AI extensions
 
 
-## Project Structure
+## Repository Structure
 
-```
+```text
 engineering-twin/
 
+├── README.md
+│
 ├── docs/
-
 │   ├── architecture.md
-
 │   └── data-schema.md
-
 │
-
-├── templates/
-
-│   └── engineering-twin-data/
-
-│
-
-└── skill/
-
-    └── SKILL.md
+└── skills/
+    ├── engineering-twin/
+    │   └── SKILL.md
+    │
+    └── setup-engineering-twin/
+        ├── SKILL.md
+        └── templates/
+            ├── twin.yaml
+            ├── identity/
+            ├── principles/
+            ├── decisions/
+            └── projects/
 ```
 
-`skill/SKILL.md` defines the Engineering Twin Skill specification.
+The repository contains the Skills and their templates.
+It does not contain the user's personal Engineering Twin Data.
 
 
 ## Roadmap
@@ -191,9 +198,10 @@ Completed:
 
 Planned:
 
-- Claude Code skill implementation
-- Twin Data discovery and validation
-- Context loading workflow
+- Claude Code Skill integration
+- Twin Data discovery
+- Create/import setup workflow
+- Progressive context loading
 
 
 ### v0.3 Evolution

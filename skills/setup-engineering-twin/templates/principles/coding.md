@@ -1,10 +1,8 @@
 # Coding Principles
 
-
 ## Code Quality
 
 Describe your coding principles, conventions, and practices.
-
 
 Examples:
 
@@ -12,7 +10,6 @@ Examples:
 - testing
 - naming conventions
 - error handling
-
 
 ## Development Practices
 
