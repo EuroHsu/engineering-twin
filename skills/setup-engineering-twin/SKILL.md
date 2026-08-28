@@ -77,7 +77,6 @@ Before accepting Twin Data as usable:
 - Existing Markdown knowledge should remain human-readable.
 - Optional knowledge areas such as `decisions/` and `projects/` may be absent.
 - If multiple version declarations exist in legacy metadata, they must agree.
-- New or updated normalized knowledge must use only `scope` and `status` metadata as defined in `references/knowledge-format.md`.
 
 Validation must not silently repair or migrate user-owned Twin Data.
 
@@ -150,8 +149,7 @@ A setup operation is complete only after:
 This Skill must remain self-contained after installation.
 
 For normal operation, do not depend on files outside this Skill directory.
-Use bundled files under `references/` when additional detail is required.
+Use bundled files under `references/` when additional material is required.
 
 For schema-version handling, use the bundled `references/schema-versions.md`.
 For migration workflow handling, use the bundled `references/migration.md`.
-For knowledge-format handling, use the bundled `references/knowledge-format.md`.
