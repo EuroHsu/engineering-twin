@@ -31,9 +31,9 @@ Engineering Twin is not an AI model, autonomous agent, backend platform, or data
 
 ## Skills
 
-- `engineering-twin` — activate and use Twin context during the current session (Session Activation / Discover / Load / Interpret / Apply)
+- `engineering-twin` — activate and use Twin context during the current session (Session Activation / Discover / Load / Interpret / Apply); flags knowledge that may need review, without modifying it
 - `setup-engineering-twin` — create or import Twin Data and configure its location (Create / Import / Validate / Configure)
-- `extract-engineering-twin` — analyze historical engineering activity and propose knowledge candidates (Analyze historical evidence / Propose / Review / Write Knowledge)
+- `extract-engineering-twin` — propose new knowledge candidates from historical evidence, and review existing Twin Data for stale, conflicting, or duplicate records (Analyze / Propose / Review / Write / Remove / Supersede)
 
 Each Skill is independently installable and must remain self-contained. Installed Skills must not depend on repository-level documentation files.
 
@@ -213,6 +213,22 @@ Twin Data Update
 ```
 
 Candidates may be accepted, edited, rejected, or deferred. The AI must not silently promote observations or historical behavior into permanent engineering knowledge.
+
+Existing permanent knowledge follows the same human-controlled path when it needs to be retired or narrowed:
+
+```text
+Existing Twin Data
+    ↓
+Review Signal (engineering-twin) or explicit audit request
+    ↓
+extract-engineering-twin review
+    ↓
+Human Review
+    ↓
+Keep / Edit / Remove / Supersede / Defer
+```
+
+`Remove` deletes a record with no remaining decision value. `Supersede` keeps the older record as historical context, marked `status: superseded`, while a newer decision stays current. Neither happens without explicit user approval.
 
 ## Design Principles
 
