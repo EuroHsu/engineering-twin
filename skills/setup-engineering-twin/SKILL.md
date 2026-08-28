@@ -7,7 +7,7 @@ description: Creates or imports an Engineering Twin Data repository and guides t
 
 This Skill manages the setup of Engineering Twin Data.
 
-It is separate from the daily-use `engineering-twin` Skill and the knowledge-acquisition `extract-engineering-twin` Skill.
+It is separate from both the daily-use `engineering-twin` Skill and the knowledge-acquisition `extract-engineering-twin` Skill.
 
 ## Responsibility Boundary
 
@@ -17,7 +17,7 @@ It is separate from the daily-use `engineering-twin` Skill and the knowledge-acq
 Create / Import / Validate / Configure
 ```
 
-It does not extract engineering knowledge from historical activity or personal source material. Use `extract-engineering-twin` for evidence-based knowledge acquisition from sessions, projects, resumes, documents, and other existing records.
+It does not extract engineering knowledge from historical activity or personal source material. Use `extract-engineering-twin` for evidence-based knowledge acquisition from sessions, projects, resumes, documents, Git history, PRs, and other existing records.
 
 ## Start
 
@@ -43,7 +43,7 @@ When the user chooses Create:
 7. Add Decisions or Projects only when the user provides information that should be stored there.
 8. Draft Markdown only from information provided or explicitly confirmed by the user.
 9. Do not create a knowledge file merely to represent missing, unknown, or unconfirmed information. Empty knowledge areas may remain as directories without knowledge files when no content was provided.
-10. New permanent knowledge files must use the normalized format in `references/knowledge-format.md` and must contain only confirmed content.
+10. New permanent knowledge files must use the normalized format in `references/knowledge-format.md` and contain only confirmed, decision-relevant content.
 11. Present generated or changed knowledge for human review.
 12. Require explicit approval before treating drafted content as permanent Twin Data.
 13. Save the confirmed Twin Data location to the appropriate Engineering Twin Configuration.
@@ -82,7 +82,7 @@ Before accepting Twin Data as usable:
 - Existing Markdown knowledge should remain human-readable.
 - Optional knowledge areas such as `decisions/` and `projects/` may be absent.
 - If multiple version declarations exist in legacy metadata, they must agree.
-- New or updated normalized knowledge metadata must use the vocabulary in `references/knowledge-format.md`.
+- New or updated normalized knowledge must use only `scope` and `status` metadata as defined in `references/knowledge-format.md`.
 
 A validation problem should be reported together with the affected path and the reason it is invalid.
 
