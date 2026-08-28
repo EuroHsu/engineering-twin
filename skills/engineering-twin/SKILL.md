@@ -94,8 +94,8 @@ After activation, before using Engineering Twin context:
 Before using a discovered Twin Data repository:
 
 - verify that `twin.yaml` exists
-- verify that the declared schema version is supported
-- verify that the structure is compatible with the Engineering Twin Data schema
+- verify that the standard knowledge directories are present or intentionally empty
+- verify that existing Markdown knowledge is readable
 
 Do not silently select an unrelated Twin Data repository.
 Do not silently create, attach, copy, move, or modify Twin Data during discovery.
@@ -122,14 +122,14 @@ Load other knowledge areas only when relevant to the task.
 
 ## Normalized Knowledge
 
-Knowledge may use YAML front matter followed by Markdown. The permanent metadata is intentionally minimal and should contain only:
+Knowledge may use YAML front matter followed by Markdown. Permanent metadata is intentionally minimal and should contain only:
 
 - `scope`
 - `status`
 
 The knowledge type is determined by the destination directory (`identity/`, `principles/`, `decisions/`, or `projects/`).
 
-Treat `status: confirmed` as permanent knowledge. Do not treat `candidate` content or extraction-only metadata as permanent knowledge.
+Treat `status: confirmed` as permanent knowledge. Do not treat candidate content or extraction-only metadata as permanent knowledge.
 
 Existing knowledge without front matter remains valid and should not be rewritten automatically.
 

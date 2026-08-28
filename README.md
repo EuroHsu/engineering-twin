@@ -45,7 +45,7 @@ engineering-twin
     = Session Activation / Discover / Load / Interpret / Apply
 
 extract-engineering-twin
-    = Analyze historical evidence / Propose candidates
+    = Analyze historical evidence / Propose / Review / Write Knowledge
 ```
 
 Each Skill is independently installable and must remain self-contained. Installed Skills must not depend on repository-level documentation files.
@@ -100,7 +100,7 @@ Run `setup-engineering-twin` to create or import Twin Data.
 
 Run `/engineering-twin` when you want to use the Twin in the current session. Activation is explicit and session-level; it does not permanently change the AI agent's configuration.
 
-Run `extract-engineering-twin` when you want to analyze historical engineering activity for potential new knowledge.
+Run `extract-engineering-twin` when you want to analyze resumes, projects, sessions, Git history, pull requests, documents, and other available evidence for potential new knowledge.
 
 ## Twin Data
 
@@ -109,20 +109,21 @@ engineering-twin-data/
 ├── README.md
 ├── twin.yaml
 ├── identity/
-│   └── profile.md
 ├── principles/
-│   ├── engineering.md
-│   ├── architecture.md
-│   └── coding.md
 ├── decisions/
-│   └── XXXX-decision-name.md
 └── projects/
-    └── project-name.md
 ```
 
-Twin Data is stored separately from this repository and is primarily Markdown with YAML metadata.
+Twin Data is stored separately from this repository and is primarily Markdown with optional YAML front matter. Permanent knowledge should keep only metadata that helps future engineering decisions:
 
-### Data Model
+```yaml
+---
+scope: personal | general | technology-specific | project-specific | situation-specific
+status: confirmed | superseded | deprecated
+---
+```
+
+The knowledge type is defined by the destination directory:
 
 ```text
 identity/
@@ -138,17 +139,9 @@ projects/
 = project-specific context
 ```
 
-The current Twin Data schema is `0.2`.
+`twin.yaml` is human-readable Twin metadata. It identifies the Twin Data and may contain fields such as name, creation date, and primary language. It is not a schema manifest or migration contract.
 
-```yaml
-version: 0.2
-name: My Engineering Twin
-created: 2026-08-28
-language:
-  primary: zh-TW
-```
-
-New Twin Data uses the current schema. Older supported data may be import-compatible without being current.
+Twin Data is intentionally a stable, human-readable knowledge directory rather than a formally versioned data format. The Skills validate whether the directory is understandable and structurally usable; they do not require version upgrades for ordinary evolution.
 
 ## Configuration
 
@@ -215,7 +208,7 @@ Human Review
 Twin Data Update
 ```
 
-Import and migration are separate operations. Import makes existing compatible data usable; migration converts supported older schema data to a newer schema. Migration is explicit, reviewable, non-destructive by default, and requires human approval.
+Import verifies whether an existing human-readable Twin Data directory can be understood by the current Skills. It does not require schema migration simply because the Skill implementation has evolved.
 
 ## Historical Extraction
 
@@ -225,7 +218,8 @@ Import and migration are separate operations. Import makes existing compatible d
 - Git history
 - pull requests and reviews
 - architecture or technical documents
-- user-provided records
+- resumes, portfolios, and user-provided records
+- existing projects
 
 Evidence must be bounded to the requested scope. Historical sessions are evidence, not authoritative statements of engineering preference.
 
@@ -242,9 +236,9 @@ GitHub Copilot CLI
 $HOME/.copilot/session-state/
 ```
 
-Other sources may be available through the current AI-agent environment or integrations. The extraction Skill must only use evidence that is actually accessible and must preserve enough provenance to explain where a candidate came from.
+Other sources may be available through the current AI-agent environment or integrations. The extraction Skill must only use evidence that is actually accessible and must retain enough review information to explain important candidates.
 
-## Knowledge Evolution and Migration
+## Knowledge Evolution
 
 Engineering Twin uses explicit human review for permanent knowledge updates.
 
@@ -261,28 +255,6 @@ Twin Data
 ```
 
 Candidates may be accepted, edited, rejected, or deferred. The AI must not silently promote observations or historical behavior into permanent engineering knowledge.
-
-Schema migration uses a generic workflow:
-
-```text
-Detect source schema
-        ↓
-Select target schema
-        ↓
-Check supported migration path
-        ↓
-Build migration plan
-        ↓
-Classify mappings
-        ↓
-Human Review
-        ↓
-Apply approved migration
-        ↓
-Validate target schema
-```
-
-Specific version mappings belong inside the Setup Skill package.
 
 ## Design Principles
 

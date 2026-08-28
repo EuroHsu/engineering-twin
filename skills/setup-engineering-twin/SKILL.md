@@ -30,7 +30,7 @@ Present the user with two choices:
 1. Create a new empty Engineering Twin Data
 2. Import an existing Engineering Twin Data
 
-Do not silently create, overwrite, move, copy, merge, migrate, or modify Twin Data.
+Do not silently create, overwrite, move, copy, merge, or modify Twin Data.
 
 ## Create
 
@@ -40,11 +40,10 @@ When the user chooses Create:
 2. Resolve the path and check whether the destination already exists.
 3. If the destination contains existing files, stop and ask whether it should be used, replaced, or another destination selected. Never overwrite it silently.
 4. Create the empty standard Twin Data structure: `twin.yaml`, `identity/`, `principles/`, `decisions/`, and `projects/`.
-5. Create `twin.yaml` using the current schema version `0.2`.
-6. Do not create knowledge files or populate Identity, Principles, Decisions, or Projects.
-7. If the user wants to populate the new Twin from existing personal or project material, direct them to `extract-engineering-twin` after Create completes.
-8. Configure the new Twin Data as active when applicable, with explicit confirmation before changing an existing configuration.
-9. Report the resolved Twin Data path and configuration path.
+5. Do not create knowledge files or populate Identity, Principles, Decisions, or Projects.
+6. If the user wants to populate the new Twin from existing personal or project material, direct them to `extract-engineering-twin` after Create completes.
+7. Configure the new Twin Data as active when applicable, with explicit confirmation before changing an existing configuration.
+8. Report the resolved Twin Data path and configuration path.
 
 Create establishes the Data container only. It does not represent unconfirmed or inferred knowledge.
 
@@ -54,16 +53,14 @@ When the user chooses Import:
 
 1. Ask for or locate the existing Twin Data repository or directory.
 2. Verify that `twin.yaml` exists.
-3. Determine the declared schema version.
-4. Treat current schema `0.2` as directly supported.
-5. Treat legacy versions as import-compatible only when the current Skill explicitly supports their structure.
-6. Verify that the structure is compatible with the corresponding schema.
-7. Report validation problems clearly.
-8. Do not rewrite, rename, move, normalize, or migrate existing content automatically.
-9. Confirm with the user that this is the Twin Data they want to use.
-10. Configure the confirmed Twin Data as active.
-11. Report the configured path and schema status.
-12. When a supported legacy version has a defined migration path, offer migration separately; do not perform it without user approval.
+3. Verify that the standard knowledge directories are present when applicable.
+4. Report structural validation problems clearly.
+5. Do not rewrite, rename, move, normalize, migrate, or otherwise modify existing content automatically.
+6. Confirm with the user that this is the Twin Data they want to use.
+7. Configure the confirmed Twin Data as active.
+8. Report the configured path.
+
+Import accepts a human-readable Twin Data directory when its structure can be understood by the current Skill. An older or extended file layout does not require rewriting merely because the current layout is simpler.
 
 Import does not copy personal knowledge into the Skill repository.
 
@@ -72,28 +69,14 @@ Import does not copy personal knowledge into the Skill repository.
 Before accepting Twin Data as usable:
 
 - `twin.yaml` must exist.
-- The declared schema version must be current or an explicitly supported legacy version.
-- Required metadata must be present according to the applicable schema.
+- The standard knowledge directories should be present when applicable: `identity/`, `principles/`, `decisions/`, and `projects/`.
 - Existing Markdown knowledge should remain human-readable.
-- Optional knowledge areas such as `decisions/` and `projects/` may be absent.
-- If multiple version declarations exist in legacy metadata, they must agree.
+- Optional knowledge areas may be empty.
+- The Data directory must be distinguishable from the Skill repository.
 
-Validation must not silently repair or migrate user-owned Twin Data.
+Validation is a structural and readability check. It is not a version-migration step.
 
-## Migration
-
-When migration is appropriate, use the generic migration workflow in the bundled `references/migration.md`.
-
-Before offering or applying a migration:
-
-1. Identify the source and target schema versions.
-2. Verify that the version pair is explicitly supported by `references/schema-versions.md`.
-3. Prepare a migration plan showing direct mappings, transformations, unmapped fields, and ambiguous content.
-4. Obtain explicit user approval before modifying user-owned Twin Data.
-5. Apply only the approved migration.
-6. Validate the resulting target schema.
-
-Version-specific mapping rules belong in the schema-version reference or other bundled migration mapping references. Do not encode one version pair as the generic migration workflow.
+Validation must not silently repair user-owned Twin Data.
 
 ## Configuration
 
@@ -120,7 +103,7 @@ When an existing configuration points to a usable Twin Data and the user wants a
 2. Validate the proposed Twin Data before changing the configuration.
 3. Obtain explicit user confirmation to switch the active Twin Data.
 4. Update only the configuration pointer.
-5. Do not delete, move, modify, merge, or migrate the previously configured Twin Data.
+5. Do not delete, move, modify, merge, or transform the previously configured Twin Data.
 6. Report both the old and new paths when the switch is complete.
 
 Configuration stores the location of Twin Data, not the Twin's engineering knowledge.
@@ -140,7 +123,7 @@ Do not store the following in configuration:
 A setup operation is complete only after:
 
 1. The Twin Data location has been established or confirmed.
-2. Validation has succeeded, or the user has explicitly accepted the reported limitations.
+2. Structural validation has succeeded, or the user has explicitly accepted the reported limitations.
 3. Configuration has been updated successfully when configuration is applicable.
 4. The user has been told the resolved Twin Data location and configuration location.
 
@@ -150,6 +133,3 @@ This Skill must remain self-contained after installation.
 
 For normal operation, do not depend on files outside this Skill directory.
 Use bundled files under `references/` when additional material is required.
-
-For schema-version handling, use the bundled `references/schema-versions.md`.
-For migration workflow handling, use the bundled `references/migration.md`.
