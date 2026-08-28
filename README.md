@@ -138,6 +138,34 @@ Run `/engineering-twin` when you want to use the Twin in the current session. Ac
 
 Run `extract-engineering-twin` when you want to analyze resumes, projects, sessions, Git history, pull requests, documents, and other available evidence for potential new knowledge.
 
+### Usage Scenarios
+
+**Start empty, import history, or do both.**
+
+There is no fixed order between `extract-engineering-twin` and `/engineering-twin`. Which one to run first depends on whether there is existing history worth importing.
+
+**An engineer with an existing history** — past projects, AI coding sessions, Git history, resumes, or documents worth preserving:
+
+```text
+setup-engineering-twin
+    ↓
+extract-engineering-twin (import knowledge from past projects, sessions, Git history, etc.)
+    ↓
+/engineering-twin (start using an already-populated Twin)
+```
+
+**An engineer starting fresh** — a junior engineer, or anyone without a meaningful history to import yet:
+
+```text
+setup-engineering-twin
+    ↓
+/engineering-twin (start using an empty Twin right away)
+    ↓
+Twin Data evolves over time through ongoing use and periodic extract-engineering-twin reviews
+```
+
+Both paths are valid, and an engineer can switch between them at any time: `extract-engineering-twin` can be run before first use, or later once more history has accumulated.
+
 ### First-Time Example
 
 ```text
