@@ -31,22 +31,9 @@ Engineering Twin is not an AI model, autonomous agent, backend platform, or data
 
 ## Skills
 
-- `engineering-twin` — activate and use Twin context during the current session
-- `setup-engineering-twin` — create or import Twin Data and configure its location
-- `extract-engineering-twin` — analyze historical engineering activity and propose knowledge candidates
-
-### Skill Responsibilities
-
-```text
-setup-engineering-twin
-    = Create / Import / Validate / Configure
-
-engineering-twin
-    = Session Activation / Discover / Load / Interpret / Apply
-
-extract-engineering-twin
-    = Analyze historical evidence / Propose / Review / Write Knowledge
-```
+- `engineering-twin` — activate and use Twin context during the current session (Session Activation / Discover / Load / Interpret / Apply)
+- `setup-engineering-twin` — create or import Twin Data and configure its location (Create / Import / Validate / Configure)
+- `extract-engineering-twin` — analyze historical engineering activity and propose knowledge candidates (Analyze historical evidence / Propose / Review / Write Knowledge)
 
 Each Skill is independently installable and must remain self-contained. Installed Skills must not depend on repository-level documentation files.
 
@@ -76,9 +63,7 @@ The installer supports selecting individual Skills. You do not need to install a
 
 ### Update
 
-When a newer version is published, update the installed Skills through the same Skill ecosystem's supported update command or reinstall from the repository.
-
-The exact global installation location and linking behavior are managed by the Skill installer and may vary by AI agent.
+Update installed Skills using the same ecosystem's update command, or reinstall from the repository. The exact installation location and linking behavior are managed by the Skill installer and may vary by AI agent.
 
 ## Quick Start
 
@@ -93,7 +78,9 @@ Configure Twin Data location
     ↓
 /engineering-twin
     ↓
-Use Twin context in the current session
+Load relevant engineering context
+    ↓
+AI Agent reasoning
 ```
 
 Run `setup-engineering-twin` to create or import Twin Data.
@@ -179,40 +166,6 @@ User configuration
 No configured Twin
 ```
 
-## Lifecycle
-
-```text
-Install Skills
-      ↓
-Create / Import Twin Data
-      ↓
-Configure Twin Data location
-      ↓
-Activate /engineering-twin for a session
-      ↓
-Load relevant engineering context
-      ↓
-AI Agent reasoning
-```
-
-Knowledge evolution follows a separate human-controlled path:
-
-```text
-Engineering Activity
-      ↓
-Evidence
-      ↓
-Observation / Pattern
-      ↓
-Knowledge Candidate
-      ↓
-Human Review
-      ↓
-Twin Data Update
-```
-
-Import verifies whether an existing human-readable Twin Data directory can be understood by the current Skills. It does not require schema migration simply because the Skill implementation has evolved.
-
 ## Historical Extraction
 
 `extract-engineering-twin` analyzes evidence that is actually available through the current AI-agent environment, such as:
@@ -243,18 +196,20 @@ Other sources may be available through the current AI-agent environment or integ
 
 ## Knowledge Evolution
 
-Engineering Twin uses explicit human review for permanent knowledge updates.
+Knowledge evolves through a separate, human-controlled path from the Quick Start flow. Engineering Twin uses explicit human review for permanent knowledge updates.
 
 ```text
+Engineering Activity
+    ↓
 Evidence
-   ↓
+    ↓
 Observation / Pattern
-   ↓
+    ↓
 Knowledge Candidate
-   ↓
+    ↓
 Human Review
-   ↓
-Twin Data
+    ↓
+Twin Data Update
 ```
 
 Candidates may be accepted, edited, rejected, or deferred. The AI must not silently promote observations or historical behavior into permanent engineering knowledge.
