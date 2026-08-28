@@ -30,23 +30,63 @@ Engineering Twin Data is designed to be:
 - portable across environments
 
 
-# 2. Design Principles
+# 2. Schema Versioning
+
+The current Engineering Twin Data schema version is `0.2`.
+
+New Twin Data created by `setup-engineering-twin` must use:
+
+```yaml
+version: 0.2
+```
+
+Schema currency and import compatibility are separate concerns.
+
+The following versions are currently defined:
+
+| Version | Status | Import | Create |
+|---|---|---|---|
+| 0.2 | Current | Yes | Yes |
+| 0.1 | Legacy | Yes, when compatible | No |
+
+Legacy `0.1` data may remain in its existing format after Import.
+The setup process must not silently migrate it.
+
+An explicit, human-approved migration may convert compatible `0.1`
+data to the current `0.2` schema.
+
+Legacy `0.1` data may use an earlier nested declaration:
+
+```yaml
+version: 0.1
+schema:
+  version: 0.1
+```
+
+When multiple version declarations are present, they must agree.
+Conflicting declarations are a validation error.
+
+A future version greater than the supported current version is not
+automatically accepted.
 
 
-## 2.1 Human First
+# 3. Design Principles
+
+
+## 3.1 Human First
 
 All Engineering Twin Data should be understandable
 by humans without requiring special tools.
 
 
-## 2.2 Markdown Native
+## 3.2 Markdown Native
 
 Knowledge content should primarily use Markdown.
 
 Structured metadata may use YAML.
 
 
-## 2.3 Explicit Knowledge Over Raw History
+## 3.3 Explicit Knowledge Over Raw History
 
 Engineering Twin Data stores meaningful knowledge,
 not complete conversation history.
@@ -67,7 +107,7 @@ Do not store:
 - raw session dumps
 
 
-## 2.4 Evolution Through Git
+## 3.4 Evolution Through Git
 
 Changes to Engineering Twin Data should be tracked
 through normal Git workflows.
@@ -76,7 +116,7 @@ Git history represents the evolution
 of engineering thinking.
 
 
-# 3. Directory Structure
+# 4. Directory Structure
 
 A standard Engineering Twin Data repository:
 
@@ -107,7 +147,7 @@ engineering-twin-data/
     └── project-name.md
 
 
-# 4. Root Configuration
+# 5. Root Configuration
 
 
 ## twin.yaml
@@ -117,19 +157,15 @@ Purpose:
 Store metadata about this Engineering Twin instance.
 
 
-Example:
+Current example:
 
-
+```yaml
 version: 0.2
-
 name: My Engineering Twin
-
 created: 2026-08-28
-
 language:
-
   primary: zh-TW
-
+```
 
 Fields:
 
@@ -140,8 +176,10 @@ Fields:
 | created | Creation date |
 | language | Preferred language |
 
+The current `0.2` schema uses the root `version` field.
 
-# 5. Identity Layer
+
+# 6. Identity Layer
 
 
 ## Purpose
@@ -195,7 +233,7 @@ Identity should NOT contain:
 - individual technical decisions
 
 
-# 6. Principles Layer
+# 7. Principles Layer
 
 
 ## Purpose
@@ -251,7 +289,7 @@ Principles should NOT contain:
 - temporary solutions
 
 
-# 7. Decisions Layer
+# 8. Decisions Layer
 
 
 ## Purpose
@@ -359,7 +397,7 @@ Supported statuses:
 | rejected | Considered but not chosen |
 
 
-# 8. Projects Layer
+# 9. Projects Layer
 
 
 ## Purpose
@@ -411,7 +449,7 @@ Projects connect:
 - implementation context
 
 
-# 9. Data Loading Priority
+# 10. Data Loading Priority
 
 
 When an AI agent loads Engineering Twin Data,
@@ -442,7 +480,7 @@ Not all data should be loaded
 for every conversation.
 
 
-# 10. Evolution and Safety
+# 11. Evolution and Safety
 
 
 Engineering Twin Data should evolve through:
@@ -496,7 +534,7 @@ Consider adding this as a principle or decision
 after confirmation."
 
 
-# 11. Future Extensions
+# 12. Future Extensions
 
 
 Possible future additions:
