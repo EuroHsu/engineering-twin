@@ -1,12 +1,6 @@
 ---
-type: decision
 scope: project-specific
 status: confirmed
-confidence: high
-evidence: explicit
-sources:
-  - type: user
-    ref: <confirmed user-provided source>
 ---
 
 # Decision XXXX
