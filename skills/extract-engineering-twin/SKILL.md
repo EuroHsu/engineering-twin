@@ -1,11 +1,11 @@
 ---
 name: extract-engineering-twin
-description: Extracts evidence-backed engineering knowledge candidates from historical engineering activity and prepares them for human review. Use when the user wants to analyze past sessions, Git history, PRs, technical documents, or other engineering activity for potential Twin knowledge.
+description: Extracts evidence-backed engineering knowledge candidates from historical engineering activity and user-provided source material. Use when the user wants to build or enrich a Twin from past sessions, projects, resumes, documents, Git history, PRs, or other available records.
 ---
 
 # Extract Engineering Twin
 
-This Skill analyzes historical engineering activity to identify candidate knowledge for the user's Engineering Twin.
+This Skill analyzes existing evidence to identify candidate knowledge for the user's Engineering Twin.
 
 It is separate from both the daily-use `engineering-twin` Skill and the `setup-engineering-twin` Skill.
 
@@ -13,64 +13,85 @@ It is separate from both the daily-use `engineering-twin` Skill and the `setup-e
 
 The Extract Engineering Twin Skill answers:
 
-> What engineering knowledge might be worth preserving from past engineering activity?
+> What engineering knowledge might be worth preserving from existing evidence?
+
+It is also the primary knowledge-acquisition path for populating a newly created Twin from existing personal or project material.
 
 It does not decide what should become permanent Twin knowledge.
 
-## Evidence Access
+## Evidence Types
 
-Historical evidence is accessed through capabilities already available to the AI agent.
+Use evidence that is actually accessible through the current AI-agent environment.
 
-Relevant sources may include:
+### Behavioral Evidence
 
-- AI coding agent sessions exposed by the environment
-- files available in the current workspace
-- user-provided exports or records
+Behavioral evidence shows what the engineer did or decided in practice. Examples include:
+
+- AI coding agent sessions
 - local Git history
-- connected Git hosting or project-management integrations
-- architecture or technical decision documents
-- project documentation
+- pull request discussions and reviews
+- implementation history
+- recorded engineering activity
 
-Do not assume that any specific source is accessible. When a requested source is unavailable, report that limitation and continue only with evidence that is actually available.
+Behavioral evidence can support patterns, practices, decisions, and project context, but repeated behavior alone does not prove a universal preference.
 
-For provider-specific source locations and access rules, read `references/evidence-sources.md` bundled with this Skill.
+### Declarative Evidence
+
+Declarative evidence shows how the engineer describes their own background, experience, technologies, projects, or engineering approach. Examples include:
+
+- resume or CV
+- portfolio or personal project descriptions
+- architecture or technical documents
+- user-authored engineering notes or articles
+- user-provided Markdown or text records
+
+Declarative evidence can directly support stated identity, experience, technology context, project context, or explicitly stated preferences. Do not turn a declared fact into a stronger inferred preference without supporting evidence.
+
+Other source types may be available through integrations or the current environment. Do not assume that any specific source is accessible.
+
+For provider-specific session locations and access rules, read `references/evidence-sources.md` bundled with this Skill.
 
 ## Extraction Workflow
 
 Follow this workflow:
 
 ```text
-Historical Engineering Activity
-            |
-            v
-        Evidence
-            |
-            v
-   Observation / Pattern
-            |
-            v
-    Knowledge Candidate
-            |
-            v
-       Human Review
-            |
-            v
-     Twin Data Update
+Evidence Source
+      |
+      v
+    Evidence
+      |
+      v
+Observation / Pattern
+      |
+      v
+Interpretation
+      |
+      v
+Knowledge Candidate
+      |
+      v
+Human Review
+      |
+      v
+Twin Data Update
 ```
 
-### 1. Identify the Scope
+### 1. Select the Source and Scope
 
-Establish a clear historical scope from the user's request, such as:
+First establish what the user wants to extract and from which source or sources.
 
-- a time period
-- one or more projects
-- selected sessions
+Possible scopes include:
+
+- a resume or CV
+- one or more existing projects
+- selected files or documents
+- a time period of AI coding sessions
+- Git history or pull requests
 - a technology or architecture topic
-- a set of commits
-- a set of pull requests
+- a combination of sources
 
-If the scope is ambiguous, prefer the narrowest reasonable interpretation.
-Do not broaden the search unnecessarily.
+When the scope is ambiguous, ask the user rather than expanding the search unnecessarily.
 
 ### 2. Gather Evidence
 
@@ -96,41 +117,54 @@ Do not reproduce large historical records when a concise reference is sufficient
 Use the following as a default guide:
 
 1. explicit technical decisions or written rationale
-2. human-authored architecture or project documentation
-3. pull request discussion and review decisions
-4. Git commits and implementation history
-5. AI coding agent session observations
-6. indirect behavioral patterns
+2. human-authored engineering or project documentation
+3. explicit statements in resumes, CVs, or user-authored records
+4. pull request discussion and review decisions
+5. Git commits and implementation history
+6. AI coding agent session observations
+7. indirect behavioral patterns
 
-This is guidance rather than a rigid ranking.
-Explicit human-confirmed evidence can outweigh lower-ranked evidence.
-Multiple independent sources strengthen a candidate.
+This is guidance rather than a rigid ranking. Explicit evidence should remain distinguishable from interpretation, and multiple independent sources strengthen a candidate.
 
-### 4. Separate Observation From Interpretation
+### 4. Separate Fact, Observation, and Interpretation
 
 Clearly distinguish:
 
-- what the evidence directly shows
+- what the source explicitly states
+- what the observed activity shows
 - what recurring pattern appears to exist
 - what engineering knowledge might be inferred
 
-Repeated behavior does not automatically prove a universal preference.
+For declarative sources, preserve explicit facts as facts. For behavioral sources, do not overgeneralize from one-off behavior.
 
-### 5. Produce Knowledge Candidates
+### 5. Determine Candidate Scope
+
+For each candidate, classify its scope when meaningful:
+
+- Universal / general engineering practice
+- Technology-specific
+- Project-specific
+- Situation-specific
+- Personal background / identity
+
+Use the narrowest scope supported by the evidence. Do not promote project-specific facts into universal principles without evidence supporting that scope.
+
+### 6. Produce Knowledge Candidates
 
 Candidates may include:
 
+- identity or background facts
 - engineering principles
-- architecture principles
+- architecture or coding practices
 - technical decisions
 - reusable engineering knowledge
 - project context refinements
 
-Each candidate should include supporting evidence, interpretation, confidence, and a suggested Twin Data destination.
+Each candidate should include supporting evidence, interpretation, confidence, scope, and a suggested Twin Data destination.
 
 AI-generated speculation is not engineering evidence.
 
-### 6. Human Review
+### 7. Human Review
 
 Present candidates for explicit review.
 
@@ -144,6 +178,27 @@ The user may:
 Only an explicit acceptance or approved edit authorizes a permanent Twin Data update.
 
 Preserve the distinction between the original candidate and the user's final decision.
+
+## Empty Twin Initialization
+
+When the Twin Data is newly created or mostly empty, extraction may be used to build its initial knowledge from existing source material.
+
+A typical sequence is:
+
+```text
+New Twin Data
+     |
+     +--> Resume / CV / personal records
+     |       -> Identity candidates
+     |
+     +--> Existing projects / documents
+     |       -> Project and stated engineering context
+     |
+     +--> Sessions / Git / PRs
+             -> Principles, practices, and decisions
+```
+
+Do not require the Twin to contain existing knowledge before extraction can begin.
 
 ## Historical Session Handling
 
@@ -190,7 +245,10 @@ Use a format similar to:
 Knowledge Candidate
 
 Type:
-Principle | Decision | Project Context | Other
+Identity | Principle | Decision | Project Context | Other
+
+Scope:
+General | Technology-specific | Project-specific | Situation-specific | Personal
 
 Candidate:
 <proposed knowledge>
@@ -225,6 +283,7 @@ The Skill must never:
 - invent engineer identity, preferences, principles, or decisions
 - treat AI-generated suggestions as confirmed engineering knowledge
 - convert temporary behavior into permanent knowledge
+- overgeneralize project-specific evidence into universal principles without support
 - modify Twin Data silently
 - commit changes to Twin Data without approval
 - modify the Skill repository during extraction
