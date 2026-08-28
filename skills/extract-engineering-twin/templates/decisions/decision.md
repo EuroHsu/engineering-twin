@@ -10,9 +10,6 @@ status: confirmed
 Date:
 YYYY-MM-DD
 
-Status:
-proposed
-
 Topic:
 
 Tags:
