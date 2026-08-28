@@ -119,7 +119,7 @@ Update installed Skills using the same ecosystem's update command, or reinstall 
 After installation:
 
 ```text
-setup-engineering-twin
+/setup-engineering-twin
     ↓
 Create or Import Twin Data
     ↓
@@ -132,24 +132,24 @@ Load relevant engineering context
 AI Agent reasoning
 ```
 
-Run `setup-engineering-twin` to create or import Twin Data.
+Run `/setup-engineering-twin` to create or import Twin Data.
 
 Run `/engineering-twin` when you want to use the Twin in the current session. Activation is explicit and session-level; it does not permanently change the AI agent's configuration.
 
-Run `extract-engineering-twin` when you want to analyze resumes, projects, sessions, Git history, pull requests, documents, and other available evidence for potential new knowledge.
+Run `/extract-engineering-twin` when you want to analyze resumes, projects, sessions, Git history, pull requests, documents, and other available evidence for potential new knowledge.
 
 ### Usage Scenarios
 
 **Start empty, import history, or do both.**
 
-There is no fixed order between `extract-engineering-twin` and `/engineering-twin`. Which one to run first depends on whether there is existing history worth importing.
+There is no fixed order between `/extract-engineering-twin` and `/engineering-twin`. Which one to run first depends on whether there is existing history worth importing.
 
 **An engineer with an existing history** — past projects, AI coding sessions, Git history, resumes, or documents worth preserving:
 
 ```text
-setup-engineering-twin
+/setup-engineering-twin
     ↓
-extract-engineering-twin (import knowledge from past projects, sessions, Git history, etc.)
+/extract-engineering-twin (import knowledge from past projects, sessions, Git history, etc.)
     ↓
 /engineering-twin (start using an already-populated Twin)
 ```
@@ -157,19 +157,19 @@ extract-engineering-twin (import knowledge from past projects, sessions, Git his
 **An engineer starting fresh** — a junior engineer, or anyone without a meaningful history to import yet:
 
 ```text
-setup-engineering-twin
+/setup-engineering-twin
     ↓
 /engineering-twin (start using an empty Twin right away)
     ↓
-Twin Data evolves over time through ongoing use and periodic extract-engineering-twin reviews
+Twin Data evolves over time through ongoing use and periodic /extract-engineering-twin reviews
 ```
 
-Both paths are valid, and an engineer can switch between them at any time: `extract-engineering-twin` can be run before first use, or later once more history has accumulated.
+Both paths are valid, and an engineer can switch between them at any time: `/extract-engineering-twin` can be run before first use, or later once more history has accumulated.
 
 ### First-Time Example
 
 ```text
-> setup-engineering-twin
+> /setup-engineering-twin
   "Create a new empty Engineering Twin Data at ~/workspace/my-engineering-twin-data"
   → creates identity/, principles/, decisions/, projects/, and a README.md
   → configures it as the active Twin Data
@@ -179,7 +179,7 @@ Both paths are valid, and an engineer can switch between them at any time: `extr
   → loads initial context
   → ready for the next engineering task
 
-> extract-engineering-twin
+> /extract-engineering-twin
   "Look at my recent Git history and propose new knowledge candidates"
   → analyzes available evidence and proposes candidates
   → you accept, edit, reject, or defer each one
