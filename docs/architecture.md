@@ -132,9 +132,13 @@ Responsible for:
 
 Responsible for:
 
-- locating Twin Data
-- loading relevant context
-- validating Twin Data compatibility
+- locating Engineering Twin Data
+- determining relevant context
+- guiding context loading
+- defining how Twin knowledge should be used
+
+The Skill is an instruction layer for an AI agent,
+not a separate reasoning engine.
 
 
 ## 5.3 Engineering Twin Data
@@ -145,10 +149,51 @@ Responsible for:
 - maintaining principles and decisions
 - evolving through Git history
 
+Engineering Twin Data is independent of the Skill
+and may be stored in a separate repository or directory.
 
-# 6. Data Model
 
-Engineering Twin Data contains five components.
+# 6. Skill Model
+
+Engineering Twin is distributed as AI agent Skills.
+
+The repository contains two complementary Skills:
+
+
+## 6.1 Engineering Twin Skill
+
+Purpose:
+
+Provide engineering context during normal AI-assisted work.
+
+It explains how the AI agent should:
+
+- discover Twin Data
+- load relevant knowledge
+- consider previous decisions
+- apply engineering context
+- respect Twin knowledge safety rules
+
+
+## 6.2 Setup Engineering Twin Skill
+
+Purpose:
+
+Create or import Engineering Twin Data.
+
+It guides the user through:
+
+- creating a new Twin Data repository
+- importing existing Twin Data
+- validating the data structure
+- reviewing initial knowledge
+
+Setup is separate from daily Twin usage.
+
+
+# 7. Data Model
+
+Engineering Twin Data consists of five areas:
 
 
 ## Metadata
@@ -213,7 +258,7 @@ Answers:
 "In what context were decisions made?"
 
 
-# 7. Data Flow
+# 8. Data Flow
 
 
 Engineering Activity
@@ -222,7 +267,40 @@ Engineering Activity
 
         v
 
-AI Agent Session
+AI Agent
+
+        |
+
+        | uses
+
+        v
+
+Engineering Twin Skill
+
+        |
+
+        | reads
+
+        v
+
+Engineering Twin Data
+
+        |
+
+        v
+
+Relevant Engineering Context
+
+        |
+
+        v
+
+AI Agent Reasoning
+
+
+Knowledge evolution follows:
+
+Engineering Activity
 
         |
 
@@ -243,13 +321,46 @@ Human Review
 Engineering Twin Data
 
 
-# 8. Design Principles
+# 9. Repository Model
+
+The Engineering Twin repository contains Skills and documentation.
+
+A typical repository structure is:
+
+engineering-twin/
+
+├── README.md
+│
+├── docs/
+│   ├── architecture.md
+│   └── data-schema.md
+│
+└── skills/
+    ├── engineering-twin/
+    │   └── SKILL.md
+    │
+    └── setup-engineering-twin/
+        ├── SKILL.md
+        └── templates/
+
+The repository does not contain a user's personal Engineering Twin Data.
+
+Twin Data is created or imported separately.
+
+
+# 10. Design Principles
 
 
 ## Human First
 
 The data should always be understandable
 by humans.
+
+
+## Markdown Native
+
+Engineering knowledge should primarily be represented
+as Markdown, with YAML used only for structured metadata.
 
 
 ## Git Native
@@ -270,15 +381,16 @@ Store meaningful engineering knowledge,
 not all raw conversations.
 
 
-# 9. Future Extensions
+# 11. Future Extensions
 
 Possible future components:
 
-- CLI
+- additional AI agent Skills
 - MCP integration
 - Hermes Agent adapter
-- VS Code extension
-- Automated insight extraction
+- VS Code integration
+- automated insight extraction
+- schema validation tooling
 
 These should extend the core model
-without changing the fundamental data structure.
+without turning Engineering Twin into a backend system.
