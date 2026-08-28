@@ -237,6 +237,7 @@ engineering-twin/
 │   ├── configuration.md
 │   ├── data-schema.md
 │   ├── extraction.md
+│   ├── extraction-sources.md
 │   └── lifecycle.md
 └── skills/
     ├── engineering-twin/
@@ -264,6 +265,7 @@ Completed:
 - Configuration model
 - Lifecycle definition
 - Historical extraction model
+- Historical evidence access model
 
 ### Core Skills
 
