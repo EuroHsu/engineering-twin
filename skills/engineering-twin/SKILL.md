@@ -44,14 +44,36 @@ engineering-twin-data/
 Do not assume that the Skill repository and Twin Data are the same location.
 The Skill repository contains instructions; the Twin Data contains the engineer's knowledge.
 
+## Configuration
+
+The Skill uses Engineering Twin Configuration to determine which Twin Data should be used.
+
+The recommended user-level configuration file is:
+
+`~/.config/engineering-twin/config.yaml`
+
+Example:
+
+```yaml
+version: 1
+
+twinData:
+  path: ~/workspace/my-engineering-twin-data
+```
+
+Configuration stores environment-specific information such as the Twin Data location.
+It does not store engineering knowledge, engineering principles, technical decisions, or AI behavior instructions.
+
+For the configuration model and precedence rules, see `docs/configuration.md` in the Engineering Twin repository.
+
 ## Discovery
 
 Before using Engineering Twin context:
 
-1. Look for an explicitly configured Twin Data location.
-2. Check the current workspace for a configured Twin Data location.
-3. Check the user's configured default location.
-4. If no valid Twin Data can be found, continue without engineer-specific assumptions.
+1. Look for an explicit Twin Data path provided for the current task.
+2. Check for workspace-level Engineering Twin configuration.
+3. Check the user-level configuration at `~/.config/engineering-twin/config.yaml`.
+4. If no Twin Data location can be determined, continue without engineer-specific assumptions.
 
 Before using a discovered Twin Data repository:
 
@@ -59,7 +81,8 @@ Before using a discovered Twin Data repository:
 - verify that the schema version is supported
 - verify that the structure is compatible with the Engineering Twin Data schema
 
-Do not silently create, attach, copy, or modify Twin Data during discovery.
+Do not silently select an unrelated Twin Data repository.
+Do not silently create, attach, copy, move, or modify Twin Data during discovery.
 
 ## Loading Strategy
 

@@ -1,6 +1,6 @@
 ---
 name: setup-engineering-twin
-description: Creates or imports an Engineering Twin Data repository and guides the user through initialization and validation. Use when the user wants to create, import, or initialize Engineering Twin Data.
+description: Creates or imports an Engineering Twin Data repository and guides the user through initialization, validation, and configuration. Use when the user wants to create, import, or initialize Engineering Twin Data.
 ---
 
 # Setup Engineering Twin
@@ -18,7 +18,7 @@ Ask the user to choose one of:
 1. Create a new Engineering Twin Data
 2. Import an existing Engineering Twin Data
 
-Do not silently create, overwrite, or modify a Twin Data repository.
+Do not silently create, overwrite, move, copy, or modify a Twin Data repository.
 
 ## Create
 
@@ -32,6 +32,7 @@ When the user chooses Create:
 6. Draft Markdown only from information provided or explicitly confirmed by the user.
 7. Show the proposed content for review before treating it as permanent knowledge.
 8. Require explicit user approval before finalizing the Twin Data.
+9. Save the confirmed Twin Data location to the appropriate Engineering Twin Configuration.
 
 Standard structure:
 
@@ -60,8 +61,30 @@ When the user chooses Import:
 5. Report validation problems clearly.
 6. Confirm the Twin identity with the user.
 7. Use the existing data as-is unless the user explicitly requests changes.
+8. Save the confirmed Twin Data location to the appropriate Engineering Twin Configuration.
 
 Import does not copy personal knowledge into the Skill repository.
+
+## Configuration
+
+Engineering Twin Configuration records which Twin Data location should be used by the daily `engineering-twin` Skill.
+
+The recommended user-level configuration file is:
+
+`~/.config/engineering-twin/config.yaml`
+
+Example:
+
+```yaml
+version: 1
+
+twinData:
+  path: ~/workspace/my-engineering-twin-data
+```
+
+When a workspace-specific configuration is intentionally used, save the path there instead of overwriting the user-level configuration.
+
+Do not store engineering principles, technical decisions, project knowledge, communication preferences, or general AI behavior in the configuration.
 
 ## Validation
 
@@ -87,4 +110,5 @@ Use templates as starting points only. Replace placeholder content with informat
 - Never convert observed behavior into confirmed knowledge without approval.
 - Never overwrite existing Twin Data silently.
 - Never treat the Skill repository as the user's Twin Data repository.
+- Never save personal engineering knowledge in the configuration file.
 - Permanent knowledge changes require human approval.

@@ -99,13 +99,35 @@ The setup Skill for creating or importing an Engineering Twin Data repository.
 Setup and daily use are intentionally separated.
 
 
+## Configuration
+
+Engineering Twin Configuration tells the Skill which user-owned Twin Data repository or directory should be used.
+
+The recommended user-level configuration file is:
+
+`~/.config/engineering-twin/config.yaml`
+
+Example:
+
+```yaml
+version: 1
+
+twinData:
+  path: ~/workspace/my-engineering-twin-data
+```
+
+Configuration stores environment-specific information such as the Twin Data location.
+It does not store engineering knowledge or AI behavior instructions.
+
+For the complete configuration model and discovery precedence, see `docs/configuration.md`.
+
+
 ## Data Structure
 
 A typical Engineering Twin Data repository:
 
 ```text
 engineering-twin-data/
-
 ├── README.md
 ├── twin.yaml
 ├── identity/
@@ -157,17 +179,14 @@ Supported or future integrations may include:
 
 ```text
 engineering-twin/
-
 ├── README.md
-│
 ├── docs/
 │   ├── architecture.md
+│   ├── configuration.md
 │   └── data-schema.md
-│
 └── skills/
     ├── engineering-twin/
     │   └── SKILL.md
-    │
     └── setup-engineering-twin/
         ├── SKILL.md
         └── templates/
@@ -178,7 +197,7 @@ engineering-twin/
             └── projects/
 ```
 
-The repository contains the Skills and their templates.
+The repository contains the Skills, documentation, and setup templates.
 It does not contain the user's personal Engineering Twin Data.
 
 
@@ -200,6 +219,7 @@ Planned:
 
 - Claude Code Skill integration
 - Twin Data discovery
+- Configuration
 - Create/import setup workflow
 - Progressive context loading
 
