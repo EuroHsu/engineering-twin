@@ -236,6 +236,7 @@ engineering-twin/
 │   ├── architecture.md
 │   ├── configuration.md
 │   ├── data-schema.md
+│   ├── extraction.md
 │   └── lifecycle.md
 └── skills/
     ├── engineering-twin/
@@ -262,6 +263,7 @@ Completed:
 - Markdown-native Skill model
 - Configuration model
 - Lifecycle definition
+- Historical extraction model
 
 ### Core Skills
 
@@ -271,7 +273,7 @@ Current focus:
 - Setup Engineering Twin Skill
 - Extract Engineering Twin Skill
 - Progressive context usage
-- Knowledge candidate review
+- Evidence-backed knowledge candidate review
 
 ### Ecosystem
 
