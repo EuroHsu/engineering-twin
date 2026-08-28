@@ -1,12 +1,19 @@
+---
+type: principle
+scope: general
+status: confirmed
+confidence: high
+evidence: explicit
+sources:
+  - type: user
+    ref: <confirmed user-provided source>
+---
+
 # Engineering Principles
 
 ## Principle 1
 
 Describe an engineering belief that guides your decisions.
-
-Example:
-
-Prefer maintainable solutions over quick solutions.
 
 ## Principle 2
 
