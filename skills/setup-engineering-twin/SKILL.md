@@ -47,14 +47,14 @@ When the user chooses Import:
 2. Verify that `twin.yaml` exists.
 3. Determine the declared schema version.
 4. Treat current schema `0.2` as directly supported.
-5. Treat legacy schema `0.1` as import-compatible when the legacy structure can be interpreted sufficiently for use.
+5. Treat legacy versions as import-compatible only when the current Skill explicitly supports their structure.
 6. Verify that the structure is compatible with the corresponding schema.
 7. Report validation problems clearly.
 8. Do not rewrite, rename, move, normalize, or migrate existing content automatically.
 9. Confirm with the user that this is the Twin Data they want to use.
 10. Save the confirmed Twin Data location to the appropriate Engineering Twin Configuration.
 11. Report the configured location and the schema status to the user.
-12. When importing legacy `0.1` data, offer an explicit, separate migration to `0.2`; do not perform it without user approval.
+12. When a supported legacy version has a defined migration path, offer migration separately; do not perform it without user approval.
 
 Import does not copy personal knowledge into the Skill repository.
 
@@ -63,7 +63,7 @@ Import does not copy personal knowledge into the Skill repository.
 Before accepting Twin Data as usable:
 
 - `twin.yaml` must exist.
-- The declared schema version must be current `0.2` or an explicitly supported legacy version such as `0.1`.
+- The declared schema version must be current or an explicitly supported legacy version.
 - Required metadata must be present according to the applicable schema.
 - Existing Markdown knowledge should remain human-readable.
 - Optional knowledge areas such as `decisions/` and `projects/` may be absent.
@@ -72,6 +72,21 @@ Before accepting Twin Data as usable:
 A validation problem should be reported together with the affected path and the reason it is invalid.
 
 Validation must not silently repair or migrate user-owned Twin Data.
+
+## Migration
+
+When migration is appropriate, use the generic migration workflow in the bundled `references/migration.md`.
+
+Before offering or applying a migration:
+
+1. Identify the source and target schema versions.
+2. Verify that the version pair is explicitly supported by `references/schema-versions.md`.
+3. Prepare a migration plan showing direct mappings, transformations, unmapped fields, and ambiguous content.
+4. Obtain explicit user approval before modifying user-owned Twin Data.
+5. Apply only the approved migration.
+6. Validate the resulting target schema.
+
+Version-specific mapping rules belong in the schema-version reference or other bundled migration mapping references. Do not encode one version pair as the generic migration workflow.
 
 ## Configuration
 
@@ -118,7 +133,7 @@ A setup operation is complete only after:
 
 1. The Twin Data location has been established or confirmed.
 2. Validation has succeeded, or the user has explicitly accepted the reported limitations.
-3. Required human review has occurred for newly drafted knowledge.
+3. Required human review has occurred for newly drafted knowledge or an approved migration.
 4. Configuration has been updated successfully when configuration is applicable.
 5. The user has been told where the Twin Data is located.
 
@@ -130,3 +145,4 @@ For normal operation, do not depend on files outside this Skill directory.
 Use bundled files under `references/` and `templates/` when additional material is required.
 
 For schema-version handling, use the bundled `references/schema-versions.md`.
+For migration workflow handling, use the bundled `references/migration.md`.
