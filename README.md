@@ -2,7 +2,7 @@
 
 A personal engineering context layer for AI coding agents.
 
-Version: 0.2
+Version: 0.3
 
 Status: Draft
 
@@ -106,8 +106,20 @@ engineering-twin-data/
 └── projects/
 ```
 
-
 `twin.yaml` contains metadata and schema information for this Engineering Twin instance.
+
+
+## Runtime
+
+Engineering Twin v0.3 provides a local runtime that:
+
+- discovers Twin Data
+- validates the Twin Data schema
+- loads relevant engineering context
+- retrieves related decisions
+- produces structured context output
+
+The runtime is agent-neutral and does not define AI behavior.
 
 
 ## Relationship With AI Agents
@@ -132,13 +144,11 @@ AI Coding Agent
 Personalized Engineering Assistance
 ```
 
-
 Engineering Twin provides engineering context.
 
 It does not define AI behavior, communication style, or agent-specific instructions.
 
 The AI agent remains responsible for reasoning, implementation, and problem solving.
-
 
 Supported or future integrations may include:
 
@@ -154,30 +164,38 @@ Supported or future integrations may include:
 engineering-twin/
 
 ├── docs/
-
 │   ├── architecture.md
-
-│   └── data-schema.md
-
+│   ├── data-schema.md
+│   └── v0.3-prototype.md
 │
-
+├── src/
+│   ├── discovery/
+│   ├── validator/
+│   ├── context/
+│   └── runtime/
+│
+├── tests/
+│   ├── discovery/
+│   ├── validator/
+│   ├── context/
+│   └── runtime/
+│
 ├── templates/
-
 │   └── engineering-twin-data/
-
 │
-
 └── skill/
-
-    └── SKILL.md
+    ├── SKILL.md
+    └── runtime.js
 ```
 
 `skill/SKILL.md` defines the Engineering Twin Skill specification.
 
+`skill/runtime.js` provides a command-line entrypoint for the runtime.
+
 
 ## Roadmap
 
-### v0.1 Foundation
+### v0.2 Foundation
 
 Completed:
 
@@ -187,16 +205,20 @@ Completed:
 - Skill specification
 
 
-### v0.2 Prototype
+### v0.3 Prototype
 
-Planned:
+In progress:
 
-- Claude Code skill implementation
-- Twin Data discovery and validation
-- Context loading workflow
+- Twin Data discovery
+- Twin Data validation
+- Context loading
+- Decision retrieval
+- Runtime orchestration
+- Structured context output
+- Claude Code integration groundwork
 
 
-### v0.3 Evolution
+### v0.4 Evolution
 
 Planned:
 
