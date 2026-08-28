@@ -23,7 +23,7 @@ Personalized Engineering Assistance
 
 The AI agent remains responsible for reasoning and execution.
 The Skill defines how Engineering Twin Data should be discovered and used.
-The Data contains the engineer's knowledge.
+The Data contains the engineer's engineering knowledge.
 
 ## Twin Data
 
@@ -42,6 +42,7 @@ engineering-twin-data/
 ```
 
 Do not assume that the Skill repository and Twin Data are the same location.
+The Skill repository contains instructions; the Twin Data contains the engineer's knowledge.
 
 ## Discovery
 
@@ -52,11 +53,13 @@ Before using Engineering Twin context:
 3. Check the user's configured default location.
 4. If no valid Twin Data can be found, continue without engineer-specific assumptions.
 
-Before using a discovered repository:
+Before using a discovered Twin Data repository:
 
 - verify that `twin.yaml` exists
 - verify that the schema version is supported
 - verify that the structure is compatible with the Engineering Twin Data schema
+
+Do not silently create, attach, copy, or modify Twin Data during discovery.
 
 ## Loading Strategy
 
@@ -107,3 +110,9 @@ It does not define:
 - agent-specific workflow rules
 
 Those concerns belong to the AI agent's own configuration, such as `CLAUDE.md`.
+
+## Setup
+
+Creating or importing Twin Data is handled by the `setup-engineering-twin` Skill.
+
+Do not use the daily Engineering Twin Skill to initialize a new Twin Data repository.
