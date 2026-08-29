@@ -74,7 +74,7 @@ Engineering Twin is not an AI model, autonomous agent, backend platform, or data
 
 ## Skills
 
-- `engineering-twin` — activate and use Twin context during the current session (Session Activation / Discover / Load / Interpret / Apply); loads only the knowledge relevant to the current task rather than the entire Twin Data; flags knowledge that may need review, without modifying it
+- `engineering-twin` — activate and use Twin context during the current session (Session Activation / Discover / Load / Interpret / Apply); supports Assist and Observe session modes, loads only relevant knowledge in Assist Mode, and does not modify Twin Data directly
 - `setup-engineering-twin` — create or import Twin Data and configure its location (Create / Import / Validate / Configure)
 - `extract-engineering-twin` — propose new knowledge candidates from historical evidence, and review existing Twin Data for stale, conflicting, duplicate, or low-value records (Analyze / Propose / Review / Write / Edit / Remove / Supersede)
 
@@ -162,6 +162,18 @@ There is no fixed order between `/extract-engineering-twin` and `/engineering-tw
 /engineering-twin (start using an empty Twin right away)
     ↓
 Twin Data evolves over time through ongoing use and periodic /extract-engineering-twin reviews
+```
+
+In `/engineering-twin`, `/engineering-twin` starts in **Assist Mode** by default. Use `/engineering-twin -t` to toggle the current session between Assist Mode and **Observe Mode**.
+
+```text
+Assist Mode
+→ reads relevant Twin Data and uses it as engineering guidance
+
+Observe Mode
+→ does not read Twin Data
+→ quietly watches for strong, reusable, durable user-originated engineering judgments
+→ asks whether to capture a candidate only when the threshold is met
 ```
 
 Both paths are valid, and an engineer can switch between them at any time: `/extract-engineering-twin` can be run before first use, or later once more history has accumulated.
