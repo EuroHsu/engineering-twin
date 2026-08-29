@@ -12,14 +12,13 @@ Engineering Twin provides structured engineering context to the AI agent.
 
 `/engineering-twin` is an explicit session-level opt-in command.
 
-When the user invokes `/engineering-twin`:
+When the user invokes this Skill:
 
-1. Activate Engineering Twin for the current session.
-2. Determine the requested session mode.
-3. In Assist Mode, discover and validate the configured Twin Data and load initial context per the Loading Strategy below.
-4. In Observe Mode, do not discover or retrieve Twin Data for current reasoning.
-5. Start in **Assist Mode** by default when no mode was explicitly requested.
-6. Wait for the user's subsequent engineering task.
+1. Determine the requested session mode.
+2. In Assist Mode, discover and validate the configured Twin Data and load initial context per the Loading Strategy below.
+3. In Observe Mode, do not discover or retrieve Twin Data for current reasoning.
+4. Start in **Assist Mode** by default when no mode was explicitly requested.
+5. Wait for the user's subsequent engineering task.
 
 Do not treat activation as a permanent user preference or automatically carry it into unrelated sessions.
 
@@ -63,7 +62,14 @@ A potential candidate should normally satisfy all of the following:
 1. **User-originated** — the judgment or preference is explicitly stated or clearly confirmed by the user.
 2. **Reusable** — it can reasonably apply to future situations beyond the current local change.
 3. **Durable** — it is expected to remain useful beyond the immediate task, incident, release, or development period.
-4. **Sufficiently explicit or reinforced** — the user either states a clearly lasting rule/decision or reinforces the same judgment enough to distinguish it from a passing thought.
+4. **Sufficiently explicit or future-relevant** — the user either states a clearly lasting rule, reinforces the same judgment, or explicitly indicates that remembering the decision will matter in future similar work. Mere clarity or a stated rationale is not enough by itself.
+
+Do not capture a one-off configuration or implementation choice merely because the user explains why they chose it. For example:
+
+- `Set this service timeout to 30 seconds.` → do not capture by itself.
+- `For this service, keep the timeout at 30 seconds; future changes should revisit this decision because downstream behavior depends on it.` → capture candidate.
+
+Prefer silence over low-value interruptions. Missing a weak candidate is preferable to repeatedly interrupting the user's work for knowledge that is unlikely to matter later.
 
 Do not generalize beyond what the user actually expressed. In particular, do not turn a single project-specific statement into a general principle without explicit support.
 
