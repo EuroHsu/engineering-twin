@@ -15,10 +15,10 @@ Engineering Twin provides structured engineering context to the AI agent.
 When the user invokes `/engineering-twin`:
 
 1. Activate Engineering Twin for the current session.
-2. Discover the configured Twin Data.
-3. Validate the Twin Data before using it.
-4. Load initial context per the Loading Strategy below.
-5. Start in **Assist Mode** unless the user explicitly activates Observe Mode.
+2. Determine the requested session mode.
+3. In Assist Mode, discover and validate the configured Twin Data and load initial context per the Loading Strategy below.
+4. In Observe Mode, do not discover or retrieve Twin Data for current reasoning.
+5. Start in **Assist Mode** by default when no mode was explicitly requested.
 6. Wait for the user's subsequent engineering task.
 
 Do not treat activation as a permanent user preference or automatically carry it into unrelated sessions.
@@ -34,7 +34,9 @@ Engineering Twin has two session-level modes:
 
 `/engineering-twin` starts Assist Mode by default.
 
-Use `/engineering-twin toggle` to switch between Assist Mode and Observe Mode.
+Use `/engineering-twin -t` to toggle the current session between Assist Mode and Observe Mode.
+
+`-t` means toggle; it does not select a fixed mode.
 
 After switching modes, report the active mode and its retrieval/capture behavior clearly.
 
