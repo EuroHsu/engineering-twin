@@ -164,7 +164,7 @@ There is no fixed order between `/extract-engineering-twin` and `/engineering-tw
 Twin Data evolves over time through ongoing use and periodic /extract-engineering-twin reviews
 ```
 
-In `/engineering-twin`, `/engineering-twin` starts in **Assist Mode** by default. Use `/engineering-twin toggle` to switch the current session between Assist Mode and **Observe Mode**.
+In `/engineering-twin`, `/engineering-twin` starts in **Assist Mode** by default. Use `/engineering-twin -t` to toggle the current session between Assist Mode and **Observe Mode**.
 
 ```text
 Assist Mode
